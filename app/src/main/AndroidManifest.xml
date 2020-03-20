@@ -18,21 +18,21 @@
 
         </activity>
         <activity android:name=".recipe.sharedRecipeInformaion"></activity>
-        <activity android:name=".recipe.ShareRecipeFirst">
+        <activity android:name=".recipe.ShareRecipeFirst"/>
 
 
-        </activity>
+
         <activity android:name=".register.registerOneActivity"></activity>
         <activity android:name=".profile.Profile"
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".profile.editProf"
-            android:parentActivityName=".profile.fragmentOne"/>
+            android:parentActivityName=".profile.Profile"/>
 
 
         <activity android:name=".profile.fragmentTwo" />
         <activity android:name=".profile.fragmentOne" />
 
-        <activity android:name=".MainActivity" >
+        <activity android:name=".loginn" >
 
         </activity>
         <activity android:name=".register.registerFourActivity"
@@ -46,7 +46,7 @@
 
         </activity>
 
-        <activity android:name=".loginn">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

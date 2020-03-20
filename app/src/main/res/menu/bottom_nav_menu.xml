@@ -8,7 +8,7 @@
         android:icon="@drawable/ic_dumbbell"/>
     <item
         android:id="@+id/profile"
-        android:title="حسابي "
+        android:title="الاعدادات "
         android:icon="@drawable/ic_person_black_24dp"/>
 
     <item

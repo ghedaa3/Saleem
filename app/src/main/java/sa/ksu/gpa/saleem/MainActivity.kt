@@ -59,7 +59,7 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 R.id.profile-> {
-                    title="حسابي"
+                    title="الاعدادات"
                     loadFragment(SettingFragment())
 
                     return@setOnNavigationItemSelectedListener true
@@ -151,7 +151,7 @@ class MainActivity : AppCompatActivity() {
     private fun loadFragment(fragment: Fragment) {
         // load fragment
         val transaction = supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.container, fragment)
+        transaction.replace(R.id.frame_layout, fragment)
         transaction.addToBackStack(null)
         transaction.commit()
     }
@@ -297,7 +297,6 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 ubdateBurntCaloris()
-
 
                 Toast.makeText(applicationContext,"تمت اضافة المنتج", LENGTH_LONG)
                 mAlertDialog.dismiss()

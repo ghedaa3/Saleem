@@ -47,6 +47,13 @@ class Profile : AppCompatActivity() {
 
         setContentView(sa.ksu.gpa.saleem.R.layout.activity_profile)
 
+        val toolbar = findViewById<View>(sa.ksu.gpa.saleem.R.id.toolbar)
+        setSupportActionBar(toolbar as Toolbar?)
+        supportActionBar!!.setTitle("")
+        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setHomeButtonEnabled(false)
+
+
         val userUid = FirebaseAuth.getInstance().currentUser!!.uid
 
 

@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.*
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
 import androidx.recyclerview.widget.RecyclerView.VERTICAL
@@ -20,7 +21,9 @@ import com.glide.slider.library.slidertypes.TextSliderView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.bottomNavigation
 import kotlinx.android.synthetic.main.activity_viewsharedrecipe.*
+import sa.ksu.gpa.saleem.HomeFragment
 import sa.ksu.gpa.saleem.R
+import sa.ksu.gpa.saleem.SettingFragment
 import sa.ksu.gpa.saleem.profile.Profile
 
 
@@ -49,14 +52,13 @@ class viewSharedRecipeActivity : AppCompatActivity(), BaseSliderView.OnSliderCli
             when(it.itemId){
                 R.id.home-> {
                     title="الرئيسية"
-                    //loadFragment(HomeFragment())
+                    loadFragment(HomeFragment())
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.profile-> {
-                    title="حسابي"
-                    val intent = Intent(this, Profile::class.java)
-                    startActivity(intent)
+                    title="الاعدادات"
+                    loadFragment(SettingFragment())
 
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -185,6 +187,14 @@ class viewSharedRecipeActivity : AppCompatActivity(), BaseSliderView.OnSliderCli
 
     override fun onSliderClick(slider: BaseSliderView?) {
         //
+    }
+
+    private fun loadFragment(fragment: Fragment) {
+        // load fragment
+        val transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.frame_layout, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
     }
 
 

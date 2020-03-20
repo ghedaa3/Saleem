@@ -35,8 +35,7 @@ class SettingFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.activity_setting_fragment, container, false)
-    return root
+        return inflater.inflate(R.layout.activity_setting_fragment, container, false)
     }
 
     @SuppressLint("ResourceType")
