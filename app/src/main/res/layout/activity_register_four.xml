@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/register_btn"
+                android:background="@drawable/unclick"
                 android:text="خسارة وزن"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
@@ -86,7 +86,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/register_btn"
+                android:background="@drawable/unclick"
                 android:text="الحفاظ على الوزن"
                 android:textColor="#fff"
                 android:textSize="20dp"
@@ -99,7 +99,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/register_btn"
+                android:background="@drawable/unclick"
                 android:text="زيادة الوزن"
                 android:textColor="#fff"
                 android:textSize="20dp"
@@ -109,16 +109,17 @@
 
             <Button
                 android:id="@+id/startBtn"
+
                 android:layout_width="147dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="70dp"
-                android:background="@drawable/rounded_corner"
-                android:text="التالي"
-                android:textColor="#fff"
-                android:textSize="20dp"
+                android:layout_marginTop="80dp"
+                android:text="ابدأ"
+                android:background="@drawable/border"
 
-                />
+                android:backgroundTint="#3F51B5"
+                android:textSize="20dp"
+                android:textColor="#F7FFFFFF"/>
 
         </LinearLayout>
 

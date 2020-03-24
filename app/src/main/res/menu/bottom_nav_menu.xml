@@ -9,7 +9,7 @@
     <item
         android:id="@+id/profile"
         android:title="الاعدادات "
-        android:icon="@drawable/ic_person_black_24dp"/>
+        android:icon="@drawable/ic_settings_black_24dp"/>
 
     <item
         android:id="@+id/home"

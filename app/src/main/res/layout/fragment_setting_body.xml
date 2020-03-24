@@ -186,7 +186,7 @@
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="8dp"
-                android:src="@drawable/ic_breakfast" />
+                android:src="@drawable/ic_fitness_center_black_24dp" />
 
 
         </LinearLayout>

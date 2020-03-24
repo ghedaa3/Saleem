@@ -142,7 +142,7 @@ class Profile : AppCompatActivity() {
                 var genderr="gender"
                 when(gender){
                     "male" -> genderr= "ذكر"
-                    "gemale"->  genderr= "انثى"
+                    "female"->  genderr= "انثى"
 
                 }
 

@@ -261,7 +261,7 @@ else return true
             3 -> neededCalories= Calories
         }
 
-
+        if(neededCalories!=0.0)
         showDialogWithOkButton("needed calories"+neededCalories)
         return neededCalories
 

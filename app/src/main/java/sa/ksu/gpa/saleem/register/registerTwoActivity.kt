@@ -41,6 +41,8 @@ class registerTwoActivity : AppCompatActivity() {
     var cal = Calendar.getInstance()
     val TAG = "MyActivity"
     val user = HashMap<String, Any>()
+    lateinit var genderr: String
+    var pic:ImageButton?=null
     var level = 0
 
 
@@ -55,6 +57,8 @@ class registerTwoActivity : AppCompatActivity() {
 
         val btn = findViewById<View>(R.id.nxtTwoBtn) as Button?
         val toolbar = findViewById<View>(R.id.toolbar)
+        pic=findViewById(R.id.datepic)as ImageButton
+        textview_date=findViewById(R.id.text_view_date_1)
 
         setSupportActionBar(toolbar as Toolbar?)
         supportActionBar!!.setTitle("")
@@ -92,8 +96,15 @@ class registerTwoActivity : AppCompatActivity() {
                 val radio: RadioButton = findViewById(id)
                 var gender = radio?.text.toString();
 
-                Log.d("this2", "" + gender)
-                intent.putExtra("gender", gender)
+                if(gender=="ذكر")
+                    genderr="male"
+                  if(gender=="انثى")
+                    genderr="female"
+
+
+
+                Log.d("this2", "" + genderr)
+                intent.putExtra("gender", genderr)
 
                 intent.putExtra("wight", wight)
                 intent.putExtra("height", height)
@@ -197,7 +208,7 @@ class registerTwoActivity : AppCompatActivity() {
 
         // get the references from layout file
         textview_date = this.text_view_date_1
-        button_date = this.button_date_1
+
 
         textview_date!!.text = "--/--/----"
 
@@ -242,7 +253,7 @@ class registerTwoActivity : AppCompatActivity() {
         }
 
         // when you click on the button, show DatePickerDialog that is set with OnDateSetListener
-        button_date!!.setOnClickListener(object : View.OnClickListener {
+        pic!!.setOnClickListener(object : View.OnClickListener {
             override fun onClick(view: View) {
                 DatePickerDialog(
                     this@registerTwoActivity,

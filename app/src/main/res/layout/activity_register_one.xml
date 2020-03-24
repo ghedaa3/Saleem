@@ -43,17 +43,20 @@
         <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
 
             app:errorEnabled="true">
 
             <AutoCompleteTextView
                 android:id="@+id/nameET"
-                android:layout_width="342dp"
-                android:layout_height="43dp"
+                android:layout_width="344dp"
+                android:layout_height="55dp"
                 android:layout_marginStart="30dp"
+
                 android:layout_marginEnd="20dp"
                 android:ems="10"
-                android:hint="الأسم"
+                android:hint="     الأسم     "
+                android:background="@drawable/border"
                 android:inputType="text"
                 android:textSize="15dp" />
 
@@ -67,12 +70,13 @@
 
             <AutoCompleteTextView
                 android:id="@+id/emailET"
-                android:layout_width="342dp"
-                android:layout_height="43dp"
+                android:layout_width="344dp"
+                android:layout_height="55dp"
                 android:layout_marginStart="30dp"
                 android:layout_marginEnd="20dp"
                 android:ems="10"
-                android:hint="الإيميل"
+                android:hint="    الإيميل   "
+                android:background="@drawable/border"
                 android:inputType="textEmailAddress"
                 android:textSize="15dp" />
 
@@ -91,8 +95,9 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="-11dp"
                 android:layout_marginEnd="20dp"
+                android:background="@drawable/border"
                 android:ems="10"
-                android:hint="كلمة المرور"
+                android:hint="   كلمة المرور   "
                 android:inputType="textPassword"
                 android:textSize="15dp"
                 app:passwordToggleEnabled="true"
@@ -114,9 +119,9 @@
                 android:layout_marginStart="30dp"
                 android:layout_marginTop="-11dp"
                 android:layout_marginEnd="20dp"
-
+                android:background="@drawable/border"
                 android:ems="10"
-                android:hint="اعادة كلمة المرور"
+                android:hint="   إعادة كلمة المرور   "
                 android:inputType="textPassword"
                 android:textSize="15dp"
                 app:passwordToggleEnabled="true"
@@ -126,18 +131,22 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
+
+
+
         <Button
             android:id="@+id/nxtOneBtn"
+
             android:layout_width="147dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="80dp"
-            android:background="@drawable/rounded_corner"
             android:text="التالي"
-            android:textColor="#fff"
+            android:background="@drawable/border"
+            android:layout_weight="0.5"
+            android:backgroundTint="#3F51B5"
             android:textSize="20dp"
-
-            />
+            android:textColor="#F7FFFFFF"/>
 
         <RelativeLayout
 

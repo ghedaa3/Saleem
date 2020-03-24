@@ -74,12 +74,14 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/register_btn"
+                android:background="@drawable/unclick"
                 android:text="مبتدى"
                 android:textColor="#FFFFFF"
                 android:textSize="20dp"
 
                 />
+
+
 
             <Button
                 android:id="@+id/levelTwoBtn"
@@ -87,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/register_btn"
+                android:background="@drawable/unclick"
                 android:text="متوسط"
                 android:textColor="#fff"
                 android:textSize="20dp"
@@ -100,7 +102,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/register_btn"
+                android:background="@drawable/unclick"
                 android:text="متقدم"
                 android:textColor="#fff"
                 android:textSize="20dp"
@@ -108,18 +110,23 @@
                 />
 
 
+
+
+
             <Button
                 android:id="@+id/nxtThreeBtn"
+
                 android:layout_width="147dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="70dp"
-                android:background="@drawable/rounded_corner"
+                android:layout_marginTop="80dp"
                 android:text="التالي"
-                android:textColor="#fff"
-                android:textSize="20dp"
+                android:background="@drawable/border"
 
-                />
+                android:backgroundTint="#3F51B5"
+                android:textSize="20dp"
+                android:textColor="#F7FFFFFF"/>
+
 
         </LinearLayout>
 
