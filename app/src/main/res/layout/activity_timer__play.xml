@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#1B111111"
+    tools:context=".Timer.TimerPlay">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+
+            android:layout_marginTop="20dp"
+            android:id="@+id/back_button"
+            android:layout_width="50dp"
+            android:layout_marginRight="350dp"
+            android:src="@drawable/ic_chevron_left_black_24dp"
+            android:layout_height="50dp"
+            android:gravity="right"
+
+
+
+            >
+        </ImageView>
+
+        <ImageView
+            android:layout_marginTop="20dp"
+
+            android:id="@+id/refresh"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginRight="20dp"
+            android:gravity="left"
+            android:src="@drawable/ic_refresh_black_24dp"></ImageView>
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="center"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/timer_time"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="110dp"
+            android:gravity="center"
+            android:text="00 : 00"
+            android:textColor="#639865"
+            android:textSize="50dp"
+            android:textStyle="bold"></TextView>
+
+        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
+            android:id="@+id/progress_countdown"
+            style="@style/Widget.MaterialProgressBar.ProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:minWidth="300dp"
+            android:minHeight="300dp"
+            android:secondaryProgressTint="#69F0AE">
+
+        </me.zhanghai.android.materialprogressbar.MaterialProgressBar>
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/timer_current_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="30dp"
+        android:text="استعد"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        android:textColor="#A3639865"
+        >
+
+    </TextView>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/timer_play"
+            android:layout_marginTop="20dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:background="@drawable/play_shape">
+
+        </Button>
+        <Button
+            android:id="@+id/timer_pause"
+            android:layout_marginTop="20dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_gravity="center"
+            android:background="@drawable/pause_shape">
+
+        </Button>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

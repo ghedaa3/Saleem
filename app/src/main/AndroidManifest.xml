@@ -19,8 +19,8 @@
         </activity>
         <activity android:name=".recipe.sharedRecipeInformaion"></activity>
         <activity android:name=".recipe.ShareRecipeFirst"/>
-
-
+        <activity android:name=".Timer.TimerSettings"/>
+        <activity android:name=".Timer.Timer_Play"/>
 
         <activity android:name=".register.registerOneActivity"></activity>
         <activity android:name=".profile.Profile"
@@ -33,7 +33,11 @@
         <activity android:name=".profile.fragmentOne" />
 
         <activity android:name=".loginn" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".register.registerFourActivity"
             android:parentActivityName=".register.registerThreeActivity"/>
@@ -41,17 +45,10 @@
             android:name=".SplashScreenActivity"
             android:noHistory="true"
             android:theme="@style/splashTheme">
-
-
-
         </activity>
 
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".register.registerThreeActivity"
             android:parentActivityName=".register.registerTwoActivity"/>

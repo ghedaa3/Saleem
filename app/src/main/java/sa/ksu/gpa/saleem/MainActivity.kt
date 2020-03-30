@@ -30,6 +30,7 @@ import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.advice_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
+import sa.ksu.gpa.saleem.Timer.TimerSettings
 import sa.ksu.gpa.saleem.profile.Profile
 import sa.ksu.gpa.saleem.recipe.ShareRecipeFirst
 import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity() {
     private var addExcercize: Button? = null
     private lateinit var db:FirebaseFirestore
     private var counter=0
-    val currentuser = FirebaseAuth.getInstance().currentUser!!.uid
+    val currentuser = "Kgr3rhDXC2kNuq5syHsm"
 
 
     @SuppressLint("ResourceType")
@@ -78,8 +79,8 @@ class MainActivity : AppCompatActivity() {
 
         }
         showAddAdvice()
-
-
+         ubdateBurntCaloris()
+        Log.d("main","ID"+currentuser)
         val speedDialView = findViewById<SpeedDialView>(R.id.speedDial)
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10009, R.drawable.ic_scan)
@@ -137,6 +138,11 @@ class MainActivity : AppCompatActivity() {
                     startActivity(intent)
 
                 }
+                10012->{
+                    val intent = Intent(this@MainActivity, TimerSettings::class.java)
+                    startActivity(intent)
+
+                }
             }
             false
         })
@@ -184,10 +190,11 @@ class MainActivity : AppCompatActivity() {
         val  mAlertDialog = mBuilder.show()
         var body = mDialogView.dialogAdviceET!!.editText!!.text
 
+        mAlertDialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
 
         mDialogView.dialogShareBtn.setOnClickListener{
             if (body.length > 140){
-                Toast.makeText(this, "لا يمكن نشر نصائح أطول من ١٤٠ حرف", LENGTH_LONG).show()
+                Toast.makeText(this, "لا يمكن نشر نصيحة أطول من ١٤٠ حرف", LENGTH_LONG).show()
             }
             else if (body.isEmpty()){
                 Toast.makeText(this, "لا يمكن ترك هذه الخانة فارغة ", LENGTH_LONG).show()
@@ -273,9 +280,9 @@ class MainActivity : AppCompatActivity() {
         mDialogView.addExcercise.setOnClickListener{
 
 
-            if (burnt==null){
+            if (burnt.isEmpty()||workoutName.isEmpty()){
 
-                mDialogView.addExcerciseError.setText("الرجاء ادخال المعلومات الناقصة")
+                Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", LENGTH_LONG).show()
             }
             else{
                 var  burnt1 = burnt.toString()
@@ -291,6 +298,8 @@ class MainActivity : AppCompatActivity() {
                 )
                 db.collection("Users").document(currentuser).collection("Exercises").document().set(docData).addOnSuccessListener {
                     Log.d("main","Addid to collection")
+                    Toast.makeText(this, "تمت اضافة التمرين", LENGTH_LONG).show()
+
                 }.addOnFailureListener {
                     Log.d("main","not Addid to collection"+it)
 
@@ -298,7 +307,6 @@ class MainActivity : AppCompatActivity() {
 
                 ubdateBurntCaloris()
 
-                Toast.makeText(applicationContext,"تمت اضافة المنتج", LENGTH_LONG)
                 mAlertDialog.dismiss()
 
             }

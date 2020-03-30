@@ -113,7 +113,9 @@ class editProf : AppCompatActivity() {
                     .addOnFailureListener { e -> Log.w("TAG", "Error updating document", e) }
             }
 
-            override fun onNothingSelected(parent: AdapterView<*>) {}
+            override fun onNothingSelected(parent: AdapterView<*>) {
+
+            }
         }
         spinnerL.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
