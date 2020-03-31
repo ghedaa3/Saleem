@@ -25,6 +25,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
+import kotlinx.android.synthetic.main.activity_edit_prof.*
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.advice_dialog.view.*
@@ -69,6 +70,14 @@ class MainActivity : AppCompatActivity() {
 
                     val intent = Intent(this@MainActivity, viewSharedRecipeActivity::class.java)
                     startActivity(intent)
+
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+                R.id.exercise-> {
+                    title = "التمارين"
+
+                    loadFragment(ExerciseFragment())
 
                     return@setOnNavigationItemSelectedListener true
                 }

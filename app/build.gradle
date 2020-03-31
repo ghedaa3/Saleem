@@ -61,6 +61,8 @@ dependencies {
     implementation 'androidx.lifecycle:lifecycle-extensions:2.2.0'
     implementation 'com.github.tizisdeepan:dots:1.0.1'
 
+    implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
+
 }
 apply plugin: 'com.android.application'
 apply plugin: 'com.google.gms.google-services'

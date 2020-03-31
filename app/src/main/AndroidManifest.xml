@@ -13,9 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ExerciseFragment"></activity>
+        <activity android:name=".InnerExercise"></activity>
+        <activity android:name=".AddExercise" />
+        <activity android:name=".ExerciseFragment" />
         <activity android:name=".AddFoodActivity" />
-        <activity android:name=".recipe.SharedRecipe.viewSharedRecipeActivity"></activity>
+        <activity android:name=".recipe.SharedRecipe.viewSharedRecipeActivity" />
         <activity android:name=".recipe.sharedRecipeInformaion" />
         <activity android:name=".recipe.ShareRecipeFirst" />
         <activity android:name=".register.registerOneActivity" />
@@ -27,15 +29,15 @@
             android:parentActivityName=".profile.Profile" />
         <activity android:name=".profile.fragmentTwo" />
         <activity android:name=".profile.fragmentOne" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".loginn" />
         <activity
             android:name=".register.registerFourActivity"
             android:parentActivityName=".register.registerThreeActivity" />
         <activity
             android:name=".SplashScreenActivity"
             android:noHistory="true"
-            android:theme="@style/splashTheme"></activity>
-        <activity android:name=".loginn">
+            android:theme="@style/splashTheme" />
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

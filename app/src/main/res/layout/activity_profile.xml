@@ -21,18 +21,21 @@
             android:layout_below="@+id/appbar"
             android:layout_gravity="center"
             android:layout_margin="5dp"
+
             android:title="المعلومات">
 
 
             <RelativeLayout
                 android:id="@+id/rel1"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="526dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginLeft="5dp"
                 android:layout_marginTop="60dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginRight="0dp">
+
+
 
 
                 <TextView
@@ -50,12 +53,18 @@
                 <TextView
                     android:id="@+id/nameSignUpHin"
                     android:layout_width="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/relImg"
-                    android:layout_gravity="right"
+                    android:layout_marginEnd="60dp"
+                    android:layout_marginRight="80dp"
+
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@id/emailSignUp"
+
+
+
+                    android:layout_toLeftOf="@id/nameSignUp"
                     android:hint="اسم المستخدم"
                     android:textSize="18dp" />
 
@@ -77,9 +86,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/nameSignUpHin"
-                    android:layout_gravity="center"
+                    android:layout_marginEnd="60dp"
+                    android:layout_marginRight="80dp"
+
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="10dp"
+
+
+
                     android:layout_toLeftOf="@id/emailSignUp"
                     android:hint="البريد الالكتروني"
                     android:textSize="18dp" />
@@ -105,8 +121,14 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="25dp"
+
+
+                    android:layout_marginEnd="60dp"
+
+                    android:layout_marginStart="80dp"
+
                     android:layout_toLeftOf="@+id/weight"
-                    android:ems="10"
+
 
                     android:hint=" wight  "
                     android:textSize="18dp" />
@@ -132,11 +154,16 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_toLeftOf="@+id/heigh"
-                    android:ems="10"
+                    android:layout_marginEnd="60dp"
 
-                    android:hint="  hight "
+                    android:layout_marginStart="80dp"
+
+
+
+                    android:layout_toLeftOf="@+id/heigh"
+
+
+                    android:hint="  height "
                     android:textSize="18dp" />
 
                 <TextView
@@ -159,9 +186,11 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/neededCal"
-                    android:ems="10"
+
+                    android:layout_marginEnd="60dp"
+                    android:layout_marginStart="80dp"
+
 
                     android:hint=" cal "
                     android:textSize="18dp" />
@@ -186,8 +215,13 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@+id/neededCal"
+                    android:layout_marginEnd="60dp"
+                    android:layout_marginStart="80dp"
+
+
+
+
                     android:ems="10"
 
                     android:hint=" gender  "
@@ -210,11 +244,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/genderHin"
+
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginEnd="60dp"
+
+                    android:layout_marginStart="80dp"
+
+
                     android:layout_toLeftOf="@+id/bmi"
+
                     android:ems="10"
 
                     android:hint=" bmi  "
@@ -240,7 +280,13 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="10dp"
+                    android:layout_marginLeft="0dp"
+                    android:layout_marginEnd="60dp"
+
+                    android:layout_marginStart="80dp"
+
+
+
                     android:layout_toLeftOf="@+id/age"
 
                     android:ems="10"
@@ -268,7 +314,11 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="10dp"
+
+                    android:layout_marginEnd="60dp"
+
+                    android:layout_marginStart="80dp"
+
                     android:layout_toLeftOf="@+id/level"
                     android:ems="10"
 
@@ -295,7 +345,11 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="25dp"
-                    android:layout_marginRight="10dp"
+
+                    android:layout_marginEnd="60dp"
+
+                    android:layout_marginStart="80dp"
+
                     android:layout_toLeftOf="@+id/goal"
                     android:ems="10"
 
@@ -317,7 +371,7 @@
                 android:layout_centerInParent="true"
                 android:layout_marginTop="60dp"
                 android:backgroundTint="#69F0AE"
-                android:background="@drawable/register_btn"
+                android:background="@drawable/border"
                 android:textColor="#C6020000"
                 android:text="تعديل الحساب"
               />
@@ -326,7 +380,7 @@
                 android:id="@+id/edit_profile"
                 android:layout_width="200dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/register_btn"
+                android:background="@drawable/border"
                 android:backgroundTint="#341A1818"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="20dp"

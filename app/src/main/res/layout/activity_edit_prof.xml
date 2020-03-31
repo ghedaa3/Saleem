@@ -37,9 +37,9 @@
         android:layout_height="wrap_content"
         android:text="تعديل الملف الشخصي "
         android:textColor="@color/whiteTextColor"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:textAlignment="center"
-        android:textSize="14dp" />
+        android:textSize="18dp" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -200,7 +200,7 @@
             android:layout_marginTop="90dp"
             android:layout_centerInParent="true"
             android:backgroundTint="#69F0AE"
-            android:background="@drawable/register_btn"
+            android:background="@drawable/border"
             android:text="حفظ التعديلات"
             android:textColor="#C6020000" />
 
