@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@drawable/border"
     android:weightSum="100"
@@ -15,7 +15,7 @@
         android:layout_height="96dp"
         android:layout_marginTop="20dp"
         android:layout_gravity="center"
-        android:src="@drawable/work_out"
+        android:src="@drawable/workoutpic"
         app:civ_border_color="#FF000000"/>
     <TextView
         android:layout_marginTop="20dp"

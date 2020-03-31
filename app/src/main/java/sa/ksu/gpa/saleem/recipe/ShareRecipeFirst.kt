@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
@@ -97,7 +98,6 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
             }
             R.id.publishRecipe->{
                 addRecipe()
-                finish()
             }
    R.id.back_button->{
                 finish()
@@ -112,9 +112,20 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
     private fun addIngrediants() {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val rowView: View = inflater.inflate(R.layout.field, null)
-        main.addView(rowView, main.getChildCount())
+
+        if (main.getChildCount()==0){
+            main.addView(rowView, main.getChildCount())
+        }
+        else if (main.get(main.getChildCount()-1).quantity.text.toString().isEmpty())
+            Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
+        else
+            main.addView(rowView, main.getChildCount())
+
+
+
 
     }
+
     private fun getIngrediants(recipeID:String) {
 
         if (main.childCount==0) {
@@ -197,6 +208,11 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
         var name:String =nameRecipe!!.text.toString()
         var prepration=preprationRecipe!!.text.toString()
 
+    if (name.isEmpty()||prepration.isEmpty()){
+        Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
+
+    }    else{
+
 
 
         var type: String? =null
@@ -235,6 +251,7 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
             type5 =checkBox5!!.text.toString()
         else{
             type5="not"
+
         }
 
         val currentuser ="AXBFsLC5GeTGHkCDz8oz"
@@ -257,6 +274,8 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
                 Log.d("please","added")
                 NumberOfCaloriesDoc.update("NumberOfRecipes", FieldValue.increment(1))
                 getIngrediants(recipeID)
+                Toast.makeText(this, "تمت اضافة الوصفة", Toast.LENGTH_LONG).show()
+
             }.addOnFailureListener{
                 Log.d("please","not added"+it.toString())
 
@@ -266,7 +285,9 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
             Log.d("Here",""+it)
         }
 
+        finish()
 
 
+    }
     }
 }

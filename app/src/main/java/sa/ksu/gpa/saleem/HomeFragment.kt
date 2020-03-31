@@ -190,8 +190,8 @@ class HomeFragment : Fragment() {
         mDialogView.addExcercise.setOnClickListener{
 
 
-            if (burnt==null||workoutName==null){
-                mDialogView.addExcerciseError.setText("الرجاء ادخال المعلومات الناقصة")
+            if (burnt.isEmpty()||workoutName.isEmpty()){
+                Toast.makeText(context, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
             }
             else{
                 var burntStringData = burnt.toString()
@@ -214,7 +214,7 @@ class HomeFragment : Fragment() {
                 showLoadingDialog()
                 db.collection("Foods").document().set(data1 as Map<String, Any>).addOnSuccessListener {
                     dialog.dismiss()
-                    Toast.makeText(context,"تمت الاضافة بنجاح",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,"تمت اضافة الوجبة",Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener {
                     dialog.dismiss()
                     Toast.makeText(context,"حصل خطأ في عملية الاضافة",Toast.LENGTH_SHORT).show();
