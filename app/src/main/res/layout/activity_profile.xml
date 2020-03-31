@@ -28,333 +28,423 @@
             <RelativeLayout
                 android:id="@+id/rel1"
                 android:layout_width="wrap_content"
-                android:layout_height="526dp"
+                android:layout_height="800dp"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="60dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="0dp">
+
+                android:layout_marginTop="300dp"
+
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
 
 
+                android:orientation="vertical"
+                >
 
 
-                <TextView
-                    android:id="@+id/nameSignUp"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/one"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/relImg"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:text="اسم المستخدم :"
-                    android:textColor="#3F51B5"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:layout_marginTop="20dp"
+                    android:orientation="vertical"
 
-                <TextView
-                    android:id="@+id/nameSignUpHin"
-                    android:layout_width="wrap_content"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
+                    >
+
+
+                    <TextView
+                        android:id="@+id/nameSignUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/relImg"
+                        android:layout_alignParentRight="true"
+
+                        android:layout_marginTop="20dp"
+                        android:text="اسم المستخدم :"
+                        android:textColor="#3F51B5"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/nameSignUpHin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/nameSignUp"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
+
+                        android:layout_marginTop="0dp"
+
+                        android:hint="اسم المستخدم"
+                        android:textSize="18dp" />
+
+
+
+                </LinearLayout>
+
+                -
+
+                <LinearLayout
+                    android:id="@+id/two"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/relImg"
-                    android:layout_marginEnd="60dp"
-                    android:layout_marginRight="80dp"
+                    android:layout_below="@+id/one"
+                    android:orientation="vertical">
 
-                    android:layout_marginTop="25dp"
+                    <TextView
+                        android:id="@+id/emailSignUp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="20dp"
+                        android:text="البريد الإلكتروني: "
+                        android:textColor="#3F51B5"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/emailSignUpHin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
 
 
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentEnd="true"
 
-                    android:layout_toLeftOf="@id/nameSignUp"
-                    android:hint="اسم المستخدم"
-                    android:textSize="18dp" />
+                        android:layout_marginTop="0dp"
+                        android:layout_toLeftOf="@id/emailSignUp"
+                        android:hint="البريد الالكتروني"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
 
 
-                <TextView
-                    android:id="@+id/emailSignUp"
-                    android:layout_width="wrap_content"
+                -
+
+                <LinearLayout
+                    android:id="@+id/three"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/nameSignUp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:text="البريد الإلكتروني: "
-                    android:textColor="#3F51B5"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:layout_below="@+id/two"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/emailSignUpHin"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/weight"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/emailSignUp"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="20dp"
+                        android:text="الوزن:   "
+                        android:textColor="#3F51B5"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:id="@+id/wightHin"
+                        android:layout_width="129dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/emailSignUpHin"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="0dp"
+
+                        android:layout_toStartOf="@+id/weight"
+
+
+                        android:hint=" wight  "
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+
+                -
+
+                <LinearLayout
+                    android:id="@+id/four"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/nameSignUpHin"
-                    android:layout_marginEnd="60dp"
-                    android:layout_marginRight="80dp"
+                    android:layout_below="@+id/three"
+                    android:orientation="vertical">
 
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
+                    <TextView
+                        android:id="@+id/heigh"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/weight"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="20dp"
+                        android:text="الطول:   "
 
-                    android:layout_marginTop="25dp"
+                        android:textColor="#3F51B5"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/heighHin"
+                        android:layout_width="126dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/wightHin"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+
+                        android:layout_marginTop="0dp"
+
+                        android:layout_marginEnd="0dp"
+
+                        android:layout_toLeftOf="@+id/heigh"
 
 
+                        android:hint="  height "
+                        android:textSize="18dp" />
 
-                    android:layout_toLeftOf="@id/emailSignUp"
-                    android:hint="البريد الالكتروني"
-                    android:textSize="18dp" />
+                </LinearLayout>
 
-                <TextView
-                    android:id="@+id/weight"
-                    android:layout_width="wrap_content"
+                -
+
+                <LinearLayout
+                    android:id="@+id/five"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/emailSignUp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:text="الوزن:   "
-                    android:textColor="#3F51B5"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:layout_below="@+id/four"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/neededCal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/heigh"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="20dp"
+                        android:text="السعرات الحرارية:   "
+                        android:textColor="#3F51B5"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/neededCalHin"
+                        android:layout_width="111dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/heighHin"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+
+                        android:layout_marginTop="0dp"
+
+                        android:layout_marginEnd="0dp"
+
+                        android:layout_toLeftOf="@+id/neededCal"
 
 
-                <TextView
-                    android:id="@+id/wightHin"
-                    android:layout_width="wrap_content"
+                        android:hint=" cal "
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+                -
+
+                <LinearLayout
+                    android:id="@+id/six"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/emailSignUpHin"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
+                    android:layout_below="@+id/five"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/gender"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/neededCal"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="20dp"
+                        android:text="الجنس:   "
+                        android:textColor="#3F51B5"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/genderHin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/gender"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+
+                        android:layout_marginTop="0dp"
+                        android:layout_toLeftOf="@+id/neededCal"
 
 
-                    android:layout_marginEnd="60dp"
+                        android:ems="10"
 
-                    android:layout_marginStart="80dp"
+                        android:hint=" gender  "
+                        android:textSize="18dp" />
 
-                    android:layout_toLeftOf="@+id/weight"
+                </LinearLayout>
 
+                -
 
-                    android:hint=" wight  "
-                    android:textSize="18dp" />
-
-                <TextView
-                    android:id="@+id/heigh"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/seven"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/weight"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:text="الطول:   "
+                    android:layout_below="@+id/six"
+                    android:orientation="vertical">
 
-                    android:textColor="#3F51B5"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/bmi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/gender"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="20dp"
+                        android:text="كتلة الجسم:   "
+                        android:textColor="#3F51B5"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/heighHin"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/bmiHin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/genderHin"
+
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+
+                        android:layout_marginTop="0dp"
+
+
+                        android:layout_toLeftOf="@+id/bmi"
+
+                        android:ems="10"
+
+                        android:hint=" bmi  "
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+                -
+
+                <LinearLayout
+                    android:id="@+id/eight"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/wightHin"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="60dp"
+                    android:layout_below="@+id/seven"
+                    android:orientation="vertical">
 
-                    android:layout_marginStart="80dp"
+                    <TextView
+                        android:id="@+id/age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/bmi"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="20dp"
+                        android:text="العمر:   "
+                        android:textColor="#3F51B5"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/ageHin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/bmiHin"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+
+                        android:layout_marginTop="0dp"
+
+                        android:layout_marginEnd="0dp"
 
 
+                        android:layout_toLeftOf="@+id/age"
+                        android:ems="10"
 
-                    android:layout_toLeftOf="@+id/heigh"
+                        android:hint=" age  "
+                        android:textSize="18dp" />
 
+                </LinearLayout>
 
-                    android:hint="  height "
-                    android:textSize="18dp" />
+                -
 
-                <TextView
-                    android:id="@+id/neededCal"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:id="@+id/nine"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/heigh"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:text="السعرات الحرارية:   "
-                    android:textColor="#3F51B5"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
+                    android:layout_below="@+id/eight"
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/neededCalHin"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/level"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/age"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="25dp"
+                        android:text="المستوى:   "
+                        android:textColor="#3F51B5"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/levelHin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ageHin"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
+
+                        android:layout_marginTop="0dp"
+
+                        android:layout_toLeftOf="@+id/level"
+                        android:ems="10"
+
+                        android:hint=" level  "
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+                -
+
+                <LinearLayout
+                    android:id="@+id/ten"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/heighHin"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_toLeftOf="@+id/neededCal"
+                    android:layout_below="@+id/nine"
+                    android:orientation="vertical">
 
-                    android:layout_marginEnd="60dp"
-                    android:layout_marginStart="80dp"
+                    <TextView
+                        android:id="@+id/goal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/level"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="25dp"
+                        android:text="الهدف:   "
+                        android:textColor="#3F51B5"
+                        android:textSize="18dp"
+                        android:textStyle="bold" />
 
-
-                    android:hint=" cal "
-                    android:textSize="18dp" />
-
-                <TextView
-                    android:id="@+id/gender"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/neededCal"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:text="الجنس:   "
-                    android:textColor="#3F51B5"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/genderHin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/neededCalHin"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_toLeftOf="@+id/neededCal"
-                    android:layout_marginEnd="60dp"
-                    android:layout_marginStart="80dp"
+                    <TextView
+                        android:id="@+id/goalHin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/levelHin"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentRight="true"
 
 
+                        android:layout_toLeftOf="@+id/goal"
+                        android:ems="10"
 
+                        android:hint=" goal  "
+                        android:textSize="18dp" />
 
-                    android:ems="10"
+                </LinearLayout>
 
-                    android:hint=" gender  "
-                    android:textSize="18dp" />
-
-                <TextView
-                    android:id="@+id/bmi"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/gender"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:text="كتلة الجسم:   "
-                    android:textColor="#3F51B5"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/bmiHin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/genderHin"
-
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginEnd="60dp"
-
-                    android:layout_marginStart="80dp"
-
-
-                    android:layout_toLeftOf="@+id/bmi"
-
-                    android:ems="10"
-
-                    android:hint=" bmi  "
-                    android:textSize="18dp" />
-
-                <TextView
-                    android:id="@+id/age"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/bmi"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:text="العمر:   "
-                    android:textColor="#3F51B5"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/ageHin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/bmiHin"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:layout_marginLeft="0dp"
-                    android:layout_marginEnd="60dp"
-
-                    android:layout_marginStart="80dp"
-
-
-
-                    android:layout_toLeftOf="@+id/age"
-
-                    android:ems="10"
-
-                    android:hint=" age  "
-                    android:textSize="18dp" />
-
-                <TextView
-                    android:id="@+id/level"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/age"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:text="المستوى:   "
-                    android:textColor="#3F51B5"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/levelHin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/ageHin"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-
-                    android:layout_marginEnd="60dp"
-
-                    android:layout_marginStart="80dp"
-
-                    android:layout_toLeftOf="@+id/level"
-                    android:ems="10"
-
-                    android:hint=" level  "
-                    android:textSize="18dp" />
-
-                <TextView
-                    android:id="@+id/goal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/level"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-                    android:text="الهدف:   "
-                    android:textColor="#3F51B5"
-                    android:textSize="18dp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/goalHin"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/levelHin"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="25dp"
-
-                    android:layout_marginEnd="60dp"
-
-                    android:layout_marginStart="80dp"
-
-                    android:layout_toLeftOf="@+id/goal"
-                    android:ems="10"
-
-                    android:hint=" goal  "
-                    android:textSize="18dp" />
 
 
             </RelativeLayout>
@@ -369,7 +459,7 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@id/rel1"
                 android:layout_centerInParent="true"
-                android:layout_marginTop="60dp"
+                android:layout_marginTop="20dp"
                 android:backgroundTint="#69F0AE"
                 android:background="@drawable/border"
                 android:textColor="#C6020000"
@@ -418,8 +508,8 @@
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="398dp"
+        android:layout_height="820dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
     <TextView
@@ -434,6 +524,17 @@
         android:textStyle="bold"
         app:layout_anchor="@+id/appbar"
         app:layout_anchorGravity="center" />
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="350dp"
+        android:src="@drawable/ic_chevron_left_black_24dp">
+
+    </ImageView>
+
 
 
 
