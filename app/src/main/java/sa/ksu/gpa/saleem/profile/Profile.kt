@@ -72,7 +72,7 @@ class Profile : AppCompatActivity() {
                 val email = document.get("email").toString()
                 val wight = document.get("weight").toString()
                 val hight = document.get("height").toString()
-                //  val neededCal = document.get("needed cal").toString().toDouble()
+                //neededCall = document.get("needed cal").toString().toDouble().toString()
                 val gender = document.get("gender").toString()
                 val age = document.get("age").toString()
 
