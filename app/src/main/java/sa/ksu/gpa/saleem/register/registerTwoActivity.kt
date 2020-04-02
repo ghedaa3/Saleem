@@ -33,7 +33,8 @@ import com.google.common.base.Verify.verify
 import com.wajahatkarim3.easyvalidation.core.collection_ktx.noNumbersList
 
 
-class registerTwoActivity : AppCompatActivity() {
+class registerTwoActivity : AppCompatActivity(),View.OnClickListener {
+
 
 
     var button_date: Button? = null
@@ -62,8 +63,12 @@ class registerTwoActivity : AppCompatActivity() {
 
         setSupportActionBar(toolbar as Toolbar?)
         supportActionBar!!.setTitle("")
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeButtonEnabled(false)
+
+
+
+        var backImg = findViewById<View>(R.id.back_button)
+
+        backImg.setOnClickListener(this)
 
 
         db.collection("users")
@@ -77,7 +82,7 @@ class registerTwoActivity : AppCompatActivity() {
 
 
         btn?.setOnClickListener {
-            Toast.makeText(this@registerTwoActivity, "Click...", Toast.LENGTH_LONG).show()
+
 
             var name = getIntent().getStringExtra("name")
             var pass = getIntent().getStringExtra("password")
@@ -267,6 +272,19 @@ class registerTwoActivity : AppCompatActivity() {
             }
 
         })
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.back_button -> {
+                finish()
+            }
+            else -> {
+
+            }
+        }
+
+
     }
 
     private fun verify(): Boolean {

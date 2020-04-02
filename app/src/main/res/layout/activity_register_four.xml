@@ -44,6 +44,11 @@
             android:layout_marginTop="30dp"
             android:orientation="vertical">
 
+
+            -<RelativeLayout
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
             <TextView
                 android:id="@+id/title"
                 android:layout_width="match_parent"
@@ -54,6 +59,20 @@
                 android:textColor="#FF9800"
                 android:textSize="18dp"
                 android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/back_button"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="0dp"
+                android:tint="@color/gray_btn_bg_pressed_color"
+                android:layout_marginLeft="340dp"
+                android:src="@drawable/kk">
+
+            </ImageView>
+
+        </RelativeLayout>
+
 
 
             <TextView

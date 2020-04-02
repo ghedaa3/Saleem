@@ -38,8 +38,6 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener  {
 
             }
         }
-
-
     }
 }
 

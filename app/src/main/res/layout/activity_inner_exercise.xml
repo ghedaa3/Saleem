@@ -41,10 +41,11 @@
     <ImageView
         android:id="@+id/back_button"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="30dp"
         android:layout_marginTop="20dp"
-        android:layout_marginRight="350dp"
-        android:src="@drawable/ic_chevron_left_black_24dp">
+        android:tint="@color/gray_btn_bg_pressed_color"
+        android:layout_marginLeft="340dp"
+        android:src="@drawable/kk">
 
     </ImageView>
 
