@@ -23,6 +23,7 @@ class ExerciseAdapter(var context:Context, var arrayList:ArrayList<ExerciseModel
 
     var filteringList =ArrayList<ExerciseModel>()
 
+
     init {
         filteringList= arrayList
     }
@@ -47,18 +48,36 @@ class ExerciseAdapter(var context:Context, var arrayList:ArrayList<ExerciseModel
         holder.exerciseId=exercise.exerciseId
 
         holder.itemView.setOnClickListener {
+           if(holder.exerciseId=="Phone"){
 
-            var intent = Intent(context, InnerExercise::class.java)
-            intent.putExtra("ExerciseId",holder.exerciseId)
-            context.startActivity(intent)
+               var intent = Intent(context, InnerExercise::class.java)
+
+               intent.putExtra("ExerciseId",holder.exerciseId)
+               intent.putExtra("ExerciseCal",holder.exerciseCalories3.text.toString())
+               intent.putExtra("ExerciseTitle",holder.exerciseTitle2.text.toString())
+
+               context.startActivity(intent)
+           }
+
+            if(holder.exerciseId=="Watch"){
+
+                var intent = Intent(context, InnerExercise::class.java)
+
+                intent.putExtra("ExerciseId",holder.exerciseId)
+                intent.putExtra("ExerciseCal",holder.exerciseCalories3.text.toString())
+                intent.putExtra("ExerciseTitle",holder.exerciseTitle2.text.toString())
+
+                context.startActivity(intent)
+            }
+
         }
     }
     class ItemHolder(itemView: View):RecyclerView.ViewHolder(itemView){
 
 
         var exerciseImage1 = itemView.findViewById<ImageView>(R.id.recipe_image)
-        var exerciseTitle2= itemView.findViewById<TextView>(R.id.recipe_title)
-        var exerciseCalories3= itemView.findViewById<TextView>(R.id.recipe_calories)
+        var exerciseTitle2= itemView.findViewById<TextView>(R.id.recipe_title) as TextView
+        var exerciseCalories3= itemView.findViewById<TextView>(R.id.recipe_calories) as TextView
         lateinit var  exerciseId:String
 
 
@@ -93,3 +112,4 @@ class ExerciseAdapter(var context:Context, var arrayList:ArrayList<ExerciseModel
         }
     }
 }
+

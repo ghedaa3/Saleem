@@ -104,6 +104,14 @@
     </TextView>
 
 
+    <View
+        android:layout_width="300dp"
+        android:layout_gravity="center"
+        android:layout_height="1dp"
+        android:layout_marginTop="15dp"
+        android:background="@color/gray_btn_bg_pressed_color" />
+
+
 </LinearLayout>
 
     -<LinearLayout
