@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#1B111111"
+    android:background="#11111111"
     tools:context=".Timer.TimerPlay">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -51,7 +51,7 @@
             android:layout_marginTop="110dp"
             android:gravity="center"
             android:text="00 : 00"
-            android:textColor="#639865"
+            android:textColor="#4F329A"
             android:textSize="50dp"
             android:textStyle="bold"></TextView>
 
@@ -63,7 +63,7 @@
             android:layout_gravity="center"
             android:minWidth="300dp"
             android:minHeight="300dp"
-            android:secondaryProgressTint="#69F0AE">
+            android:secondaryProgressTint="#4F329A">
 
         </me.zhanghai.android.materialprogressbar.MaterialProgressBar>
     </RelativeLayout>
@@ -77,7 +77,7 @@
         android:text="استعد"
         android:textSize="40dp"
         android:textStyle="bold"
-        android:textColor="#A3639865"
+        android:textColor="#864F329A"
         >
 
     </TextView>

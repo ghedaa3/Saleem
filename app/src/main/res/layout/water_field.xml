@@ -11,8 +11,8 @@
     <ImageView
         android:id="@+id/water"
         android:src="@drawable/ic_water_glass"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:onClick="onDelete"
         ></ImageView>
 

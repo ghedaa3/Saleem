@@ -5,9 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/colorWhite"
+    android:background="#CBCFC9"
     tools:context=".MainActivity"
     >
+    <com.leinardi.android.speeddial.SpeedDialOverlayLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
     <com.leinardi.android.speeddial.SpeedDialView
         android:id="@+id/speedDial"
         android:layout_width="wrap_content"
@@ -15,10 +19,11 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="80dp"
-
-        app:sdMainFabOpenedBackgroundColor="@color/colorPrimary"
-        app:sdMainFabOpenedIconColor="#3f51b5"
+        app:sdOverlayLayout="@id/overlay"
+        app:sdMainFabOpenedBackgroundColor="#4F329A"
+        app:sdMainFabOpenedIconColor="@color/white"
         app:sdMainFabClosedSrc="@drawable/ic_add_black_24dp"
+        app:sdMainFabClosedBackgroundColor="#4F329A"
         android:layout_alignParentRight="true" />
     <!--    <include layout="@layout/home_fragment" />-->
     <fragment
@@ -34,7 +39,6 @@
         android:background="@color/colorLightGray"
         app:itemIconTint="@color/bottom_nav_color"
         app:itemTextColor="@color/bottom_nav_color"
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom='true' />
@@ -43,9 +47,8 @@
         android:id="@+id/frame_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@id/bottomNavigation"></FrameLayout>
-
-
+        android:layout_above="@+id/bottomNavigation"
+        android:layout_marginBottom="4dp"></FrameLayout>
 
 
 </RelativeLayout>

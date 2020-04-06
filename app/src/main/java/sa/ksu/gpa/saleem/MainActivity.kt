@@ -24,6 +24,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.leinardi.android.speeddial.SpeedDialActionItem
+import com.leinardi.android.speeddial.SpeedDialOverlayLayout
 import com.leinardi.android.speeddial.SpeedDialView
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
@@ -84,35 +85,45 @@ class MainActivity : AppCompatActivity() {
         val speedDialView = findViewById<SpeedDialView>(R.id.speedDial)
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10009, R.drawable.ic_scan)
-                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.purble, getTheme()))
                 .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
+                .setLabel("مسح المنتج")
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10011, R.drawable.ic_dumbbell)
                 .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
                 .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
+                .setLabel("تمرين")
+
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10012, R.drawable.ic_timer_black_24dp)
-                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.green, getTheme()))
                 .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
+                .setLabel("مؤقت")
+
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10013, R.drawable.ic_white_dish)
-                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.orange, getTheme()))
                 .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
+                .setLabel("وصفة")
+
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10014, R.drawable.advice)
-                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
+                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.yellow, getTheme()))
                 .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
+                .setLabel("نصيحة")
+
                 .create()
         )
         speedDialView.setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
+
             when (actionItem.id) {
                 10009 -> {
                     //select scan barcode
@@ -147,13 +158,27 @@ class MainActivity : AppCompatActivity() {
             false
         })
 
-
+     
         // set on-click listener
         addWaterBtn.setOnClickListener {
             addWater()
         }
 
+        speedDialView.setOnChangeListener(object : SpeedDialView.OnChangeListener {
+            override fun onMainActionSelected(): Boolean {
+                return false // True to keep the Speed Dial open
+            }
+
+            override fun onToggleChanged(isOpen: Boolean) {
+                Log.d("MAIN", "Speed dial toggle state changed. Open = $isOpen")
+            }
+        })
+
     }
+
+
+
+
     private fun loadFragment(fragment: Fragment) {
         // load fragment
         val transaction = supportFragmentManager.beginTransaction()
@@ -353,4 +378,7 @@ class MainActivity : AppCompatActivity() {
 
 
     }
+
+
+
 
