@@ -37,9 +37,9 @@
         android:layout_height="wrap_content"
         android:text="تعديل الملف الشخصي "
         android:textColor="@color/whiteTextColor"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="30dp"
         android:textAlignment="center"
-        android:textSize="14dp" />
+        android:textSize="18dp" />
 
     <RelativeLayout
         android:id="@+id/relativeLayout"

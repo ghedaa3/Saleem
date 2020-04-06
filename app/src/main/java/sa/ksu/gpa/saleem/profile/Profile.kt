@@ -26,6 +26,8 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.view.View
+import android.widget.Button
+import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
 import sa.ksu.gpa.saleem.loginn
@@ -34,7 +36,7 @@ import java.math.RoundingMode
 import java.text.DecimalFormat
 
 
-class Profile : AppCompatActivity() {
+class Profile : AppCompatActivity() ,View.OnClickListener {
 
     private val TAG = "DocSnippets"
     private lateinit var auth: FirebaseAuth
@@ -42,7 +44,7 @@ class Profile : AppCompatActivity() {
 
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)  {
         super.onCreate(savedInstanceState)
 
         setContentView(sa.ksu.gpa.saleem.R.layout.activity_profile)
@@ -50,7 +52,7 @@ class Profile : AppCompatActivity() {
         val toolbar = findViewById<View>(sa.ksu.gpa.saleem.R.id.toolbar)
         setSupportActionBar(toolbar as Toolbar?)
         supportActionBar!!.setTitle("")
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(false)
         supportActionBar!!.setHomeButtonEnabled(false)
 
 
@@ -72,7 +74,7 @@ class Profile : AppCompatActivity() {
                 val email = document.get("email").toString()
                 val wight = document.get("weight").toString()
                 val hight = document.get("height").toString()
-                //  val neededCal = document.get("needed cal").toString().toDouble()
+                //neededCall = document.get("needed cal").toString().toDouble().toString()
                 val gender = document.get("gender").toString()
                 val age = document.get("age").toString()
 
@@ -142,7 +144,7 @@ class Profile : AppCompatActivity() {
                 var genderr="gender"
                 when(gender){
                     "male" -> genderr= "ذكر"
-                    "gemale"->  genderr= "انثى"
+                    "female"->  genderr= "انثى"
 
                 }
 
@@ -168,6 +170,10 @@ class Profile : AppCompatActivity() {
 
                 val levelTxt:TextView=findViewById(sa.ksu.gpa.saleem.R.id.levelHin)
                 levelTxt.setText(levell)
+
+                val backImg :ImageView=findViewById(sa.ksu.gpa.saleem.R.id.back_button)
+
+                backImg.setOnClickListener(this)
 
 
 
@@ -216,6 +222,18 @@ class Profile : AppCompatActivity() {
             startActivity(intent)
         }
         //getCollection()
+
+
+    }
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            sa.ksu.gpa.saleem.R.id.back_button -> {
+                finish()
+            }
+            else -> {
+
+            }
+        }
 
 
     }

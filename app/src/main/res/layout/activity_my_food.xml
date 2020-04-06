@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyFoodActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/icon_shape_circuler_two"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.ProfileTheme"
+        app:elevation="0dp">
+
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="وجباتي "
+            android:layout_gravity="center"
+            android:textColor="@color/whiteTextColor"
+            android:textSize="18dp"
+            android:textStyle="bold"
+            app:layout_anchor="@+id/appbar"
+            app:layout_anchorGravity="center" />
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+
+            android:layout_marginTop="13dp"
+            android:backgroundTint="#3F51B5"
+            android:gravity="center"
+            app:title=" "
+            app:titleTextColor="@color/whiteTextColor"
+
+            />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_margin="4dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/rv_my_food"
+        tools:listitem="@layout/item_my_food"
+        />
+</LinearLayout>

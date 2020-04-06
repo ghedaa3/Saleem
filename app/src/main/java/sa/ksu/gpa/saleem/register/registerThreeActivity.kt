@@ -15,7 +15,7 @@ import sa.ksu.gpa.saleem.R
 import java.util.HashMap
 import com.google.common.base.Verify.verify as verify
 
-class registerThreeActivity : AppCompatActivity() {
+class registerThreeActivity : AppCompatActivity() ,View.OnClickListener {
 
     val user = HashMap<String, Any>()
 
@@ -26,91 +26,94 @@ class registerThreeActivity : AppCompatActivity() {
         val intent = Intent(this, registerFourActivity::class.java)
 
 
-        val one=findViewById<View>(R.id.levelOneBtn) as Button?
-        val two=findViewById<View>(R.id.levelTwoBtn) as Button?
-        val three=findViewById<View>(R.id.levelThreeBtn) as Button?
+        val one = findViewById<View>(R.id.levelOneBtn) as Button?
+        val two = findViewById<View>(R.id.levelTwoBtn) as Button?
+        val three = findViewById<View>(R.id.levelThreeBtn) as Button?
 
         val toolbar = findViewById<View>(R.id.toolbar)
         setSupportActionBar(toolbar as Toolbar?)
         supportActionBar!!.setTitle("")
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+       /* supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setHomeButtonEnabled(false)
+*/
+        var backImg = findViewById<View>(R.id.back_button)
 
-        val btn=findViewById<View>(R.id.nxtThreeBtn) as Button?
+        backImg.setOnClickListener(this)
 
+        val btn = findViewById<View>(R.id.nxtThreeBtn) as Button?
 
 
         val db = FirebaseFirestore.getInstance()
 
 
-        var button_background : Int = 1;
+        var button_background: Int = 1;
 
 
         db.collection("users")
 
 
-        var clicked=false;
+        var clicked = false;
 
 
-       one?.setOnClickListener {
-            if(button_background==2){
+        one?.setOnClickListener {
+            if (button_background == 2) {
                 one.setBackgroundResource(R.drawable.unclick);
-                button_background=1;
-            } else if(button_background==1){
+                button_background = 1;
+            } else if (button_background == 1) {
                 one.setBackgroundResource(R.drawable.register_btn);
                 two?.setBackgroundResource(R.drawable.unclick)
                 three?.setBackgroundResource(R.drawable.unclick)
-                button_background=2;
+                button_background = 2;
             }
-           //user.put("goal",1)
-          var level=1
+            //user.put("goal",1)
+            var level = 1
 
-           clicked=true;
-           intent.putExtra("level",level)
+            clicked = true;
+            intent.putExtra("level", level)
 
-       }
-        two?.setOnClickListener{
-            if(button_background==2){
+        }
+        two?.setOnClickListener {
+            if (button_background == 2) {
                 two?.setBackgroundResource(R.drawable.unclick);
-                button_background=1;
-            } else if(button_background==1){
+                button_background = 1;
+            } else if (button_background == 1) {
                 two?.setBackgroundResource(R.drawable.register_btn);
                 one?.setBackgroundResource(R.drawable.unclick)
                 three?.setBackgroundResource(R.drawable.unclick)
-                button_background=2;
+                button_background = 2;
                 two.invalidate()
             }
 
             //user.put("goal",2)
-           var level=2
-            clicked=true;
-            intent.putExtra("level",level)
+            var level = 2
+            clicked = true;
+            intent.putExtra("level", level)
 
         }
 
-        three?.setOnClickListener{
-            if(button_background==2){
+        three?.setOnClickListener {
+            if (button_background == 2) {
                 three?.setBackgroundResource(R.drawable.unclick);
-                button_background=1;
-            } else if(button_background==1){
+                button_background = 1;
+            } else if (button_background == 1) {
                 three?.setBackgroundResource(R.drawable.register_btn);
                 two?.setBackgroundResource(R.drawable.unclick)
                 one?.setBackgroundResource(R.drawable.unclick)
-                button_background=2;
+                button_background = 2;
             }
             //user.put("goal",3)
-           var level=3
-            clicked=true;
-            intent.putExtra("level",level)
-            Log.d("this3",""+level)
+            var level = 3
+            clicked = true;
+            intent.putExtra("level", level)
+            Log.d("this3", "" + level)
 
         }
 
 
 
         btn?.setOnClickListener {
-            if(verify(clicked)) {
-                Toast.makeText(this@registerThreeActivity, "Click...", Toast.LENGTH_LONG).show()
+            if (verify(clicked)) {
+
 
 
                 val length = getIntent().getDoubleExtra("height", 0.0)
@@ -158,18 +161,16 @@ class registerThreeActivity : AppCompatActivity() {
         }
 
 
-
     }
 
 
-    private fun verify(clicked:Boolean): Boolean {
+    private fun verify(clicked: Boolean): Boolean {
 
 
-        if(!clicked){
+        if (!clicked) {
             showDialogWithOkButton("الرجاء اختيار المستوى")
             return false
-        }
-        else return true
+        } else return true
 
     }
 
@@ -183,6 +184,19 @@ class registerThreeActivity : AppCompatActivity() {
         val alert = builder.create()
         alert.show()
     }
+
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.back_button -> {
+                finish()
+            }
+            else -> {
+
+            }
+        }
+    }
+
 }
 
 

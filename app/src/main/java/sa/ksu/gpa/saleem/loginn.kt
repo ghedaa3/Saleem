@@ -112,9 +112,9 @@ class loginn : AppCompatActivity() {
         dialogBuilder.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
 
-        var forget_email = dialogView.findViewById<View>(R.id.edt_commentEmail)
-        val button1 = dialogView.findViewById<View>(R.id.buttonSubmit)
-        val button2 = dialogView.findViewById<View>(R.id.buttonCancel)
+        var forget_email = dialogView.findViewById<View>(R.id.edt_commentEmail) as EditText
+        val button1 = dialogView.findViewById<View>(R.id.buttonSubmit) as Button
+        val button2 = dialogView.findViewById<View>(R.id.buttonCancel) as Button
 
         button2.setOnClickListener(View.OnClickListener { dialogBuilder.dismiss() })
         button1.setOnClickListener(View.OnClickListener {
@@ -126,6 +126,25 @@ class loginn : AppCompatActivity() {
 
         dialogBuilder.setView(dialogView)
         dialogBuilder.show()
+    }
+
+    private fun showDial(){
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Androidly Alert")
+        builder.setMessage("We have a message")
+        //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
+
+        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
+            Toast.makeText(applicationContext,
+                android.R.string.yes, Toast.LENGTH_SHORT).show()
+        }
+
+        builder.setNegativeButton(android.R.string.no) { dialog, which ->
+            Toast.makeText(applicationContext,
+                android.R.string.no, Toast.LENGTH_SHORT).show()
+        }
+
+        builder.show()
     }
 
     private fun forgetPassword(email: String) {
@@ -214,7 +233,7 @@ class loginn : AppCompatActivity() {
                             startActivity(Intent(this, MainActivity::class.java))
                         } else {
                             FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
-                            startActivity(Intent(this, MainActivity::class.java))
+                            //startActivity(Intent(this, MainActivity::class.java))
 
                             showDialogWithOkButton("تحقق من الرابط المرسل على بريدك لإكمال عملية تسجيل الدخول ")
                         }

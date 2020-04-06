@@ -20,7 +20,6 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
-import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.leinardi.android.speeddial.SpeedDialActionItem
@@ -32,7 +31,7 @@ import kotlinx.android.synthetic.main.advice_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import sa.ksu.gpa.saleem.Timer.TimerSettings
-import sa.ksu.gpa.saleem.profile.Profile
+import sa.ksu.gpa.saleem.exercise.ExerciseFragment
 import sa.ksu.gpa.saleem.recipe.ShareRecipeFirst
 import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity
 import java.util.ArrayList
@@ -71,6 +70,14 @@ class MainActivity : AppCompatActivity() {
 
                     val intent = Intent(this@MainActivity, viewSharedRecipeActivity::class.java)
                     startActivity(intent)
+
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+                R.id.exercise-> {
+                    title = "التمارين"
+
+                    loadFragment(ExerciseFragment())
 
                     return@setOnNavigationItemSelectedListener true
                 }

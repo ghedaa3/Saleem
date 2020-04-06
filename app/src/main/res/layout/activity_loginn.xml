@@ -40,12 +40,14 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/emailETL"
-                    android:layout_width="292dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="300dp"
+                    android:layout_height="55dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="40dp"
                     android:ems="10"
-                    android:hint="أيميل"
+                    android:hint="   الإيميل   "
+                    android:background="@drawable/border"
+
                     android:inputType="textEmailAddress"
                     android:textSize="15dp" />
 
@@ -59,14 +61,15 @@
 
                 <AutoCompleteTextView
                     android:id="@+id/passwordEDL"
-                    android:layout_width="296dp"
-                    android:layout_height="wrap_content"
+                    android:layout_width="300dp"
+                    android:layout_height="55dp"
                     android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
+                    android:layout_marginEnd="40dp"
                     android:layout_marginTop="-11dp"
                     android:ems="10"
-                    android:hint="كلمة المرور"
+                    android:hint="    كلمة المرور   "
                     android:inputType="textPassword"
+                    android:background="@drawable/border"
                     android:textSize="15dp"
                     app:passwordToggleEnabled="true"
 
@@ -81,10 +84,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="50dp"
-                android:background="@drawable/rounded_corner"
+
                 android:text="تسجيل الدخول"
-                android:textColor="#fff"
-                android:textSize="20dp" />
+
+                android:background="@drawable/border"
+                android:layout_weight="0.5"
+                android:backgroundTint="#3F51B5"
+                android:textSize="20dp"
+                android:textColor="#F7FFFFFF"/>
+
+
 
 
             <TextView

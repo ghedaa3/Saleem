@@ -7,6 +7,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:typeface">monospace</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+
 
 
     </style>
@@ -109,6 +111,14 @@
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:minWidth">250dp</item>
+    </style>
+
+    <style name="MySpinnerDatePickerStyle" parent="android:Theme.Material.Dialog">
+        <item name="android:datePickerStyle">@style/MySpinnerDatePicker</item>
+    </style>
+
+    <style name="MySpinnerDatePicker" parent="android:Widget.Material.DatePicker">
+        <item name="android:datePickerMode">spinner</item>
     </style>
 
 

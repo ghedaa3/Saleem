@@ -26,7 +26,7 @@ import java.util.*
 import java.util.logging.Level
 import kotlin.properties.Delegates
 
-class registerFourActivity : AppCompatActivity() {
+class registerFourActivity : AppCompatActivity() ,View.OnClickListener {
 
     val user = HashMap<String, Any>()
 
@@ -66,8 +66,7 @@ class registerFourActivity : AppCompatActivity() {
         val toolbar = findViewById<View>(R.id.toolbar)
         setSupportActionBar(toolbar as Toolbar?)
         supportActionBar!!.setTitle("")
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeButtonEnabled(false)
+
 
        auth = FirebaseAuth.getInstance()
 
@@ -77,6 +76,12 @@ class registerFourActivity : AppCompatActivity() {
         val one=findViewById<View>(R.id.goalOneBtn) as Button?
         val two=findViewById<View>(R.id.goalTwoBtn) as Button?
         val three=findViewById<View>(R.id.goalThreeBtn) as Button?
+
+
+        var backImg = findViewById<View>(R.id.back_button)
+
+        backImg.setOnClickListener(this)
+
 
 
 
@@ -195,7 +200,7 @@ class registerFourActivity : AppCompatActivity() {
 
             if (verify(clicked)) {
 
-            Toast.makeText(this@registerFourActivity, "Click...", Toast.LENGTH_LONG).show()
+
             //  val intent = Intent(this, MainActivity::class.java)
           //  var neededCal = 0.0
 
@@ -243,6 +248,8 @@ else return true
 
         db.collection("Users").document("user")
 
+        if(neededCalories!=0.0)
+
         showDialogWithOkButton("needed calories"+neededCalories)
         return neededCalories
 
@@ -261,7 +268,7 @@ else return true
             3 -> neededCalories= Calories
         }
 
-
+        if(neededCalories!=0.0)
         showDialogWithOkButton("needed calories"+neededCalories)
         return neededCalories
 
@@ -483,5 +490,18 @@ else return true
         const val TAG = "register Four "
     }
 
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.back_button -> {
+                finish()
+            }
+            else -> {
+
+            }
+        }
+
+
+    }
 
 }

@@ -2,6 +2,7 @@ package sa.ksu.gpa.saleem
 
 
 import android.content.Context
+import android.content.Intent
 import android.hardware.Sensor
 import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
@@ -21,6 +22,7 @@ import com.google.firebase.firestore.FirebaseFirestoreException
 import kotlinx.android.synthetic.main.fragment_counter.*
 import sa.ksu.gpa.saleem.stepsCounterUtils.StepDetector
 import sa.ksu.gpa.saleem.stepsCounterUtils.StepListener
+import java.lang.Exception
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -29,8 +31,9 @@ import java.util.*
 /**
  * A simple [Fragment] subclass.
  */
-class CounterFragment(position: Int) : Fragment(), SensorEventListener, StepListener {
+class CounterFragment(position: Int, date: String) : Fragment(), SensorEventListener, StepListener {
     var position = position
+    var date = date
     var isRunning = false
 
 
@@ -38,8 +41,10 @@ class CounterFragment(position: Int) : Fragment(), SensorEventListener, StepList
     private var sensorManager: SensorManager? = null
     private var accel: Sensor? = null
     private val TEXT_NUM_STEPS = "Number of Steps: "
+
     companion object {
-        @JvmStatic  var numSteps = 0
+        @JvmStatic
+        var numSteps = 0
     }
 
 
@@ -91,8 +96,8 @@ class CounterFragment(position: Int) : Fragment(), SensorEventListener, StepList
         simpleStepDetector!!.registerListener(this)
 
 
-        val currentuser = FirebaseAuth.getInstance().currentUser?.uid
-        val burntCalories = db.collection("Users")
+        //  val currentuser = FirebaseAuth.getInstance().currentUser?.uid
+        db.collection("Users")
             .document("ckS3vhq8P8dyOeSI7CE7D4RgMiv1")//test user
             .addSnapshotListener { documentSnapshot: DocumentSnapshot?, firebaseFirestoreException: FirebaseFirestoreException? ->
                 if (documentSnapshot != null) {
@@ -111,10 +116,10 @@ class CounterFragment(position: Int) : Fragment(), SensorEventListener, StepList
             }
 
         db.collection("History")
-            .whereEqualTo("date",getCurrentDate())
-            .whereEqualTo("user_id","ckS3vhq8P8dyOeSI7CE7D4RgMiv1")
+            .whereEqualTo("date", date)
+            .whereEqualTo("user_id", "ckS3vhq8P8dyOeSI7CE7D4RgMiv1")
             .get().addOnSuccessListener { documents ->
-                if(documents.isEmpty){
+                if (documents.isEmpty && date == getCurrentDate()) {
                     val data = hashMapOf(
                         "cal" to remainderCal,
                         "date" to getCurrentDate(),
@@ -136,7 +141,7 @@ class CounterFragment(position: Int) : Fragment(), SensorEventListener, StepList
                     remainderCal = document.get("cal") as Double
                     pb_counter1.progress = remainderCal.toInt()
 //                    remainder_cal.setText("${remainderCal.toInt()}")
-                    tv_main_number1.setText("${(totalcal-remainderCal).toInt()}")
+                    tv_main_number1.setText("${(totalcal - remainderCal).toInt()}")
                 }
             }
 
@@ -158,14 +163,13 @@ class CounterFragment(position: Int) : Fragment(), SensorEventListener, StepList
                     tv_main_number1.setText("${(totalcal - remainderCal).toInt()}")
                     if (position == 1) {
                         tv_main_number1.setText("${doc.getDouble("steps_count")?.toInt()}")
+                        pb_counter1.progress = doc.getDouble("steps_count")?.toInt()!!
+                        pb_counter1.max = 5000
                     }
                 }
 
 
             }
-
-
-
 
 
     }
@@ -196,9 +200,28 @@ class CounterFragment(position: Int) : Fragment(), SensorEventListener, StepList
         }
     }
 
+    var isEnable = true;
     override fun step(timeNs: Long) {
-        numSteps++
-        fun updateHistory(){
+        if (!isEnable) {
+            return
+        }
+        isEnable = false
+        if (!isEnable) {
+            val background = object : Thread() {
+                override fun run() {
+                    try {
+                        Thread.sleep(500)
+                        isEnable = true
+
+                    } catch (e: Exception) {
+                        e.printStackTrace()
+                    }
+                }
+            }
+            background.start()
+        numSteps += 2
+        Log.e("Ay", "step === >" + numSteps)
+        fun updateHistory() {
             val data = hashMapOf(
                 "cal" to remainderCal,
                 "date" to getCurrentDate(),
@@ -208,8 +231,15 @@ class CounterFragment(position: Int) : Fragment(), SensorEventListener, StepList
             if (!history_Id.equals(""))
                 db.collection("History").document(history_Id).update(data as Map<String, Any>);
         }
+        if (position == 1) {
+            pb_counter1.progress = numSteps
+            pb_counter1.max = 5000
+
+        }
         updateHistory()
-        Toast.makeText(activity, "${numSteps}", Toast.LENGTH_LONG).show()
+
+        }
+//        Toast.makeText(activity, "${timeNs}", Toast.LENGTH_LONG).show()
     }
 
 }
