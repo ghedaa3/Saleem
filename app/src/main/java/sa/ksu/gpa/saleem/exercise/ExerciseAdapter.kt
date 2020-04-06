@@ -1,8 +1,7 @@
-package sa.ksu.gpa.saleem
+package sa.ksu.gpa.saleem.exercise
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,8 +12,6 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import sa.ksu.gpa.saleem.R
-import sa.ksu.gpa.saleem.recipe.SharedRecipe.RecipeModel
-import sa.ksu.gpa.saleem.recipe.sharedRecipeInformaion
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -41,7 +38,7 @@ class ExerciseAdapter(var context:Context, var arrayList:ArrayList<ExerciseModel
     }
 
     override fun onBindViewHolder(holder: ItemHolder, position: Int) {
-        val exercise:ExerciseModel=filteringList.get(position)
+        val exercise: ExerciseModel =filteringList.get(position)
         Glide.with(context).load(exercise.exercisePicture).into(holder.exerciseImage1)
         holder.exerciseTitle2.text=exercise.exerciseTitle
         holder.exerciseCalories3.text=exercise.exerciseCalories

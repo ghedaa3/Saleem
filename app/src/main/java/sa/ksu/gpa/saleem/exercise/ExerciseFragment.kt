@@ -1,4 +1,4 @@
-package sa.ksu.gpa.saleem
+package sa.ksu.gpa.saleem.exercise
 
 import android.annotation.SuppressLint
 import android.graphics.Rect
@@ -19,6 +19,7 @@ import com.glide.slider.library.SliderLayout
 import com.glide.slider.library.slidertypes.TextSliderView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_viewsharedrecipe.*
+import sa.ksu.gpa.saleem.R
 import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity
 
 class ExerciseFragment :Fragment() {
@@ -96,7 +97,12 @@ class ExerciseFragment :Fragment() {
 
     private fun initView() {
         recyclerView=view!!.findViewById(R.id.recyclerViewRecipes)
-        exerciseAdapter= context?.let { ExerciseAdapter(it,recipeList!!) }!!
+        exerciseAdapter= context?.let {
+            ExerciseAdapter(
+                it,
+                recipeList!!
+            )
+        }!!
         getRecipes()
 
 
@@ -147,8 +153,22 @@ class ExerciseFragment :Fragment() {
 
                  //   var recipeId= document.id
                    // val dataList = ArrayList<ExerciseModel>()
-                     recipeList.add(ExerciseModel("Phone","تمرين استقامة",R.drawable.ic_fitness_center_black_24dp,"400"))
-                    recipeList.add(ExerciseModel("Watch","تمرين شد العضلات",R.drawable.ic_fitness_center_black_24dp,"1240"))
+                     recipeList.add(
+                         ExerciseModel(
+                             "Phone",
+                             "تمرين استقامة",
+                             R.drawable.ic_fitness_center_black_24dp,
+                             "400"
+                         )
+                     )
+                    recipeList.add(
+                        ExerciseModel(
+                            "Watch",
+                            "تمرين شد العضلات",
+                            R.drawable.ic_fitness_center_black_24dp,
+                            "1240"
+                        )
+                    )
 
 
                     exerciseAdapter!!.notifyDataSetChanged()
