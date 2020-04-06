@@ -14,18 +14,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.DocumentSnapshot
-import com.google.firebase.firestore.EventListener
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.FirebaseFirestoreException
-import com.leinardi.android.speeddial.SpeedDialActionItem
-import com.leinardi.android.speeddial.SpeedDialView
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import sa.ksu.gpa.saleem.AddFoodActivity.OnSave
@@ -39,12 +32,15 @@ import kotlin.collections.ArrayList
  * A simple [Fragment] subclass.
  */
 class HomeFragment : Fragment() {
+
     private lateinit var db: FirebaseFirestore
     var totalcal  = 0.0
     var consumerCal = 0.0
     var remainderCal = 0.0
+    var previousDaysCount = 0
     var history_Id = ""
     private lateinit var pagerAdapter: PagerAdapter
+    private lateinit var date: String
     lateinit var dialog:ProgressDialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -57,10 +53,31 @@ class HomeFragment : Fragment() {
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        pagerAdapter = activity?.supportFragmentManager?.let { PagerAdapter(it) }!!
+        date = getCurrentDate()
+        tvDate.text = date
+
+        pagerAdapter = activity?.supportFragmentManager?.let { PagerAdapter(it,date) }!!
         viewPager.adapter = pagerAdapter
         dotsIndicator.setViewPager(viewPager)
         viewPager.adapter?.registerDataSetObserver(dotsIndicator.dataSetObserver)
+        pagerAdapter.notifyDataSetChanged()
+        iv_previous_date.setOnClickListener {
+            previousDaysCount --
+            tvDate.text = getSelectedDate(previousDaysCount)
+            pagerAdapter = activity?.supportFragmentManager?.let { PagerAdapter(it,getSelectedDate(previousDaysCount)) }!!
+            viewPager.adapter = pagerAdapter
+            dotsIndicator.setViewPager(viewPager)
+        }
+        iv_next_date.setOnClickListener {
+            if(previousDaysCount != 0){
+                previousDaysCount ++
+                tvDate.text = getSelectedDate(previousDaysCount)
+                pagerAdapter = activity?.supportFragmentManager?.let { PagerAdapter(it,getSelectedDate(previousDaysCount)) }!!
+                viewPager.adapter = pagerAdapter
+                dotsIndicator.setViewPager(viewPager)
+            }
+
+        }
 
 //        view.findViewById<ImageView>(R.id.ivAddView).setOnClickListener { addFood() }
         view.findViewById<LinearLayout>(R.id.add_breakfast).setOnClickListener { addFood() }
@@ -154,7 +171,7 @@ class HomeFragment : Fragment() {
                 updateHistory()
             }
         }
-        var dialog: AddFoodActivity? = context?.let { AddFoodActivity(it,onsave) }
+        var dialog: AddFoodActivity? = context?.let { AddFoodActivity(it,null,null,onsave) }
 
         dialog?.show()
 
@@ -254,7 +271,23 @@ class HomeFragment : Fragment() {
         return "$currentDate"
     }
 
+    fun getSelectedDate(days:Int):String {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val formatted = current.format(formatter)
+
+            return formatted
+        }
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        var dateobj = Date()
+        var calender = Calendar.getInstance()
+        calender.setTime(dateobj)
+        calender.add(Calendar.DATE,days);
+        val currentDate = sdf.format(calender.time)
+        return "$currentDate"
+    }
     fun updateHistory(){
         val data = hashMapOf(
             "cal" to remainderCal,
@@ -263,5 +296,12 @@ class HomeFragment : Fragment() {
         )
         if (!history_Id.equals(""))
             db.collection("History").document(history_Id).update(data as Map<String, Any>);
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+        tvDate.text = getSelectedDate(previousDaysCount)
+
     }
 }

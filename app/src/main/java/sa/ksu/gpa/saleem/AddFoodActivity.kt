@@ -1,12 +1,9 @@
 package sa.ksu.gpa.saleem
 
-import android.app.Activity
 import android.app.Dialog
 import android.app.ProgressDialog
 import android.content.Context
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -16,10 +13,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.SetOptions
 import kotlinx.android.synthetic.main.activity_add_food.*
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -28,9 +25,10 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class AddFoodActivity (context: Context ,onSave: OnSave) : Dialog(context) {
+class AddFoodActivity(context: Context, myFood: MyFood?, key: String?, onSave: OnSave) : Dialog(context) {
     var onSave = onSave
-
+    var myFood = myFood
+    var key = key
     lateinit var adapter: ItemAdapter
     var listdata = ArrayList<Item>()
     var nutritionalValueList = ArrayList<NutritionalValue>()
@@ -42,6 +40,7 @@ class AddFoodActivity (context: Context ,onSave: OnSave) : Dialog(context) {
         super.onCreate(savedInstanceState)
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_add_food)
+
         toolbar.title = "اضافة وجبة مفصلة"
         toolbar.setNavigationIcon(android.R.drawable.ic_menu_close_clear_cancel)
         toolbar.setNavigationOnClickListener {
@@ -60,6 +59,11 @@ class AddFoodActivity (context: Context ,onSave: OnSave) : Dialog(context) {
         }
 
         val recyclerView: RecyclerView = findViewById(R.id.rv_component)
+        if (myFood != null){
+            listdata.addAll(myFood!!.foods)
+            nameOfFood.setText(myFood!!.food_name)
+            save.text = "تعديل"
+        }
         adapter = ItemAdapter(listdata, context)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.adapter = adapter
@@ -81,7 +85,9 @@ class AddFoodActivity (context: Context ,onSave: OnSave) : Dialog(context) {
                 Toast.makeText(context,"ادخل مكونات الوجبة",Toast.LENGTH_LONG).show()
             }
         }
+
         delete_button.setOnClickListener {
+
             addObject(it)
         }
 
@@ -208,11 +214,13 @@ class AddFoodActivity (context: Context ,onSave: OnSave) : Dialog(context) {
 
     }
 
-    inner class Item {
+    class Item {
         lateinit var name: String
         lateinit var amount: String
         lateinit var weight: String
         var nutritionalValue: Int = 0
+
+        constructor()
 
     }
 
@@ -261,6 +269,20 @@ class AddFoodActivity (context: Context ,onSave: OnSave) : Dialog(context) {
             "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1",
             "cal_of_food" to sum
         )
+
+        if(myFood != null){
+            showLoadingDialog()
+            key?.let {
+                db.collection("Foods").document(it)
+                    .set(data, SetOptions.merge()).addOnSuccessListener {
+                        dialog.dismiss()
+                        Toast.makeText(context,"تمت التعديل بنجاح",Toast.LENGTH_SHORT).show()
+                        dismiss()
+                    }
+            }
+            return
+        }
+
         showLoadingDialog()
         db.collection("Foods").document().set(data as Map<String, Any>).addOnSuccessListener {
             dialog.dismiss()
