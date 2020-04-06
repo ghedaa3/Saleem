@@ -82,7 +82,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_bigger_margin"
-        app:srcCompat="@drawable/ic_stop" />
+        app:srcCompat="@drawable/ic_stop"
+        app:backgroundTint="#59E7A2"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_pause"
@@ -90,7 +91,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_margin="@dimen/fab_bigger_margin"
-        app:srcCompat="@drawable/ic_pause"/>
+        app:srcCompat="@drawable/ic_pause"
+        app:backgroundTint="#59E7A2"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab_start"
@@ -98,7 +100,8 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|start"
         android:layout_margin="@dimen/fab_bigger_margin"
-        app:srcCompat="@drawable/ic_play_arrow"/>
+        app:srcCompat="@drawable/ic_play_arrow"
+        app:backgroundTint="#59E7A2"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

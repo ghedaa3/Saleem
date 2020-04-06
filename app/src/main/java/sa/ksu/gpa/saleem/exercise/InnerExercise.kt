@@ -12,6 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
+import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
 import sa.ksu.gpa.saleem.util.NotificationUtil
@@ -56,7 +57,7 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener  {
         }
 
 
-        //var Exercisetitle = findViewById<View>(R.id.title) as TextView
+        var Exercisetitle = findViewById<View>(R.id.title) as TextView
         //var calTitle = findViewById<View>(R.id.caloriesTitle) as TextView
 
        // var cal = findViewById<View>(R.id.calories) as TextView
@@ -74,7 +75,7 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener  {
         var calories = getIntent().getStringExtra("ExerciseCal")
         var title = getIntent().getStringExtra("ExerciseTitle")
 
-       // Exercisetitle.setText(title)
+        Exercisetitle.setText(title)
         //cal.setText(calories)
 
         if (id=="Watch"){
