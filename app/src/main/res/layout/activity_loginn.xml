@@ -23,6 +23,7 @@
             android:id="@+id/logo"
             android:layout_width="match_parent"
             android:layout_height="131dp"
+            android:layout_marginTop="-20dp"
             android:src="@drawable/ic_logos" />
 
         <LinearLayout
@@ -80,18 +81,17 @@
 
             <Button
                 android:id="@+id/loginBtn"
-                android:layout_width="312dp"
-                android:layout_height="wrap_content"
+
+                android:layout_width="265dp"
+                android:layout_height="66dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="50dp"
-
-                android:text="تسجيل الدخول"
-
-                android:background="@drawable/border"
+                android:layout_marginTop="60dp"
                 android:layout_weight="0.5"
+                android:background="@drawable/register_btn"
                 android:backgroundTint="#3F51B5"
-                android:textSize="20dp"
-                android:textColor="#F7FFFFFF"/>
+                android:text="تسجيل الدخول"
+                android:textColor="#F7FFFFFF"
+                android:textSize="20dp" />
 
 
 
@@ -101,7 +101,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
-                android:layout_marginLeft="90dp"
+                android:layout_marginLeft="70dp"
                 android:text="نسيت كلمة المرور"
                 android:layout_gravity="center"
                 android:textColor="@color/colorPrimaryDark" />

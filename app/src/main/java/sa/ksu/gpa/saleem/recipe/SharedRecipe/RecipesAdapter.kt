@@ -49,6 +49,7 @@ class RecipesAdapter(var context:Context, var arrayList:ArrayList<RecipeModel>):
         holder.itemView.setOnClickListener {
             var intent = Intent(context, sharedRecipeInformaion::class.java)
             intent.putExtra("RecipeId",holder.recipeId)
+
             context.startActivity(intent)
         }
     }

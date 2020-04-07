@@ -95,7 +95,7 @@
             <LinearLayout
                 android:id="@+id/linlay1"
                 android:layout_width="match_parent"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="120dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -122,8 +122,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily=""
-                            android:text="الاسم:"
-                            android:textColor="#474749"
+                            android:text="الأسم:"
+                            android:textColor="#3F51B5"
                             android:textSize="20dp" />
 
 
@@ -198,8 +198,8 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:fontFamily=""
-                            android:text="الإيميل:"
-                            android:textColor="#474749"
+                            android:text="الأيميل:"
+                            android:textColor="#3F51B5"
                             android:textSize="20sp" />
 
 
@@ -274,7 +274,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily=""
                             android:text="الوزن:"
-                            android:textColor="#474749"
+                            android:textColor="#3F51B5"
                             android:textSize="20sp" />
 
 
@@ -304,7 +304,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily=""
                             android:hint="wight"
-                            android:textColor="#474749"
+                            android:textColor="#3F51B5"
                             android:textSize="20sp" />
 
 
@@ -350,7 +350,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily=""
                             android:text="الطول:"
-                            android:textColor="#474749"
+                            android:textColor="#3F51B5"
                             android:textSize="20sp" />
 
 
@@ -429,7 +429,7 @@
                             android:fontFamily=""
 
                             android:text="السعرات الحرارية:"
-                            android:textColor="#474749"
+                            android:textColor="#3F51B5"
                             android:textSize="20sp" />
 
 
@@ -504,7 +504,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily=""
                             android:text="الجنس:"
-                            android:textColor="#474749"
+                            android:textColor="#3F51B5"
                             android:textSize="20sp" />
 
 
@@ -581,7 +581,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily=""
                             android:text="كتلة الجسم:"
-                            android:textColor="#474749"
+                            android:textColor="#3F51B5"
                             android:textSize="20sp" />
 
 
@@ -654,7 +654,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily=""
                             android:text="العمر:"
-                            android:textColor="#474749"
+                            android:textColor="#3F51B5"
                             android:textSize="20sp" />
 
 
@@ -731,7 +731,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily=""
                             android:text="المستوى:"
-                            android:textColor="#474749"
+                            android:textColor="#3F51B5"
                             android:textSize="20sp" />
 
 
@@ -804,7 +804,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily=""
                             android:text="الهدف:"
-                            android:textColor="#474749"
+                            android:textColor="#3F51B5"
                             android:textSize="20sp" />
 
 
@@ -878,10 +878,10 @@
                 android:layout_height="70dp"
 
                 android:layout_marginTop="13dp"
-                android:backgroundTint="#4F329A"
+                android:backgroundTint="#3F51B5"
                 android:gravity="center"
                 app:title=" "
-                app:titleTextColor="#4F329A"
+                app:titleTextColor="@color/whiteTextColor"
 
                 />
 
@@ -889,7 +889,16 @@
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:background="@drawable/icon_shape_circuler_two"
+        android:fitsSystemWindows="true"
+        android:theme="@style/AppTheme.ProfileTheme"
+        app:elevation="0dp">
 
+    </com.google.android.material.appbar.AppBarLayout>
 
 
     <androidx.viewpager.widget.ViewPager
@@ -906,7 +915,7 @@
         android:layout_marginTop="25dp"
         android:text="ملفي الشخصي"
 
-        android:textColor="#4F329A"
+        android:textColor="@color/whiteTextColor"
         android:textSize="18dp"
         android:textStyle="bold"
         app:layout_anchor="@+id/appbar"
@@ -917,7 +926,7 @@
         android:layout_width="wrap_content"
         android:layout_height="20dp"
         android:layout_marginTop="28dp"
-        android:tint="@color/gray_btn_bg_pressed_color"
+        android:tint="@color/white"
         android:layout_marginLeft="340dp"
         android:src="@drawable/kk">
 

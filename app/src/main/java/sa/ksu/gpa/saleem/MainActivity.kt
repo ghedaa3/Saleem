@@ -122,7 +122,7 @@ class MainActivity : AppCompatActivity() {
                 .create()
         )
         speedDialView.addActionItem(
-            SpeedDialActionItem.Builder(10014, R.drawable.advice)
+            SpeedDialActionItem.Builder(10014, R.drawable.ic_idea)
                 .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.yellow, getTheme()))
                 .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
                 .setLabel("نصيحة")
