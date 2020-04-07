@@ -53,13 +53,22 @@
             android:parentActivityName=".MainActivity"/>
         <activity android:name=".profile.editProf"
             android:parentActivityName=".profile.Profile"/>
+<activity android:name=".Timer.Timer_Play">
 
+</activity>
+        <activity android:name=".Timer.TimerSettings">
+
+        </activity>
 
         <activity android:name=".profile.fragmentTwo" />
         <activity android:name=".profile.fragmentOne" />
 
         <activity android:name=".loginn" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".register.registerFourActivity"
             android:parentActivityName=".register.registerThreeActivity"/>
@@ -73,11 +82,7 @@
         </activity>
 
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".register.registerThreeActivity"
             android:parentActivityName=".register.registerTwoActivity"/>
