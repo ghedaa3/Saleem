@@ -47,7 +47,8 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?)  {
         super.onCreate(savedInstanceState)
 
-        setContentView(sa.ksu.gpa.saleem.R.layout.activity_profile)
+       // setContentView(sa.ksu.gpa.saleem.R.layout.activity_profile)
+        setContentView(sa.ksu.gpa.saleem.R.layout.testy)
 
         val toolbar = findViewById<View>(sa.ksu.gpa.saleem.R.id.toolbar)
         setSupportActionBar(toolbar as Toolbar?)
