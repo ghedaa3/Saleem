@@ -131,22 +131,19 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
-
-
-
         <Button
             android:id="@+id/nxtOneBtn"
 
-            android:layout_width="147dp"
-            android:layout_height="wrap_content"
+            android:layout_width="149dp"
+            android:layout_height="67dp"
             android:layout_gravity="center"
-            android:layout_marginTop="80dp"
-            android:text="التالي"
-            android:background="@drawable/border"
-            android:layout_weight="0.5"
+            android:layout_marginTop="60dp"
+
+            android:background="@drawable/register_btn"
             android:backgroundTint="#3F51B5"
-            android:textSize="20dp"
-            android:textColor="#F7FFFFFF"/>
+            android:text="التالي"
+            android:textColor="#F7FFFFFF"
+            android:textSize="20dp" />
 
         <RelativeLayout
 

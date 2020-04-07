@@ -18,15 +18,5 @@
         <include layout="@layout/fragment_setting_body"/>
 
     </androidx.core.widget.NestedScrollView>
-    <TextView
-        android:id="@+id/userName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="الإعدادات "
-        android:textColor="@color/whiteTextColor"
-        android:textSize="18dp"
-        android:textStyle="bold"
-        app:layout_anchor="@+id/appbar"
-        app:layout_anchorGravity="center" />
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

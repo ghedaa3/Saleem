@@ -58,7 +58,7 @@
         <activity android:name=".profile.fragmentTwo" />
         <activity android:name=".profile.fragmentOne" />
 
-        <activity android:name=".loginn" >
+        <activity android:name=".MainActivity" >
 
         </activity>
         <activity android:name=".register.registerFourActivity"
@@ -72,7 +72,7 @@
 
         </activity>
 
-        <activity android:name=".MainActivity">
+        <activity android:name=".loginn">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
