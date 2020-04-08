@@ -64,11 +64,7 @@
         <activity android:name=".profile.fragmentOne" />
 
         <activity android:name=".loginn" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".register.registerFourActivity"
             android:parentActivityName=".register.registerThreeActivity"/>
@@ -82,7 +78,11 @@
         </activity>
 
         <activity android:name=".MainActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity android:name=".register.registerThreeActivity"
             android:parentActivityName=".register.registerTwoActivity"/>
