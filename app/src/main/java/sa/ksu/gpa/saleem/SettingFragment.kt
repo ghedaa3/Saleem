@@ -59,6 +59,10 @@ class SettingFragment : Fragment() {
             val intent = Intent(this.activity, MyExcercise::class.java)
             startActivity(intent)
         }
+        view.findViewById<LinearLayout>(R.id.recipes).setOnClickListener {
+            val intent = Intent(this.activity,MyRecipesActivity::class.java)
+            startActivity(intent)
+        }
 
  /*       view.findViewById<LinearLayout>(R.id.add_lunch).setOnClickListener { addFood() }
         view.findViewById<LinearLayout>(R.id.add_dinner).setOnClickListener { addFood() }

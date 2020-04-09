@@ -20,6 +20,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.leinardi.android.speeddial.SpeedDialActionItem
@@ -43,7 +44,9 @@ class MainActivity : AppCompatActivity() {
     private var addExcercize: Button? = null
     private lateinit var db:FirebaseFirestore
     private var counter=0
-    val currentuser = "Kgr3rhDXC2kNuq5syHsm"
+   val currentuser = "Kgr3rhDXC2kNuq5syHsm"
+    val currentuser1 = FirebaseAuth.getInstance().currentUser?.uid
+
 
 
     @SuppressLint("ResourceType")

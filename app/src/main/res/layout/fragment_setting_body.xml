@@ -183,6 +183,7 @@
         </LinearLayout>
 
         <LinearLayout
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
@@ -194,7 +195,7 @@
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="horizontal"
-            android:id="@+id/meals"
+            android:id="@+id/recipes"
             >
 
 

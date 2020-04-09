@@ -254,10 +254,9 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
 
         }
 
-        val currentuser ="AXBFsLC5GeTGHkCDz8oz"
+        val currentuser =FirebaseAuth.getInstance().currentUser?.uid
         val docData = hashMapOf(
-           // "UID" to currentuser!!.toString(),
-            "UID" to "AXBFsLC5GeTGHkCDz8oz",
+            "UID" to currentuser!!.toString(),
             "image" to uri,
             "name" to name,
             "prepration" to prepration,
@@ -267,7 +266,14 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
         NumberOfCaloriesDoc.get().addOnSuccessListener {
                 documentSnapshot ->
 
-              NumberOfRecipes= documentSnapshot.get("NumberOfRecipes").toString().toInt()
+            if( documentSnapshot.get("NumberOfRecipes")==null){
+                NumberOfRecipes= 0
+                db.collection("Users").document(currentuser).update("NumberOfRecipes", NumberOfRecipes)
+                    .addOnSuccessListener { Log.d("this", "DocumentSnapshot successfully updated!") }
+                    .addOnFailureListener { e -> Log.w("this", "Error updating document", e) }
+            }
+
+             else{ NumberOfRecipes= documentSnapshot.get("NumberOfRecipes").toString().toInt()}
               recipeID= currentuser+NumberOfRecipes
 
             db.collection("Recipes").document(recipeID).set(docData).addOnSuccessListener {
