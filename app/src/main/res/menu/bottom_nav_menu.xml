@@ -3,22 +3,27 @@
 
 
     <item
-        android:id="@+id/exercise"
-        android:title="التمارين"
-        android:icon="@drawable/ic_dumbbell"/>
-    <item
         android:id="@+id/profile"
         android:title="الاعدادات "
+        android:enabled="true"
         android:icon="@drawable/ic_settings_black_24dp"/>
 
     <item
+        android:enabled="true"
         android:id="@+id/home"
         android:title="الرئيسية "
         android:icon="@drawable/ic_home"/>
 
     <item
+        android:enabled="true"
         android:id="@+id/meals"
         android:title="الوصفات"
         android:icon="@drawable/ic_dish"/>
+
+    <item
+        android:enabled="true"
+        android:id="@+id/exercise"
+        android:title="التمارين"
+        android:icon="@drawable/ic_dumbbell"/>
 
 </menu>

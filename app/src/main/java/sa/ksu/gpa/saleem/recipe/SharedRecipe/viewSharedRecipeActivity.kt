@@ -6,25 +6,27 @@ import android.os.Bundle
 import android.util.Log
 import android.util.TypedValue
 import android.view.View
-import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.SearchView
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.*
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ItemDecoration
-import androidx.recyclerview.widget.RecyclerView.VERTICAL
+import androidx.recyclerview.widget.StaggeredGridLayoutManager
 import com.bumptech.glide.request.RequestOptions
 import com.glide.slider.library.SliderLayout
 import com.glide.slider.library.animations.DescriptionAnimation
 import com.glide.slider.library.slidertypes.BaseSliderView
 import com.glide.slider.library.slidertypes.TextSliderView
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_main.bottomNavigation
 import kotlinx.android.synthetic.main.activity_viewsharedrecipe.*
 import sa.ksu.gpa.saleem.HomeFragment
 import sa.ksu.gpa.saleem.R
 import sa.ksu.gpa.saleem.SettingFragment
-import sa.ksu.gpa.saleem.profile.Profile
+import sa.ksu.gpa.saleem.exercise.ExerciseFragment
 
 
 class viewSharedRecipeActivity : AppCompatActivity(), BaseSliderView.OnSliderClickListener {
@@ -37,7 +39,6 @@ class viewSharedRecipeActivity : AppCompatActivity(), BaseSliderView.OnSliderCli
     private lateinit var slider: SliderLayout
 
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_viewsharedrecipe)
@@ -47,7 +48,7 @@ class viewSharedRecipeActivity : AppCompatActivity(), BaseSliderView.OnSliderCli
 
         initView()
         initSlider()
-
+        bottomNavigation.selectedItemId=R.id.meals
         bottomNavigation.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.home-> {
@@ -67,6 +68,14 @@ class viewSharedRecipeActivity : AppCompatActivity(), BaseSliderView.OnSliderCli
 
                     val intent = Intent(this, viewSharedRecipeActivity::class.java)
                     startActivity(intent)
+
+                    return@setOnNavigationItemSelectedListener true
+                }
+
+                R.id.exercise-> {
+                    title = "التمارين"
+
+                    loadFragment(ExerciseFragment())
 
                     return@setOnNavigationItemSelectedListener true
                 }

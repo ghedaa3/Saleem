@@ -205,7 +205,7 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun startTimer() {
+    @Synchronized  private  fun startTimer() {
         timerState = timerstate.Running
         timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
 
@@ -213,29 +213,17 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
             override fun onTick(millisUntilFinished: Long) {
                 secondsRemaining = millisUntilFinished / 1000
                 updateCountdownUI()
-                val timeLeft = millisUntilFinished / 1000
 
-                if (timeLeft == 5000L){
-                    object : Runnable {
 
-                        fun playSound() {
-                            val mp: MediaPlayer = MediaPlayer.create(this@Timer_Play, R.raw.whistle)
-                            mp.start()
-                        }
-
-                        override fun run() {
-                            playSound()
-
-                        }
-                    }.run()
-                }
-
+                if (Math.round(millisUntilFinished.toFloat() / 1000.0f) == 5)
+                    playSoundWork()
 
             }
+
             override fun onFinish(){
 
                 if (rounList.size!=0){
-
+                    playSound()
                     secondsRemaining=rounList[0]
                     timerCurrentTime.text=StringList[0]
                     rounList.removeAt(0)
@@ -246,6 +234,8 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
                 }
                 else{
                     timerState=timerstate.Stopped
+                    timerCurrentTime.text="تهانينا"
+
                     updateButtons()
 
                 }
@@ -255,7 +245,16 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
 
         }.start()
     }
-
+    fun playSound() {
+        val mp: MediaPlayer =
+            MediaPlayer.create(baseContext, R.raw.cttut_buzz) //replace 'sound' by your    music/sound
+        mp.start()
+    }
+    fun playSoundWork() {
+        val mp: MediaPlayer =
+            MediaPlayer.create(baseContext, R.raw.realworkout) //replace 'sound' by your    music/sound
+        mp.start()
+    }
     private fun updateCountdownUI() {
         val minutesUntilFinished = secondsRemaining / 60
         val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60

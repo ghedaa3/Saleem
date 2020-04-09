@@ -1,8 +1,14 @@
 package sa.ksu.gpa.saleem
 
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
@@ -31,11 +37,12 @@ class ExampleInstrumentedTest {
     var mActivityRule = ActivityTestRule(
         MainActivity::class.java)
     @Test
-    fun addWater(){
-        // this method is testing if the user is able to add an excercize
+    fun viewProfile(){
+        // this method is testing if the user is able to view profile
+       onView(withId(  R.id.profile)).perform(click())
+        onView(withId(R.id.profileActivity)).check(matches(isDisplayed()))
 
 
-        Espresso.onView(ViewMatchers.withId(R.id.addWaterBtn)).perform(ViewActions.click())
 
     }
 
