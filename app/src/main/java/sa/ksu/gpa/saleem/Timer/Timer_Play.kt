@@ -221,9 +221,9 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onFinish(){
+                playSound()
 
                 if (rounList.size!=0){
-                    playSound()
                     secondsRemaining=rounList[0]
                     timerCurrentTime.text=StringList[0]
                     rounList.removeAt(0)

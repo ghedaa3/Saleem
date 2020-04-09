@@ -28,7 +28,7 @@
         >
     </TextView>
     <EditText
-        android:id="@+id/addExcerciseWorkoutname"
+        android:id="@+id/addExcerciseWorkoutnameee"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
@@ -36,7 +36,9 @@
         android:gravity="center"
         android:padding="5dp"
         android:background="@drawable/border"
-        android:hint="مثال: تمرين جزء سفلي"></EditText>
+        android:hint="مثال: تمرين جزء سفلي">
+
+    </EditText>
     <TextView
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
@@ -58,14 +60,7 @@
         android:inputType="number"
         android:gravity="center"
         android:hint="300" ></EditText>
-    <TextView
-        android:id="@+id/addExcerciseError"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textColor="#FF3131"
-        >
-    </TextView>
+
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"

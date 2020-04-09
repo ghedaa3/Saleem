@@ -20,6 +20,10 @@ import androidx.appcompat.app.AlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
+import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcercise
+import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcerciseburentCal
+import kotlinx.android.synthetic.main.add_excercise_dialog.view.cancelExcercise
+import kotlinx.android.synthetic.main.add_fast_food.view.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import sa.ksu.gpa.saleem.AddFoodActivity.OnSave
 import java.text.SimpleDateFormat

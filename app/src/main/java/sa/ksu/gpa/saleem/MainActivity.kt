@@ -146,7 +146,10 @@ class MainActivity : AppCompatActivity() {
                     return@OnActionSelectedListener true // false will close it without animation
                 }
                 10011 ->{
+                    Log.d("main1"," clicked")
+
                     addExcercizeDialog()
+
                 }
                 10014 ->{
                     addAdviceDialog()
@@ -305,20 +308,25 @@ class MainActivity : AppCompatActivity() {
 
         val  mAlertDialog = mBuilder.show()
         mAlertDialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        var burnt = mDialogView.addExcerciseburentCal!!.text
-        val workoutName = mDialogView.addExcerciseWorkoutname!!.text.toString()
-        Log.d("this",""+burnt+workoutName)
+
 
         mDialogView.addExcercise.setOnClickListener{
+            var burnt = mDialogView.addExcerciseburentCal!!.text
+            var workoutName = mDialogView.addExcerciseWorkoutnameee!!.text.toString()
 
-
-            if (burnt.isEmpty()||workoutName.isEmpty()){
-
-                Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", LENGTH_LONG).show()
+            if (burnt.isEmpty()){
+                Log.d("main1"," empty burnt")
+                Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
+            }
+           else if (workoutName.isEmpty()){
+                Log.d("main1"," empty workoutName")
+                Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
             }
             else{
                 var  burnt1 = burnt.toString()
                 var burntcal=burnt1.toDouble()
+                Log.d("main1","not empty")
+
                 val burntCalories = db.collection("Users").document(currentuser)
 
                 burntCalories.update("burntCalories", FieldValue.increment(burntcal))
@@ -328,18 +336,21 @@ class MainActivity : AppCompatActivity() {
                         "exerciseCalories" to burntcal
 
                 )
-                db.collection("Users").document(currentuser).collection("Exercises").document().set(docData).addOnSuccessListener {
-                    Log.d("main","Addid to collection")
+                db.collection("Users").document(currentuser).collection("Exercises").document().set(docData)
+                    .addOnSuccessListener {
+                    Log.d("main1","Added to collection")
                     Toast.makeText(this, "تمت اضافة التمرين", LENGTH_LONG).show()
 
                 }.addOnFailureListener {
-                    Log.d("main","not Addid to collection"+it)
+                    Log.d("main1","not Added to collection"+it)
+                        Toast.makeText(this, "حصل خطأ", LENGTH_LONG).show()
 
-                }
+
+                    }
+                mAlertDialog.dismiss()
 
                 ubdateBurntCaloris()
 
-                mAlertDialog.dismiss()
 
             }
             // extra detail add a success shape

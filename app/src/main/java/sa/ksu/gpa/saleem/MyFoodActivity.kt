@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -14,6 +15,10 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
+import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcercise
+import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcerciseburentCal
+import kotlinx.android.synthetic.main.add_excercise_dialog.view.cancelExcercise
+import kotlinx.android.synthetic.main.add_fast_food.view.*
 import sa.ksu.gpa.saleem.MyFoodAdapter.OnActionClick
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -140,8 +145,8 @@ class MyFoodActivity : AppCompatActivity() {
         mDialogView.addExcerciseWorkoutname.setText(item.food_name)
         mDialogView.addExcerciseburentCal.setText(item.cal_of_food.toString())
         mDialogView.addExcercise.setOnClickListener{
-            if (burnt==null||workoutName==null){
-                mDialogView.addExcerciseError.setText("الرجاء ادخال المعلومات الناقصة")
+            if (burnt.isEmpty()||workoutName.isEmpty()){
+                Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
             }
             else{
 

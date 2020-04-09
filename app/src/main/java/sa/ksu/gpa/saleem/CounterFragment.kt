@@ -31,7 +31,7 @@ import java.util.*
 /**
  * A simple [Fragment] subclass.
  */
-class CounterFragment(position: Int, date: String) : Fragment(), SensorEventListener, StepListener {
+public class CounterFragment(position: Int, date: String) : Fragment(), SensorEventListener, StepListener {
     var position = position
     var date = date
     var isRunning = false
