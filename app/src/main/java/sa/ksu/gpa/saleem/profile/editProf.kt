@@ -24,7 +24,7 @@ import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 
 
 
-class editProf : AppCompatActivity() {
+class editProf : AppCompatActivity() ,View.OnClickListener {
 
     lateinit var userUid: String
     var storage = FirebaseStorage.getInstance()
@@ -48,9 +48,9 @@ class editProf : AppCompatActivity() {
 
         val toolbar = findViewById<View>(R.id.toolbar)
         setSupportActionBar(toolbar as Toolbar?)
-        supportActionBar!!.setTitle("")
+    /*    supportActionBar!!.setTitle("")
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setHomeButtonEnabled(false)
+        supportActionBar!!.setHomeButtonEnabled(false)*/
 
         edname = findViewById(R.id.nameSignUpHin)
         edwight=findViewById(R.id.wightHin)
@@ -170,6 +170,10 @@ class editProf : AppCompatActivity() {
         })
 
         retriveUserData()
+
+        val backImg :ImageView=findViewById(sa.ksu.gpa.saleem.R.id.back_button)
+
+        backImg.setOnClickListener(this)
     }
 
     private fun editHight(h: String) {
@@ -269,6 +273,19 @@ class editProf : AppCompatActivity() {
             Log.d("TAG", "تم تعديل الطولkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"+goal)
 
         }
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            sa.ksu.gpa.saleem.R.id.back_button -> {
+                finish()
+            }
+            else -> {
+
+            }
+        }
+
+
     }
 
 }
