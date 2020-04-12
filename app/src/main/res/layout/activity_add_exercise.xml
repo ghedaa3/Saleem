@@ -143,6 +143,37 @@
         android:background="#12111111"
         android:layout_gravity="center"/>
 
+    -<LinearLayout
+    android:orientation="vertical"
+    android:layout_height="wrap_content"
+    android:layout_width="match_parent">
+
+    <TextView
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_marginTop="20dp"
+        android:text="المدة"
+        android:textStyle="bold">
+    </TextView>
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:background="@color/cardview_shadow_end_color"
+        android:id="@+id/duration"
+        android:inputType="number"
+        android:hint="مثال: 125"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        >
+    </EditText>
+
+</LinearLayout>
+
+
 
 
 

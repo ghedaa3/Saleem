@@ -8,10 +8,7 @@ import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import com.bumptech.glide.Glide
@@ -84,7 +81,7 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener  {
             //giff.setBytes(bitmapData);
 
             Glide.with(this)
-                .load(R.drawable.warm_up)
+                .load(R.drawable.set_up)
                 .into(giff);
 
 
@@ -99,6 +96,46 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener  {
 
 
            // duration.setText("20 دقائق")
+
+
+
+        }
+
+
+        if (id=="1"){
+
+            //الجلوس المعدل
+
+            Glide.with(this)
+                .load(R.drawable.warm_up)
+                .into(giff);
+
+
+            // duration.setText("20 دقائق")
+
+
+
+        }
+      if (id=="2"){
+
+            Glide.with(this)
+                .load(R.drawable.man_liftting_dumbells)
+                .into(giff);
+
+
+            // duration.setText("20 دقائق")
+
+
+
+        }
+      if (id=="3"){
+
+            Glide.with(this)
+                .load(R.drawable.man_jogging)
+                .into(giff);
+
+
+            // duration.setText("20 دقائق")
 
 
 

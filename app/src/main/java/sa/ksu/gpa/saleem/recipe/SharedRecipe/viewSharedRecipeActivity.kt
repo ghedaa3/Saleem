@@ -27,6 +27,7 @@ import sa.ksu.gpa.saleem.HomeFragment
 import sa.ksu.gpa.saleem.R
 import sa.ksu.gpa.saleem.SettingFragment
 import sa.ksu.gpa.saleem.exercise.ExerciseFragment
+import sa.ksu.gpa.saleem.exercise.ExerciseListActivity
 
 
 class viewSharedRecipeActivity : AppCompatActivity(), BaseSliderView.OnSliderClickListener {
@@ -75,7 +76,8 @@ class viewSharedRecipeActivity : AppCompatActivity(), BaseSliderView.OnSliderCli
                 R.id.exercise-> {
                     title = "التمارين"
 
-                    loadFragment(ExerciseFragment())
+                    val intent = Intent(this, ExerciseListActivity::class.java)
+                    startActivity(intent)
 
                     return@setOnNavigationItemSelectedListener true
                 }
