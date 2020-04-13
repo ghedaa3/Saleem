@@ -31,11 +31,11 @@ import java.util.*
 /**
  * A simple [Fragment] subclass.
  */
-public class CounterFragment(position: Int, date: String) : Fragment(), SensorEventListener, StepListener {
+class CounterFragment(position: Int, date: String) : Fragment(), SensorEventListener, StepListener {
     var position = position
     var date = date
     var isRunning = false
-
+    var valcurrentuser = ""
 
     private var simpleStepDetector: StepDetector? = null
     private var sensorManager: SensorManager? = null
@@ -87,6 +87,7 @@ public class CounterFragment(position: Int, date: String) : Fragment(), SensorEv
         } else {
             tv_title.setText("سعرات المتبقية")
         }
+        valcurrentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
 
         db = FirebaseFirestore.getInstance()
@@ -96,9 +97,8 @@ public class CounterFragment(position: Int, date: String) : Fragment(), SensorEv
         simpleStepDetector!!.registerListener(this)
 
 
-        //  val currentuser = FirebaseAuth.getInstance().currentUser?.uid
-        db.collection("Users")
-            .document("ckS3vhq8P8dyOeSI7CE7D4RgMiv1")//test user
+        db.collection("users")
+            .document(valcurrentuser)//test user
             .addSnapshotListener { documentSnapshot: DocumentSnapshot?, firebaseFirestoreException: FirebaseFirestoreException? ->
                 if (documentSnapshot != null) {
                     var neededcal = documentSnapshot?.get("needed cal")
@@ -117,14 +117,14 @@ public class CounterFragment(position: Int, date: String) : Fragment(), SensorEv
 
         db.collection("History")
             .whereEqualTo("date", date)
-            .whereEqualTo("user_id", "ckS3vhq8P8dyOeSI7CE7D4RgMiv1")
+            .whereEqualTo("user_id", valcurrentuser)
             .get().addOnSuccessListener { documents ->
                 if (documents.isEmpty && date == getCurrentDate()) {
                     val data = hashMapOf(
                         "cal" to remainderCal,
                         "date" to getCurrentDate(),
                         "steps_count" to numSteps,
-                        "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1"
+                        "user_id" to valcurrentuser
                     )
                     db.collection("History").document().set(data).addOnSuccessListener {
                         for (document in documents) {
@@ -149,7 +149,7 @@ public class CounterFragment(position: Int, date: String) : Fragment(), SensorEv
 
         db.collection("History")
             .whereEqualTo("date", getCurrentDate())
-            .whereEqualTo("user_id", "ckS3vhq8P8dyOeSI7CE7D4RgMiv1")
+            .whereEqualTo("user_id", valcurrentuser)
             .addSnapshotListener { value, e ->
                 if (e != null) {
                     return@addSnapshotListener
@@ -202,7 +202,7 @@ public class CounterFragment(position: Int, date: String) : Fragment(), SensorEv
 
     var isEnable = true;
     override fun step(timeNs: Long) {
-        if (!isEnable) {
+        if (!isEnable || position ==0) {
             return
         }
         isEnable = false
@@ -210,7 +210,7 @@ public class CounterFragment(position: Int, date: String) : Fragment(), SensorEv
             val background = object : Thread() {
                 override fun run() {
                     try {
-                        Thread.sleep(500)
+                        Thread.sleep(200)
                         isEnable = true
 
                     } catch (e: Exception) {
@@ -219,24 +219,24 @@ public class CounterFragment(position: Int, date: String) : Fragment(), SensorEv
                 }
             }
             background.start()
-        numSteps += 2
-        Log.e("Ay", "step === >" + numSteps)
-        fun updateHistory() {
-            val data = hashMapOf(
-                "cal" to remainderCal,
-                "date" to getCurrentDate(),
-                "steps_count" to numSteps,
-                "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1"
-            )
-            if (!history_Id.equals(""))
-                db.collection("History").document(history_Id).update(data as Map<String, Any>);
-        }
-        if (position == 1) {
-            pb_counter1.progress = numSteps
-            pb_counter1.max = 5000
+            numSteps += 1
+            Log.e("Ay", "step === >" + numSteps)
+            fun updateHistory() {
+                val data = hashMapOf(
+                    "cal" to remainderCal,
+                    "date" to getCurrentDate(),
+                    "steps_count" to numSteps,
+                    "user_id" to valcurrentuser
+                )
+                if (!history_Id.equals(""))
+                    db.collection("History").document(history_Id).update(data as Map<String, Any>);
+            }
+            if (position == 1) {
+                pb_counter1.progress = numSteps
+                pb_counter1.max = 5000
 
-        }
-        updateHistory()
+            }
+            updateHistory()
 
         }
 //        Toast.makeText(activity, "${timeNs}", Toast.LENGTH_LONG).show()

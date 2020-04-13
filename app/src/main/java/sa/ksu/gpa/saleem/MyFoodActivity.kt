@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import kotlinx.android.synthetic.main.activity_my_food.*
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcercise
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcerciseburentCal
@@ -38,7 +39,12 @@ class MyFoodActivity : AppCompatActivity() {
         setContentView(R.layout.activity_my_food)
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.rv_my_food)
-
+        setSupportActionBar(toolbar);
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+        toolbar.setNavigationOnClickListener {
+            onBackPressed()
+        }
 
         getMyFoodsData()
 
