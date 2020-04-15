@@ -35,7 +35,7 @@ class CounterFragment(position: Int, date: String) : Fragment(), SensorEventList
     var position = position
     var date = date
     var isRunning = false
-    var valcurrentuser = ""
+    lateinit var valcurrentuser:String
 
     private var simpleStepDetector: StepDetector? = null
     private var sensorManager: SensorManager? = null
@@ -87,8 +87,8 @@ class CounterFragment(position: Int, date: String) : Fragment(), SensorEventList
         } else {
             tv_title.setText("سعرات المتبقية")
         }
-        valcurrentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
-
+        valcurrentuser = FirebaseAuth.getInstance().currentUser?.uid!!
+            Log.e("valcurrentuser",valcurrentuser);
 
         db = FirebaseFirestore.getInstance()
         sensorManager = activity?.getSystemService(Context.SENSOR_SERVICE) as SensorManager
