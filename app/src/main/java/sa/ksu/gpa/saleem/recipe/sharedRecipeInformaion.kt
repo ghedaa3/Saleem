@@ -14,6 +14,7 @@ import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.info_dynamic_ingredients.view.*
+import kotlinx.android.synthetic.main.shared_recipe_info.*
 import sa.ksu.gpa.saleem.R
 import sa.ksu.gpa.saleem.recipe.SharedRecipe.RecipeModel
 
@@ -42,8 +43,38 @@ class sharedRecipeInformaion : AppCompatActivity() {
             onBackPressed()
         }
 
-
+        getcheckBox()
         getRecipeInfo()
+    }
+
+    private fun getcheckBox() {
+        var s:String=""
+        var recipeType:ArrayList<String>
+        db.collection("Recipes").document(recipeID)
+            .get()
+            .addOnSuccessListener { document ->
+                recipeType= document.get("Type") as ArrayList<String>
+                Log.d("sharedRecipeInformaion","size"+recipeType.size)
+                if (recipeType.size!=0){
+
+                    var i=recipeType.size-1
+                    while(i!=0){
+                        if (recipeType[i]!="not")
+                           s=s+"\n"+"#"+recipeType[i]
+                        Log.d("sharedRecipeInformaion","recipePrepration: "+s)
+                        i--
+
+
+                    }
+
+
+                }
+
+                recipe_info_types.text=s
+
+            }
+        Log.d("sharedRecipeInformaion","recipePrepration: "+s)
+
     }
 
     private fun getRecipeInfo() {
@@ -63,14 +94,7 @@ class sharedRecipeInformaion : AppCompatActivity() {
                          recipeImage= document.get("image").toString()
                          recipePrepration= document.get("prepration").toString()
                         Log.d("sharedRecipeInformaion","recipePrepration: "+recipePrepration)
-                       //  var recipeType= document.get("Type") as ArrayList<String>
-                      //   Log.d("sharedRecipeInformaion","size"+recipeType.size)
 
-
-                      /*  for(row in recipeType){
-                            if (!row?.equals("not"))
-                                Log.d("sharedRecipeInformaion","not null"+row)
-                        }*/
                     addIngrediants()
                     connectRecipesWithVies(recipename,recipeCalproes,recipeImage,recipePrepration)
                     }
@@ -99,7 +123,6 @@ class sharedRecipeInformaion : AppCompatActivity() {
 
 
     }
-
     private fun connectRecipesWithVies(recipename: String, recipeCalproes: String, recipeimage: String, recipePrepration: String) {
         recipeName.text=recipename
         recipeCalories.text=recipeCalproes

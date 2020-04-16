@@ -1,5 +1,6 @@
 package sa.ksu.gpa.saleem
 
+import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
@@ -12,6 +13,7 @@ import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
@@ -52,10 +54,8 @@ class MyRecipesActivity : AppCompatActivity() {
             addOnSuccessListener{ documents ->
             for(document in documents){
                 key_list.add(document.id)
-                var recipeId= document.id
                 var recipename= document.get("name").toString()
                 var recipeCalproes=document.get("calories").toString()
-                var recipeImage= document.get("image").toString()
                 var recipe = MyRecipe( recipename,recipeCalproes)
                 list.add(recipe)
                 Log.d("RECIPE","List : "+list)
@@ -105,16 +105,25 @@ class MyRecipesActivity : AppCompatActivity() {
             .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully deleted!") }
             .addOnFailureListener { e -> Log.w("TAG", "Error deleting document", e) }
 
+        //decrement number of recipes
+        val NumberOfCaloriesDoc = db.collection("Users").document(currentuser)
+        NumberOfCaloriesDoc.update("NumberOfRecipes", FieldValue.increment(-1))
 
     }
 
     private fun showEditItem(item: MyRecipe, position: Int) {
-        editExcercizeDialog(item,key_list[position], position)
+        editExcercizeDialog(key_list[position])
+        Log.d("EditMyRecipe","key_list[position]"+key_list[position])
+
         adapter.notifyDataSetChanged()
 
     }
-    private fun  editExcercizeDialog(item: MyRecipe,key:String,position: Int) {
-
+    private fun  editExcercizeDialog(key:String) {
+        
+        var intent=Intent(this,EditMyRecipe::class.java)
+        intent.putExtra("RecipeID",key)
+        Log.d("EditMyRecipe + key ",key)
+        startActivity(intent)
 
     }
 

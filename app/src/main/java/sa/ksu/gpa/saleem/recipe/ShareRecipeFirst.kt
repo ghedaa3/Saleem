@@ -46,18 +46,18 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
     private lateinit var main:LinearLayout
     private lateinit var uri:String
     private lateinit var backButton:  ImageView
+    lateinit var currentuser:String
+
 
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_share_recipe_first)
-
+        currentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
         db = FirebaseFirestore.getInstance()
-        //to-do
-        storageReference = FirebaseStorage.getInstance().getReference().child("12").child("image")
-
+        storageReference = FirebaseStorage.getInstance().getReference().child(currentuser).child("image"+Math.random())
         image=findViewById(R.id.sharedrecipeimage)
         Recipeimage=findViewById(R.id.sharedrecipeimageReal)
         addIngrediant = findViewById(R.id.addIngredient)
@@ -201,6 +201,7 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
     fun onDelete(view: View) {
         main.removeView(view.getParent() as View)
     }
+
     private fun addRecipe(){
 
         var  NumberOfRecipes:Int=0
@@ -211,7 +212,10 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
     if (name.isEmpty()||prepration.isEmpty()){
         Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
 
-    }    else{
+
+    } else if (main.getChildCount()==0)
+        Toast.makeText(this, "الرجاء اضافة المقادير", Toast.LENGTH_LONG).show()
+    else{
 
 
 
@@ -273,7 +277,8 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
                     .addOnFailureListener { e -> Log.w("this", "Error updating document", e) }
             }
 
-             else{ NumberOfRecipes= documentSnapshot.get("NumberOfRecipes").toString().toInt()}
+             else{
+                NumberOfRecipes= documentSnapshot.get("NumberOfRecipes").toString().toInt()}
               recipeID= currentuser+NumberOfRecipes
 
             db.collection("Recipes").document(recipeID).set(docData).addOnSuccessListener {

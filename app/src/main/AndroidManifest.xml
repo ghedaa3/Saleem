@@ -13,9 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".util.test">
-
-        </activity>
+        <activity android:name=".EditMyRecipe"></activity>
+        <activity android:name=".util.test"></activity>
         <activity android:name=".MyRecipesActivity" />
         <activity android:name=".MyExcercise" />
         <activity android:name=".AddFoodActivity" />
@@ -74,9 +73,7 @@
             android:name=".SplashScreenActivity"
             android:noHistory="true"
             android:theme="@style/splashTheme" />
-        <activity android:name=".MainActivity">
-
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity
             android:name=".register.registerThreeActivity"
             android:parentActivityName=".register.registerTwoActivity" />
