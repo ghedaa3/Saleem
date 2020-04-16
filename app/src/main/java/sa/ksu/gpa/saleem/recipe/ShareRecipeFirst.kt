@@ -17,6 +17,8 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlinx.android.synthetic.main.activity_share_recipe_first.*
+import kotlinx.android.synthetic.main.field.*
 import kotlinx.android.synthetic.main.field.view.*
 import pl.utkala.searchablespinner.SearchableSpinner
 import sa.ksu.gpa.saleem.R
@@ -47,6 +49,8 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
     private lateinit var uri:String
     private lateinit var backButton:  ImageView
     lateinit var currentuser:String
+    lateinit var IngArray:Array<String>
+    lateinit var quanArray:Array<String>
 
 
 
@@ -75,7 +79,8 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
         unit= findViewById(R.id.unit)
         main=findViewById(R.id.main) //to add ings dirctly
         backButton= findViewById(R.id.back_button)
-
+        IngArray = resources.getStringArray(R.array.Ingredients)
+        quanArray= resources.getStringArray(R.array.Quantities)
 
 
 
@@ -93,7 +98,7 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
                 launchGallery()
             }
             R.id.addIngredient -> {
-                addIngrediants()
+                takeIngredients()
 
             }
             R.id.publishRecipe->{
@@ -109,21 +114,48 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
         }
     }
 
-    private fun addIngrediants() {
+    private fun takeIngredients() {
+        var Ing:String=Main_IngredientNames.selectedItem.toString()
+        var unit:String=Main_unit.selectedItem.toString()
+        var quantity=Main_quantity.text.toString()
+        if (quantity.isEmpty())
+            Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
+        else {
+            var ingIndex= findIndex(IngArray,Ing)
+            var unitIndex= findIndex(quanArray,unit)
+            addIngrediants(ingIndex, unitIndex, quantity)
+        }
+
+
+
+    }
+
+    private fun addIngrediants(ing: Int, unit: Int, quantity: String) {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val rowView: View = inflater.inflate(R.layout.field, null)
+        rowView.unit.setSelection(unit)
+        rowView.IngredientNames.setSelection(ing)
+        rowView.quantity.setText(quantity)
 
-        if (main.getChildCount()==0){
             main.addView(rowView, main.getChildCount())
+            setAddtoDefault()
+
+
+    }
+
+    private fun setAddtoDefault() {
+        Main_unit.setSelection(0)
+        Main_IngredientNames.setSelection(0)
+        Main_quantity.setText("")
+    }
+
+    private fun findIndex(dataArray: Array<String>, item: String): Int {
+        for (i in dataArray.indices) {
+            if (dataArray[i] == item) {
+                return i
+            }
         }
-        else if (main.get(main.getChildCount()-1).quantity.text.toString().isEmpty())
-            Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
-        else
-            main.addView(rowView, main.getChildCount())
-
-
-
-
+        return -1
     }
 
     private fun getIngrediants(recipeID:String) {

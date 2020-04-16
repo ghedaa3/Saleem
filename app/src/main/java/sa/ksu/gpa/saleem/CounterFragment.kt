@@ -97,12 +97,12 @@ class CounterFragment(position: Int, date: String) : Fragment(), SensorEventList
         simpleStepDetector!!.registerListener(this)
 
 
-        db.collection("users")
+        db.collection("Users")
             .document(valcurrentuser)//test user
             .addSnapshotListener { documentSnapshot: DocumentSnapshot?, firebaseFirestoreException: FirebaseFirestoreException? ->
                 if (documentSnapshot != null) {
                     var neededcal = documentSnapshot?.get("needed cal")
-                    totalcal = neededcal as Double
+                    totalcal = neededcal.toString().toDouble()
 
                     tv_main_number1.setText("${totalcal.toInt()}")
                     pb_counter1.progress = remainderCal.toInt()

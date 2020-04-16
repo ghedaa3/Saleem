@@ -209,7 +209,7 @@
         android:layout_gravity="center"/>
 
 
-    -<LinearLayout
+    <LinearLayout
     android:orientation="vertical"
     android:layout_height="wrap_content"
     android:layout_width="match_parent">
@@ -222,6 +222,51 @@
         android:layout_marginTop="10dp"
         android:text="المقادير"
         android:textStyle="bold"> </TextView>
+    <LinearLayout
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:id="@+id/linearinsidemain"
+        xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:android="http://schemas.android.com/apk/res/android">
+
+        <pl.utkala.searchablespinner.SearchableSpinner
+            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:id="@+id/Main_IngredientNames"
+            app:dialogTitle="اختر المقدار"
+            app:closeText="إلغاء"
+            android:entries="@array/Ingredients"
+            android:layout_weight="3"
+            android:layout_marginLeft="30dp"/>
+
+        <Spinner
+            android:layout_height="30dp"
+            android:layout_width="0dp"
+            android:id="@+id/Main_unit"
+            android:entries="@array/Quantities"
+            android:layout_weight="3"
+            android:layout_marginLeft="50dp">
+        </Spinner>
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:id="@+id/Main_quantity"
+            android:layout_weight="2"
+            android:background="@drawable/border"
+            android:gravity="center"
+            android:hint="100"
+            android:inputType="number"
+            android:backgroundTint="#227A6F6F"/>
+
+        <Button
+            android:id="@+id/addIngredient"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_weight="1"
+            android:background="@android:drawable/ic_input_add"
+            />
+    </LinearLayout>
 
     <LinearLayout
         android:orientation="vertical"
@@ -230,18 +275,7 @@
         android:id="@+id/main">
     </LinearLayout>
 
-    <Button android:layout_height="50dp"
-        android:layout_width="100dp"
-        android:gravity="center"
-        android:background="@drawable/border"
-        android:id="@+id/addIngredient"
-        android:alpha="0.5"
-        android:backgroundTint="#59E7A2"
-        android:layout_gravity="center"
-        android:layout_marginTop="5dp"
-        android:textColor="#F8F8F8"
-        android:textStyle="bold"
-        android:text="إضافة"/>
+
 
 </LinearLayout>
 

@@ -58,6 +58,7 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
 
 
         val userUid = FirebaseAuth.getInstance().currentUser!!.uid
+        Log.d("pro","ID:"+userUid)
 
 
         Log.d(registerFourActivity.TAG, "kkkkkkkkkkkkkkkkkkkkk"+userUid)
@@ -65,7 +66,7 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
 
         val db = FirebaseFirestore.getInstance()
 
-        val docRef = db.collection("users").document(userUid)
+        val docRef = db.collection("Users").document(userUid)
 
         docRef.get().addOnSuccessListener { document ->
             if (document != null) {
@@ -81,7 +82,7 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
 
                 Log.d(registerFourActivity.TAG, "kkkkkkkkkkkkkkkkkkkkk"+userUid+name+wight)
 
-                val weight=wight.toString().toDouble()
+                val weight=wight.toDouble()
                 val length=hight.toString().toDouble()
 
                 val goalll = document.get("goal").toString()

@@ -14,16 +14,14 @@ import android.widget.*
 import androidx.core.view.get
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlinx.android.synthetic.main.activity_share_recipe_first.*
 import kotlinx.android.synthetic.main.field.view.*
-import kotlinx.android.synthetic.main.info_dynamic_ingredients.view.*
 import pl.utkala.searchablespinner.SearchableSpinner
 import java.io.IOException
-import java.util.*
 import kotlin.collections.ArrayList
 
 class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
@@ -186,19 +184,23 @@ class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
 
 
     }
-    private fun addIngrediants() {
+    private fun addIngrediants(ingIndex: Int, unitIndex: Int, quantity: String) {
         val inflater = getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val rowView: View = inflater.inflate(R.layout.field, null)
+        rowView.unit.setSelection(unitIndex)
+        rowView.IngredientNames.setSelection(ingIndex)
+        rowView.quantity.setText(quantity)
 
-        if (recipeIngLayout.getChildCount()==0){
-            recipeIngLayout.addView(rowView, recipeIngLayout.getChildCount())
-        }
-        else if (recipeIngLayout.get(recipeIngLayout.getChildCount()-1).quantity.text.toString().isEmpty())
-            Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
-        else
-            recipeIngLayout.addView(rowView, recipeIngLayout.getChildCount())
-
+        recipeIngLayout.addView(rowView, recipeIngLayout.getChildCount())
+        setAddtoDefault()
     }
+
+    private fun setAddtoDefault() {
+        Main_unit.setSelection(0)
+        Main_IngredientNames.setSelection(0)
+        Main_quantity.setText("")
+    }
+
     private fun updateIngrediants(recipeID:String) {
         var j =key_list.size
         var i = recipeIngLayout.childCount-key_list.size
@@ -330,7 +332,8 @@ class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
                 launchGallery()
             }
             R.id.addIngredient -> {
-                addIngrediants()
+                takeIngredients()
+
             }
             R.id.publishRecipe->{
 
@@ -350,6 +353,20 @@ class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
 
             }
         }
+    }
+
+    private fun takeIngredients() {
+        var Ing:String=Main_IngredientNames.selectedItem.toString()
+        var unit:String=Main_unit.selectedItem.toString()
+        var quantity=Main_quantity.text.toString()
+        if (quantity.isEmpty())
+            Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
+        else {
+            var ingIndex= findIndex(IngArray,Ing)
+            var unitIndex= findIndex(quanArray,unit)
+            addIngrediants(ingIndex, unitIndex, quantity)
+        }
+
     }
 
     private fun launchGallery() {
