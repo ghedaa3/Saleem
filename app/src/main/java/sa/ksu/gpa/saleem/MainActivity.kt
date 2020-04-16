@@ -32,7 +32,9 @@ import kotlinx.android.synthetic.main.advice_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import sa.ksu.gpa.saleem.Timer.TimerSettings
+import sa.ksu.gpa.saleem.exercise.ExerciseActivity
 import sa.ksu.gpa.saleem.exercise.ExerciseFragment
+import sa.ksu.gpa.saleem.exercise.ExerciseListActivity
 import sa.ksu.gpa.saleem.recipe.ShareRecipeFirst
 import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity
 import java.util.ArrayList
@@ -44,6 +46,7 @@ class MainActivity : AppCompatActivity() {
     private var addExcercize: Button? = null
     private lateinit var db:FirebaseFirestore
     private var counter=0
+    lateinit var speedDialView:SpeedDialView
    val currentuser = "Kgr3rhDXC2kNuq5syHsm"
     val currentuser1 = FirebaseAuth.getInstance().currentUser?.uid
 
@@ -54,18 +57,20 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         db= FirebaseFirestore.getInstance()
+        loadFragment(HomeFragment())
         bottomNavigation.setOnNavigationItemSelectedListener {
             when(it.itemId){
                 R.id.home-> {
                     title="الرئيسية"
                     loadFragment(HomeFragment())
+                    speedDialView.visibility = View.VISIBLE
                     return@setOnNavigationItemSelectedListener true
                 }
 
                 R.id.profile-> {
                     title="الاعدادات"
                     loadFragment(SettingFragment())
-
+                    speedDialView.visibility = View.GONE
                     return@setOnNavigationItemSelectedListener true
                 }
                 R.id.meals-> {
@@ -80,7 +85,8 @@ class MainActivity : AppCompatActivity() {
                 R.id.exercise-> {
                     title = "التمارين"
 
-                    loadFragment(ExerciseFragment())
+                    val intent = Intent(this@MainActivity, ExerciseListActivity::class.java)
+                    startActivity(intent)
 
                     return@setOnNavigationItemSelectedListener true
                 }
@@ -92,7 +98,7 @@ class MainActivity : AppCompatActivity() {
         showAddAdvice()
          ubdateBurntCaloris()
         Log.d("main","ID"+currentuser)
-        val speedDialView = findViewById<SpeedDialView>(R.id.speedDial)
+         speedDialView = findViewById<SpeedDialView>(R.id.speedDial)
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10009, R.drawable.ic_scan)
                 .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.purble, getTheme()))
@@ -173,9 +179,9 @@ class MainActivity : AppCompatActivity() {
 
      
         // set on-click listener
-        addWaterBtn.setOnClickListener {
-            addWater()
-        }
+    //    addWaterBtn.setOnClickListener {
+         //   addWater()
+        //}
 
         speedDialView.setOnChangeListener(object : SpeedDialView.OnChangeListener {
             override fun onMainActionSelected(): Boolean {
@@ -366,6 +372,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun ubdateBurntCaloris() {
+        /*
         db.collection("Users").document(currentuser).get().addOnSuccessListener {
             if (it.get("burntCalories")!=0)
                 burnt_calories_textview.text=it.get("burntCalories").toString()
@@ -373,6 +380,8 @@ class MainActivity : AppCompatActivity() {
                 burnt_calories_textview.text="0"
 
         }
+        */
+
     }
 
     private fun makeRequest() {

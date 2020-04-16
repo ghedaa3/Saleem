@@ -50,6 +50,8 @@ class RecipesAdapter(var context:Context, var arrayList:ArrayList<RecipeModel>):
             var intent = Intent(context, sharedRecipeInformaion::class.java)
             intent.putExtra("RecipeId",holder.recipeId)
 
+
+
             context.startActivity(intent)
         }
     }

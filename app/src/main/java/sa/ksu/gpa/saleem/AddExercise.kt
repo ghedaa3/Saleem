@@ -15,6 +15,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlinx.android.synthetic.main.activity_exercise_fragment.view.*
 import kotlinx.android.synthetic.main.testdesign.*
 import pl.utkala.searchablespinner.SearchableSpinner
 import java.io.IOException
@@ -32,6 +33,8 @@ class AddExercise : AppCompatActivity(), View.OnClickListener{
 
 
     private lateinit var calories: EditText
+
+    private lateinit var duration: EditText
 
     private lateinit var uri:String
     private lateinit var backButton: ImageView
@@ -51,6 +54,7 @@ class AddExercise : AppCompatActivity(), View.OnClickListener{
         publishRecipe = findViewById(R.id.publishRecipe)
         nameRecipe = findViewById(R.id.Recipename)
         calories=findViewById(R.id.calories)
+        duration=findViewById(R.id.duration)
 
 
         backButton= findViewById(R.id.back_button)
@@ -126,6 +130,7 @@ class AddExercise : AppCompatActivity(), View.OnClickListener{
         var exerciseID:String=""
         var name:String =nameRecipe!!.text.toString()
         var cal:Double=calories!!.text.toString().toDouble()
+        var dur:Double=duration!!.text.toString().toDouble()
 
         val userUid = FirebaseAuth.getInstance().currentUser!!.uid
         var urii:String=uri!!.toString()
@@ -136,7 +141,8 @@ class AddExercise : AppCompatActivity(), View.OnClickListener{
             "UID" to currentuser,
             "image" to uri,
             "name" to name,
-            "calories" to cal
+            "calories" to cal,
+            "duraion" to dur
 
         )
  /*       val NumberOfCaloriesDoc = db.collection("Users").document(currentuser)

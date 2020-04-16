@@ -29,7 +29,7 @@ class ExerciseAdapter(var context:Context, var arrayList:ArrayList<ExerciseModel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val viewHolder = LayoutInflater.from(parent.context)
-                .inflate(R.layout.sharedrecipe_cardview, parent, false)
+                .inflate(R.layout.exercise_cardview, parent, false)
         return ItemHolder(viewHolder)
     }
 
@@ -44,17 +44,21 @@ class ExerciseAdapter(var context:Context, var arrayList:ArrayList<ExerciseModel
         holder.exerciseCalories3.text=exercise.exerciseCalories
         holder.exerciseId=exercise.exerciseId
 
+
         holder.itemView.setOnClickListener {
-           if(holder.exerciseId=="Phone"){
+
 
                var intent = Intent(context, InnerExercise::class.java)
 
                intent.putExtra("ExerciseId",holder.exerciseId)
                intent.putExtra("ExerciseCal",holder.exerciseCalories3.text.toString())
                intent.putExtra("ExerciseTitle",holder.exerciseTitle2.text.toString())
+               intent.putExtra("pic",holder.exerciseImage1.toString())
+
+               intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
                context.startActivity(intent)
-           }
+
 
             if(holder.exerciseId=="Watch"){
 
@@ -64,6 +68,7 @@ class ExerciseAdapter(var context:Context, var arrayList:ArrayList<ExerciseModel
                 intent.putExtra("ExerciseCal",holder.exerciseCalories3.text.toString())
                 intent.putExtra("ExerciseTitle",holder.exerciseTitle2.text.toString())
 
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 context.startActivity(intent)
             }
 

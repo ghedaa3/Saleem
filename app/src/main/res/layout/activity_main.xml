@@ -26,8 +26,7 @@
         app:sdMainFabClosedBackgroundColor="#4F329A"
         android:layout_alignParentRight="true" />
     <!--    <include layout="@layout/home_fragment" />-->
-    <fragment
-        android:name="sa.ksu.gpa.saleem.HomeFragment"
+    <FrameLayout
         android:id="@+id/fooFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />

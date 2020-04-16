@@ -13,6 +13,10 @@
 
     </style>
 
+    <style name="CardViewStyle" parent="CardView">
+        <item name="color">#d9edf7</item>
+    </style>
+
     <style name="splashTheme" parent="Theme.AppCompat.Light.NoActionBar">
     </style>
 

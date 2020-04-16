@@ -121,7 +121,7 @@
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
             android:orientation="horizontal"
-            android:id="@+id/add_dinner"
+            android:id="@+id/advices"
             >
 
 

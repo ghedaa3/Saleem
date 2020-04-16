@@ -43,6 +43,7 @@ class HomeFragment : Fragment() {
     var remainderCal = 0.0
     var previousDaysCount = 0
     var history_Id = ""
+    var currentuser = ""
     private lateinit var pagerAdapter: PagerAdapter
     private lateinit var date: String
     lateinit var dialog:ProgressDialog
@@ -89,10 +90,10 @@ class HomeFragment : Fragment() {
         view.findViewById<LinearLayout>(R.id.add_dinner).setOnClickListener { addFood() }
         view.findViewById<LinearLayout>(R.id.add_snack).setOnClickListener { addFood() }
         db= FirebaseFirestore.getInstance()
-        val currentuser = FirebaseAuth.getInstance().currentUser?.uid
+        currentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
-//        val burntCalories = db.collection("Users").document(currentuser)
-//        val burntCalories = db.collection("Users")
+//        val burntCalories = db.collection("users").document(currentuser)
+//        val burntCalories = db.collection("users")
 //            .document("ckS3vhq8P8dyOeSI7CE7D4RgMiv1")//test user
 //            .addSnapshotListener(EventListener(){ documentSnapshot: DocumentSnapshot?, firebaseFirestoreException: FirebaseFirestoreException? ->
 //                var neededcal = documentSnapshot?.getDouble("needed cal")
@@ -109,14 +110,14 @@ class HomeFragment : Fragment() {
 //            })
         db.collection("History")
             .whereEqualTo("date",getCurrentDate())
-            .whereEqualTo("user_id","ckS3vhq8P8dyOeSI7CE7D4RgMiv1")
+            .whereEqualTo("user_id",currentuser)
             .get().addOnSuccessListener { documents ->
                 if(documents.isEmpty){
                     val data = hashMapOf(
                         "cal" to remainderCal,
                         "date" to getCurrentDate(),
                         "steps_count" to 1,
-                        "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1"
+                        "user_id" to currentuser
                     )
                     db.collection("History").document().set(data).addOnSuccessListener {
                         for (document in documents) {
@@ -229,7 +230,7 @@ class HomeFragment : Fragment() {
                     "type" to "unDetailed",
                     "foods" to ArrayList<AddFoodActivity.Item>(),
                     "date" to getCurrentDate(),
-                    "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1",
+                    "user_id" to currentuser,
                     "cal_of_food" to burntStringData.toInt()
                 )
                 showLoadingDialog()
@@ -296,7 +297,7 @@ class HomeFragment : Fragment() {
         val data = hashMapOf(
             "cal" to remainderCal,
             "date" to getCurrentDate(),
-            "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1"
+            "user_id" to currentuser
         )
         if (!history_Id.equals(""))
             db.collection("History").document(history_Id).update(data as Map<String, Any>);
