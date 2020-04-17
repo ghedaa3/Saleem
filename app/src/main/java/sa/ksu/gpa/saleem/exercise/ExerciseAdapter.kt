@@ -11,9 +11,11 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import sa.ksu.gpa.saleem.R
 import java.util.*
 import kotlin.collections.ArrayList
+import android.R
+
+
 
 class ExerciseAdapter(var context:Context, var arrayList:ArrayList<ExerciseModel>):
         RecyclerView.Adapter<ExerciseAdapter.ItemHolder>(), Filterable {
@@ -29,7 +31,7 @@ class ExerciseAdapter(var context:Context, var arrayList:ArrayList<ExerciseModel
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemHolder {
         val viewHolder = LayoutInflater.from(parent.context)
-                .inflate(R.layout.exercise_cardview, parent, false)
+                .inflate(sa.ksu.gpa.saleem.R.layout.exercise_cardview, parent, false)
         return ItemHolder(viewHolder)
     }
 
@@ -43,6 +45,8 @@ class ExerciseAdapter(var context:Context, var arrayList:ArrayList<ExerciseModel
         holder.exerciseTitle2.text=exercise.exerciseTitle
         holder.exerciseCalories3.text=exercise.exerciseCalories
         holder.exerciseId=exercise.exerciseId
+        holder.exerciseDuration1.text=exercise.exerciseDuration
+        holder.getAdapterPosition();
 
 
         holder.itemView.setOnClickListener {
@@ -54,32 +58,27 @@ class ExerciseAdapter(var context:Context, var arrayList:ArrayList<ExerciseModel
                intent.putExtra("ExerciseCal",holder.exerciseCalories3.text.toString())
                intent.putExtra("ExerciseTitle",holder.exerciseTitle2.text.toString())
                intent.putExtra("pic",holder.exerciseImage1.toString())
+               intent.putExtra("ExerciseDuration",holder.exerciseDuration1.text.toString())
 
                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 
                context.startActivity(intent)
 
 
-            if(holder.exerciseId=="Watch"){
-
-                var intent = Intent(context, InnerExercise::class.java)
-
-                intent.putExtra("ExerciseId",holder.exerciseId)
-                intent.putExtra("ExerciseCal",holder.exerciseCalories3.text.toString())
-                intent.putExtra("ExerciseTitle",holder.exerciseTitle2.text.toString())
-
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-                context.startActivity(intent)
-            }
-
         }
+    }
+
+    interface RecyclerViewClickListener {
+
+        fun onClick(view: View, position: Int)
     }
     class ItemHolder(itemView: View):RecyclerView.ViewHolder(itemView){
 
 
-        var exerciseImage1 = itemView.findViewById<ImageView>(R.id.recipe_image)
-        var exerciseTitle2= itemView.findViewById<TextView>(R.id.recipe_title) as TextView
-        var exerciseCalories3= itemView.findViewById<TextView>(R.id.recipe_calories) as TextView
+        var exerciseImage1 = itemView.findViewById<ImageView>(sa.ksu.gpa.saleem.R.id.recipe_image)
+        var exerciseTitle2= itemView.findViewById<TextView>(sa.ksu.gpa.saleem.R.id.recipe_title) as TextView
+        var exerciseCalories3= itemView.findViewById<TextView>(sa.ksu.gpa.saleem.R.id.recipe_calories) as TextView
+        var exerciseDuration1= itemView.findViewById<TextView>(sa.ksu.gpa.saleem.R.id.exercise_duration) as TextView
         lateinit var  exerciseId:String
 
 

@@ -1,342 +1,221 @@
 package sa.ksu.gpa.saleem.exercise
 
-import android.app.AlarmManager
-import android.app.PendingIntent
-import android.content.Context
+
 import android.content.Intent
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.View
+import android.widget.Button
 import android.widget.TextView
-import androidx.annotation.RequiresApi
+import androidx.appcompat.app.AppCompatActivity
 import com.bumptech.glide.Glide
-import sa.ksu.gpa.saleem.util.NotificationUtil
-import kotlinx.android.synthetic.main.activity_inner_exercise.*
-import kotlinx.android.synthetic.main.content_timer.*
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.testdesign.*
 import pl.droidsonroids.gif.GifImageView
 import sa.ksu.gpa.saleem.R
-import sa.ksu.gpa.saleem.util.PrefUtil
-import java.util.*
 
-class InnerExercise : AppCompatActivity(),View.OnClickListener  {
+import kotlin.properties.Delegates
+import androidx.core.app.ComponentActivity.ExtraData
+import androidx.core.content.ContextCompat.getSystemService
+import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.util.Log
+import android.widget.Toast
+import com.google.firebase.firestore.FieldValue
+import kotlinx.android.synthetic.main.home_fragment.*
+import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity
 
+
+class InnerExercise : AppCompatActivity(),View.OnClickListener {
+
+    lateinit var userUid: String
+    var storage = FirebaseStorage.getInstance()
+    var firebaseFirestore = FirebaseFirestore.getInstance()
+
+    private val mAuth: FirebaseAuth? = null
+
+    private val TAG = "exercise"
+
+
+ /*   private lateinit var timer1: CountDownTimer
+    private var t by Delegates.notNull<Long>()*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
+
+
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_inner_exercise)
-//        setSupportActionBar(toolbar)
-//        supportActionBar?.setIcon(R.drawable.ic_timer)
-//        supportActionBar?.title = "      المؤقت"
+        setContentView(sa.ksu.gpa.saleem.R.layout.activity_inner_exercise)
 
-        fab_start.setOnClickListener{v ->
-            startTimer()
-            timerState =  TimerState.Running
-            updateButtons()
+        val userUid = FirebaseAuth.getInstance().currentUser!!.uid
+        val db = FirebaseFirestore.getInstance()
+        var time = findViewById<View>(sa.ksu.gpa.saleem.R.id.timer) as TextView
+
+        var btn= findViewById(R.id.start) as Button
+
+        val docRef = db.collection("exercise").document(userUid)
+
+
+
+
+
+        var Exercisetitle = findViewById<View>(sa.ksu.gpa.saleem.R.id.title) as TextView
+
+         var calT = findViewById<View>(sa.ksu.gpa.saleem.R.id.cal) as TextView
+
+
+        var backImg = findViewById<View>(sa.ksu.gpa.saleem.R.id.back_button)
+
+
+        var giff = findViewById<View>(sa.ksu.gpa.saleem.R.id.gif) as GifImageView
+
+
+
+        btn.setOnClickListener{
+            var calories = getIntent().getStringExtra("ExerciseCal")
+            var title = getIntent().getStringExtra("ExerciseTitle")
+            var  cal= calories.toString().toDouble()
+            val userUid = FirebaseAuth.getInstance().currentUser!!.uid
+            val db = FirebaseFirestore.getInstance()
+
+
+
+
+
+            val burntCalories = db.collection("users").document(userUid)
+
+            burntCalories.update("burntCalories", FieldValue.increment(cal))
+            // adding a list of excercises
+            val docData = hashMapOf(
+                "exerciseName" to title,
+                "exerciseCalories" to cal
+
+            )
+            db.collection("users").document(userUid).collection("Exercises").document().set(docData)
+                .addOnSuccessListener {
+                    Log.d("main1","Added to collection exercise hhhhhhhhhhhhhhhhhh")
+                    Toast.makeText(this, "hhhhhhhhhhhhhتمت اضافة التمرين", Toast.LENGTH_LONG).show()
+
+                }.addOnFailureListener {
+                    Log.d("main1","not Added to collectionhhhhhhh"+it)
+                    Toast.makeText(this, "حصل خطأ", Toast.LENGTH_LONG).show()
+
+
+                }
+
+            ubdateBurntCaloris()
+            finish()
+
         }
-
-        fab_pause.setOnClickListener { v ->
-            timer.cancel()
-            timerState = TimerState.Paused
-            updateButtons()
-        }
-
-        fab_stop.setOnClickListener { v ->
-            timer.cancel()
-            onTimerFinished()
-        }
-
-
-        timeSettings.setOnClickListener {
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
-        }
-
-
-        var Exercisetitle = findViewById<View>(R.id.title) as TextView
-        //var calTitle = findViewById<View>(R.id.caloriesTitle) as TextView
-
-       // var cal = findViewById<View>(R.id.calories) as TextView
-       // var DTitle = findViewById<View>(R.id.durationTitle)
-
-       // var duration = findViewById<View>(R.id.duration) as TextView
-        var backImg = findViewById<View>(R.id.back_button)
-
-
-        var giff=findViewById<View>(R.id.gif) as GifImageView
 
         backImg.setOnClickListener(this)
+
+
 
         var id = getIntent().getStringExtra("ExerciseId")
         var calories = getIntent().getStringExtra("ExerciseCal")
         var title = getIntent().getStringExtra("ExerciseTitle")
+        var duration = getIntent().getStringExtra("ExerciseDuration")
 
+        //   val num = duration.filter { it.isDigit() }
+        //   val num1 = parseLong(num)
+        Log.d("main1","not Added to collectionhhhhhhh"+duration)
         Exercisetitle.setText(title)
+        time.setText(duration)
+
+        calT.setText(calories+"سعرة محروقة")
         //cal.setText(calories)
 
-        if (id=="Watch"){
+        if (id == "Watch") {
 
 
             //giff.setBytes(bitmapData);
 
             Glide.with(this)
-                .load(R.drawable.set_up)
+                .load(sa.ksu.gpa.saleem.R.drawable.set_up)
                 .into(giff);
 
 
-           // duration.setText("10 دقائق")
 
         }
-        if (id=="Phone"){
+        if (id == "Phone") {
 
             Glide.with(this)
-                .load(R.drawable.push_up)
+                .load(sa.ksu.gpa.saleem.R.drawable.push_up)
                 .into(giff);
-
-
-           // duration.setText("20 دقائق")
 
 
 
         }
 
 
-        if (id=="1"){
+        if (id == "1") {
 
             //الجلوس المعدل
 
             Glide.with(this)
-                .load(R.drawable.warm_up)
+                .load(sa.ksu.gpa.saleem.R.drawable.warm_up)
                 .into(giff);
 
-
-            // duration.setText("20 دقائق")
 
 
 
         }
-      if (id=="2"){
+        if (id == "2") {
 
             Glide.with(this)
-                .load(R.drawable.man_liftting_dumbells)
+                .load(sa.ksu.gpa.saleem.R.drawable.man_liftting_dumbells)
                 .into(giff);
-
-
-            // duration.setText("20 دقائق")
 
 
 
         }
-      if (id=="3"){
+        if (id == "3") {
 
             Glide.with(this)
-                .load(R.drawable.man_jogging)
+                .load(sa.ksu.gpa.saleem.R.drawable.man_jogging)
                 .into(giff);
 
-
-            // duration.setText("20 دقائق")
 
 
 
         }
 
-        var gif = findViewById<View>(R.id.recipe_image)
+        var gif = findViewById<View>(sa.ksu.gpa.saleem.R.id.recipe_image)
     }
 
     override fun onClick(v: View?) {
         when (v?.id) {
-            R.id.back_button -> {
+            sa.ksu.gpa.saleem.R.id.back_button -> {
                 finish()
             }
+         /*   sa.ksu.gpa.saleem.R.id.start ->{
+
+
+
+
+
+            }*/
 
             else -> {
             }
 
         }
     }
+    private fun ubdateBurntCaloris() {
 
+        val userUid = FirebaseAuth.getInstance().currentUser!!.uid
+        val db = FirebaseFirestore.getInstance()
+        db.collection("users").document(userUid).get().addOnSuccessListener {
+            if (it.get("burntCalories")!=0)
+                burnt_calories_textview?.text=it.get("burntCalories").toString()
+            else
+                burnt_calories_textview?.text="0"
 
-    companion object {
-        @RequiresApi(Build.VERSION_CODES.KITKAT)
-        fun setAlarm(context: Context, nowSeconds: Long, secondsRemaining: Long): Long{
-            val wakeUpTime = (nowSeconds + secondsRemaining) * 1000
-            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            val intent = Intent(context, TimerExpiredReceiver::class.java)
-            val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
-            alarmManager.setExact(AlarmManager.RTC_WAKEUP, wakeUpTime, pendingIntent)
-            PrefUtil.setAlarmSetTime(nowSeconds, context)
-            return wakeUpTime
-        }
-
-        fun removeAlarm(context: Context){
-            val intent = Intent(context, TimerExpiredReceiver::class.java)
-            val pendingIntent = PendingIntent.getBroadcast(context, 0, intent, 0)
-            val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
-            alarmManager.cancel(pendingIntent)
-            PrefUtil.setAlarmSetTime(0, context)
-        }
-
-        val nowSeconds: Long
-            get() = Calendar.getInstance().timeInMillis / 1000
-    }
-
-    enum class TimerState{
-        Stopped, Paused, Running
-    }
-
-    private lateinit var timer: CountDownTimer
-    private var timerLengthSeconds: Long = 0
-    private var timerState = TimerState.Stopped
-
-    private var secondsRemaining: Long = 0
-
-
-
-    override fun onResume() {
-        super.onResume()
-
-        initTimer()
-
-        removeAlarm(this)
-        NotificationUtil.hideTimerNotification(this)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.KITKAT)
-    override fun onPause() {
-        super.onPause()
-
-        if (timerState == TimerState.Running){
-            timer.cancel()
-            val wakeUpTime = setAlarm(this, nowSeconds, secondsRemaining)
-            NotificationUtil.showTimerRunning(this, wakeUpTime)
-        }
-        else if (timerState == TimerState.Paused){
-            NotificationUtil.showTimerPaused(this)
-        }
-
-        PrefUtil.setPreviousTimerLengthSeconds(timerLengthSeconds, this)
-        PrefUtil.setSecondsRemaining(secondsRemaining, this)
-        PrefUtil.setTimerState(timerState, this)
-    }
-
-    private fun initTimer(){
-        timerState = PrefUtil.getTimerState(this)
-
-        //we don't want to change the length of the timer which is already running
-        //if the length was changed in settings while it was backgrounded
-        if (timerState == TimerState.Stopped)
-            setNewTimerLength()
-        else
-            setPreviousTimerLength()
-
-        secondsRemaining = if (timerState == TimerState.Running || timerState == TimerState.Paused)
-            PrefUtil.getSecondsRemaining(this)
-        else
-            timerLengthSeconds
-
-        val alarmSetTime = PrefUtil.getAlarmSetTime(this)
-        if (alarmSetTime > 0)
-            secondsRemaining -= nowSeconds - alarmSetTime
-
-        if (secondsRemaining <= 0)
-            onTimerFinished()
-        else if (timerState == TimerState.Running)
-            startTimer()
-
-        updateButtons()
-        updateCountdownUI()
-    }
-
-    private fun onTimerFinished(){
-        timerState = TimerState.Stopped
-
-        //set the length of the timer to be the one set in SettingsActivity
-        //if the length was changed when the timer was running
-        setNewTimerLength()
-
-        progress_countdown.progress = 0
-
-        PrefUtil.setSecondsRemaining(timerLengthSeconds, this)
-        secondsRemaining = timerLengthSeconds
-
-        updateButtons()
-        updateCountdownUI()
-    }
-
-    private fun startTimer(){
-        timerState = TimerState.Running
-
-        timer = object : CountDownTimer(secondsRemaining * 1000, 1000) {
-            override fun onFinish() = onTimerFinished()
-
-            override fun onTick(millisUntilFinished: Long) {
-                secondsRemaining = millisUntilFinished / 1000
-                updateCountdownUI()
-            }
-        }.start()
-    }
-
-    private fun setNewTimerLength(){
-        val lengthInMinutes = PrefUtil.getTimerLength(this)
-        timerLengthSeconds = (lengthInMinutes * 60L)
-        progress_countdown.max = timerLengthSeconds.toInt()
-    }
-
-    private fun setPreviousTimerLength(){
-        timerLengthSeconds = PrefUtil.getPreviousTimerLengthSeconds(this)
-        progress_countdown.max = timerLengthSeconds.toInt()
-    }
-
-    private fun updateCountdownUI(){
-        val minutesUntilFinished = secondsRemaining / 60
-        val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60
-        val secondsStr = secondsInMinuteUntilFinished.toString()
-        textView_countdown.text = "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
-        progress_countdown.progress = (timerLengthSeconds - secondsRemaining).toInt()
-    }
-
-    private fun updateButtons(){
-        when (timerState) {
-            TimerState.Running ->{
-                fab_start.isEnabled = false
-                fab_pause.isEnabled = true
-                fab_stop.isEnabled = true
-            }
-            TimerState.Stopped -> {
-                fab_start.isEnabled = true
-                fab_pause.isEnabled = false
-                fab_stop.isEnabled = false
-            }
-            TimerState.Paused -> {
-                fab_start.isEnabled = true
-                fab_pause.isEnabled = false
-                fab_stop.isEnabled = true
-            }
         }
     }
-
-
-//    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-//        // Inflate the menu; this adds items to the action bar if it is present.
-//        menuInflater.inflate(R.menu.menu_timer, menu)
-//        return true
-//    }
-//
-//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        // Handle action bar item clicks here. The action bar will
-//        // automatically handle clicks on the Home/Up button, so long
-//        // as you specify a parent activity in AndroidManifest.xml.
-//        return when (item.itemId) {
-//            R.id.exercise_settings -> {
-//                val intent = Intent(this, SettingsActivity::class.java)
-//                startActivity(intent)
-//                true
-//            }
-//            else -> super.onOptionsItemSelected(item)
-//        }
-//    }
 }
+
 
 
 
