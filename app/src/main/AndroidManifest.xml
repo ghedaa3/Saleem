@@ -17,15 +17,6 @@
         <activity android:name=".util.test"></activity>
         <activity android:name=".MyRecipesActivity" />
         <activity android:name=".MyExcercise" />
-
-
-
-        <activity android:name=".MyAdvicesActivity"></activity>
-
-        <activity android:name=".MyRecipesActivity" />
-        <activity android:name=".exercise.ExerciseListActivity"/>
-        <activity android:name=".exercise.ExerciseActivity"/>
-        <activity android:name=".MyExcercise" />
         <activity android:name=".AddFoodActivity" />
         <activity android:name=".recipe.SharedRecipe.viewSharedRecipeActivity" />
         <activity android:name=".MyFoodActivity" />
@@ -58,7 +49,6 @@
         </receiver>
 
         <activity android:name=".register.registerOneActivity" />
-        <activity android:name=".exercise.ExerciseActivity" />
         <activity
             android:name=".profile.Profile"
             android:parentActivityName=".MainActivity" />
@@ -69,7 +59,13 @@
         <activity android:name=".Timer.TimerSettings" />
         <activity android:name=".profile.fragmentTwo" />
         <activity android:name=".profile.fragmentOne" />
-        <activity android:name=".loginn" />
+        <activity android:name=".loginn">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".register.registerFourActivity"
             android:parentActivityName=".register.registerThreeActivity" />
@@ -77,13 +73,7 @@
             android:name=".SplashScreenActivity"
             android:noHistory="true"
             android:theme="@style/splashTheme" />
-        <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".MainActivity"></activity>
         <activity
             android:name=".register.registerThreeActivity"
             android:parentActivityName=".register.registerTwoActivity" />
