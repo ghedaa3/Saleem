@@ -1,5 +1,6 @@
 package sa.ksu.gpa.saleem.Timer
 
+import android.annotation.SuppressLint
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -9,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_timer__play.*
 import sa.ksu.gpa.saleem.R
 
 
@@ -48,6 +50,7 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
 
 
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timer__play)
@@ -84,7 +87,6 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
         timerPause.visibility = View.GONE
 
         addRoundLis()
-
 
         // Click Listener
         timerPlay.setOnClickListener(this)
@@ -214,6 +216,7 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
                 secondsRemaining = millisUntilFinished / 1000
                 updateCountdownUI()
 
+                progress_countdown.progress = (timerLengthSeconds - secondsRemaining).toInt()
 
                 if (Math.round(millisUntilFinished.toFloat() / 1000.0f) == 5)
                     playSoundWork()
@@ -260,7 +263,7 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
         val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60
         val secondsStr = secondsInMinuteUntilFinished.toString()
         timerTime.text = "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
-    //    progress_countdown.progress = (timerLengthSeconds - secondsRemaining).toInt()
+       progress_countdown.progress = (timerLengthSeconds - secondsRemaining).toInt()
     }
 
 }

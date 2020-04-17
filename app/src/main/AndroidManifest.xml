@@ -74,6 +74,11 @@
             android:noHistory="true"
             android:theme="@style/splashTheme" />
         <activity android:name=".MainActivity"></activity>
+        <activity android:name=".exercise.ExerciseListActivity">
+
+        </activity>  <activity android:name=".exercise.ExerciseActivity">
+
+        </activity>
         <activity
             android:name=".register.registerThreeActivity"
             android:parentActivityName=".register.registerTwoActivity" />
