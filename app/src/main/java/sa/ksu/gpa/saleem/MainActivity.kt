@@ -250,9 +250,19 @@ class MainActivity : AppCompatActivity() {
                 db.collection("Advices").document()
                 //advice.put("text",body) //advice["text"] = body
                 advice["text"] = body1
-                db.collection("Advices").document().set(advice)
-                Toast.makeText(this, "تمت اضافة النصيحة", LENGTH_LONG).show()
-                advicesTV.text = body1
+                //db.collection("Advices").document().set(advice)
+                if (currentuser != null) {
+                    db.collection("users").document(currentuser).collection("Advices").document().set(advice)
+                        .addOnSuccessListener {
+                            Log.d("main1","Added to collection")
+                            Toast.makeText(this, "تمت  إضافة النصيحة", LENGTH_LONG).show()
+
+                        }.addOnFailureListener {
+                            Log.d("main1","not Added to collection"+it)
+                            Toast.makeText(this, "حصل خطأ", LENGTH_LONG).show()
+                        }
+                }
+                //advicesTV.text = body1
                 mAlertDialog.dismiss()
             }
 
@@ -262,24 +272,23 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-
     }
 
     private fun showAddAdvice(){
-        //set input in TV
-        //advicesTV.text = data //advicesTV.setText("النصيحة اليومية: "+data)
-
-        db.collection("Advices")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d("exists", "${document.id} => ${document.data}")
-                    advicesTV.text = document.getString("text")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("error", "Error getting documents.", exception)
-            }
+//        //set input in TV
+//        //advicesTV.text = data //advicesTV.setText("النصيحة اليومية: "+data)
+//
+//        db.collection("Advices")
+//            .get()
+//            .addOnSuccessListener { result ->
+//                for (document in result) {
+//                    Log.d("exists", "${document.id} => ${document.data}")
+//                    advicesTV.text = document.getString("text")
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.w("error", "Error getting documents.", exception)
+//            }
 
     }
 
