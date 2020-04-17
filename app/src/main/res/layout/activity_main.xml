@@ -12,36 +12,13 @@
         android:id="@+id/overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
-    <com.leinardi.android.speeddial.SpeedDialView
-        android:id="@+id/speedDial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="80dp"
-        app:sdOverlayLayout="@id/overlay"
-        app:sdMainFabOpenedBackgroundColor="#4F329A"
-        app:sdMainFabOpenedIconColor="@color/white"
-        app:sdMainFabClosedSrc="@drawable/ic_add_black_24dp"
-        app:sdMainFabClosedBackgroundColor="#4F329A"
-        android:layout_alignParentRight="true" />
+
     <!--    <include layout="@layout/home_fragment" />-->
     <FrameLayout
         android:id="@+id/fooFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigation"
-
-        app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="labeled"
-        android:background="@color/colorLightGray"
-        app:itemIconTint="@color/bottom_nav_color"
-        app:itemTextColor="@color/bottom_nav_color"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom='true' />
 
     <FrameLayout
         android:id="@+id/frame_layout"
@@ -51,4 +28,27 @@
         android:layout_marginBottom="4dp"></FrameLayout>
 
 
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNavigation"
+        app:menu="@menu/bottom_nav_menu"
+        app:labelVisibilityMode="labeled"
+        android:background="@color/colorLightGray"
+        app:itemIconTint="@color/bottom_nav_color"
+        app:itemTextColor="@color/bottom_nav_color"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom='true' />
+    <com.leinardi.android.speeddial.SpeedDialView
+        android:id="@+id/speedDial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="80dp"
+
+        app:sdOverlayLayout="@id/overlay"
+        app:sdMainFabOpenedBackgroundColor="#4F329A"
+        app:sdMainFabOpenedIconColor="@color/white"
+        app:sdMainFabClosedSrc="@drawable/ic_add_black_24dp"
+        app:sdMainFabClosedBackgroundColor="#4F329A"
+        android:layout_alignParentRight="true" />
 </RelativeLayout>

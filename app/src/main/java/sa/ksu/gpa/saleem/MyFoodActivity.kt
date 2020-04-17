@@ -45,7 +45,9 @@ class MyFoodActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
-
+        back_button.setOnClickListener{
+            onBackPressed()
+        }
         getMyFoodsData()
 
     }

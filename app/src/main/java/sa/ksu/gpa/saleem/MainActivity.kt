@@ -388,6 +388,10 @@ class MainActivity : AppCompatActivity() {
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA),CAMERA_REQUEST_CODE)
     }
 
+    override fun onResume() {
+        super.onResume()
+        speedDialView.visibility =View.VISIBLE
+    }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             CAMERA_REQUEST_CODE -> {
