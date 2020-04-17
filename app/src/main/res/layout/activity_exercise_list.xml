@@ -61,7 +61,7 @@
                 android:layout_width="108dp"
                 android:layout_height="89dp"
                 android:layout_margin="8dp"
-                android:src="@drawable/low_battery" />
+                android:src="@drawable/beginner_medal" />
 
 
             <TextView
@@ -70,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="تمارين مبتدى "
+                android:text="مستوى مبتدى"
                 android:textColor="@color/material_blue_grey_80"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -101,7 +101,7 @@
                 android:layout_width="108dp"
                 android:layout_height="89dp"
                 android:layout_margin="8dp"
-                android:src="@drawable/battery_medium" />
+                android:src="@drawable/interm_medal" />
 
 
             <TextView
@@ -110,7 +110,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="تمارين متوسط"
+                android:text="مستوى متوسط"
                 android:textColor="@color/material_blue_grey_80"
                 android:textSize="20dp"
                 android:textStyle="bold" />
@@ -137,7 +137,7 @@
                 android:layout_width="108dp"
                 android:layout_height="89dp"
                 android:layout_margin="8dp"
-                android:src="@drawable/high_battery" />
+                android:src="@drawable/advance_medal" />
 
 
             <TextView
@@ -146,7 +146,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="تمارين متقدم"
+                android:text="مستوى متقدم"
                 android:textColor="@color/material_blue_grey_80"
                 android:textSize="20dp"
                 android:textStyle="bold" />
