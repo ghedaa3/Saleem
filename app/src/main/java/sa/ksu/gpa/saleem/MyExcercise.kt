@@ -32,7 +32,7 @@ class MyExcercise : AppCompatActivity() {
     var cal : Double = 0.0
     var key_list:ArrayList<String> = ArrayList()
     var list:ArrayList<MyExcersie> = ArrayList()
-    val currentuser = FirebaseAuth.getInstance().currentUser?.uid
+    val currentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,11 +44,12 @@ class MyExcercise : AppCompatActivity() {
         getExcerciseData()
         //TODO(get currrent user id)
 
+
     }
 
     private fun getExcerciseData() {
 
-        db.collection("Users").document("Kgr3rhDXC2kNuq5syHsm").collection("Exercises").
+        db.collection("users").document(currentuser).collection("Exercises").
          get().addOnSuccessListener{ documents ->
             for(document in documents){
                 key_list.add(document.id)
@@ -99,7 +100,7 @@ class MyExcercise : AppCompatActivity() {
         list.removeAt(position)
         key_list.removeAt(position)
         adapter.notifyDataSetChanged()
-        db.collection("Users").document("Kgr3rhDXC2kNuq5syHsm").collection("Exercises").document(key).delete()
+        db.collection("users").document(currentuser).collection("Exercises").document(key).delete()
             .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully deleted!") }
             .addOnFailureListener { e -> Log.w("TAG", "Error deleting document", e) }
 
@@ -141,7 +142,7 @@ class MyExcercise : AppCompatActivity() {
                 )
 
 
-                db.collection("Users").document("Kgr3rhDXC2kNuq5syHsm").collection("Exercises").document(key)
+                db.collection("users").document(currentuser).collection("Exercises").document(key)
                     .set(data1, SetOptions.merge())
 
                 mAlertDialog?.dismiss()
