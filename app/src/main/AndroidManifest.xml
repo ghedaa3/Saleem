@@ -16,6 +16,7 @@
         <activity android:name=".EditMyRecipe"></activity>
         <activity android:name=".util.test"></activity>
         <activity android:name=".MyRecipesActivity" />
+        <activity android:name=".MyAdvicesActivity"></activity>
         <activity android:name=".MyExcercise" />
         <activity android:name=".AddFoodActivity" />
         <activity android:name=".recipe.SharedRecipe.viewSharedRecipeActivity" />
@@ -23,30 +24,7 @@
         <activity android:name=".recipe.sharedRecipeInformaion" />
         <activity android:name=".recipe.ShareRecipeFirst" />
         <activity android:name=".exercise.InnerExercise" />
-        <activity
-            android:name=".exercise.SettingsActivity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".exercise.InnerExercise" />
-        </activity>
-
-        <receiver
-            android:name=".exercise.TimerExpiredReceiver"
-            android:enabled="true"
-            android:exported="false" />
-        <receiver
-            android:name=".exercise.TimerNotificationActionReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="stop" />
-                <action android:name="pause" />
-                <action android:name="resume" />
-                <action android:name="start" />
-            </intent-filter>
-        </receiver>
+        <activity android:name=".exercise.ExerciseListActivity"></activity>
 
         <activity android:name=".register.registerOneActivity" />
         <activity

@@ -33,7 +33,6 @@ import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import sa.ksu.gpa.saleem.Timer.TimerSettings
 import sa.ksu.gpa.saleem.exercise.ExerciseActivity
-import sa.ksu.gpa.saleem.exercise.ExerciseFragment
 import sa.ksu.gpa.saleem.exercise.ExerciseListActivity
 import sa.ksu.gpa.saleem.recipe.ShareRecipeFirst
 import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity
@@ -47,8 +46,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db:FirebaseFirestore
     private var counter=0
     lateinit var speedDialView:SpeedDialView
-   val currentuser = "Kgr3rhDXC2kNuq5syHsm"
-    val currentuser1 = FirebaseAuth.getInstance().currentUser?.uid
+   val currentuser1 = "Kgr3rhDXC2kNuq5syHsm"
+    val currentuser = FirebaseAuth.getInstance().currentUser?.uid
 
 
 
@@ -95,7 +94,6 @@ class MainActivity : AppCompatActivity() {
             false
 
         }
-        showAddAdvice()
          ubdateBurntCaloris()
         Log.d("main","ID"+currentuser)
          speedDialView = findViewById<SpeedDialView>(R.id.speedDial)
@@ -177,11 +175,6 @@ class MainActivity : AppCompatActivity() {
             false
         })
 
-     
-        // set on-click listener
-    //    addWaterBtn.setOnClickListener {
-         //   addWater()
-        //}
 
         speedDialView.setOnChangeListener(object : SpeedDialView.OnChangeListener {
             override fun onMainActionSelected(): Boolean {
@@ -205,26 +198,6 @@ class MainActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
-    private fun addWater(){
-        if (counter < 8) {
-            val inflater =
-                getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val rowView = inflater.inflate(R.layout.water_field, null)
-            waterInnerLL.addView(rowView, waterInnerLL.childCount - 1)
-            counter++
-            waterAmountTV.text = "$counter"
-
-        }
-    }
-
-    fun onDelete(v: View) {
-        if (counter > 0) {
-            waterInnerLL.removeView(v.parent as View)
-            counter--
-            waterAmountTV.text = "$counter"
-        }
-    }
-
 
     private fun addAdviceDialog(){
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.advice_dialog, null)
@@ -246,13 +219,11 @@ class MainActivity : AppCompatActivity() {
 
             else {
                 var body1=body.toString()
-                val advice = HashMap<String, Any>()
-                db.collection("Advices").document()
-                //advice.put("text",body) //advice["text"] = body
-                advice["text"] = body1
-                //db.collection("Advices").document().set(advice)
-                if (currentuser != null) {
-                    db.collection("users").document(currentuser).collection("Advices").document().set(advice)
+                val docData = hashMapOf(
+                    "UID" to currentuser!!.toString(),
+                    "text" to body1
+                )
+                db.collection("Advices").document().set(docData)
                         .addOnSuccessListener {
                             Log.d("main1","Added to collection")
                             Toast.makeText(this, "تمت  إضافة النصيحة", LENGTH_LONG).show()
@@ -261,8 +232,6 @@ class MainActivity : AppCompatActivity() {
                             Log.d("main1","not Added to collection"+it)
                             Toast.makeText(this, "حصل خطأ", LENGTH_LONG).show()
                         }
-                }
-                //advicesTV.text = body1
                 mAlertDialog.dismiss()
             }
 
@@ -274,7 +243,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun showAddAdvice(){
+//    private fun showAddAdvice(){
 //        //set input in TV
 //        //advicesTV.text = data //advicesTV.setText("النصيحة اليومية: "+data)
 //
@@ -289,8 +258,8 @@ class MainActivity : AppCompatActivity() {
 //            .addOnFailureListener { exception ->
 //                Log.w("error", "Error getting documents.", exception)
 //            }
-
-    }
+//
+//    }
 
 
     fun showAddFood(data: ArrayList<String>) {
@@ -345,7 +314,7 @@ class MainActivity : AppCompatActivity() {
                 var burntcal=burnt1.toDouble()
                 Log.d("main1","not empty")
 
-                val burntCalories = db.collection("Users").document(currentuser)
+                val burntCalories = db.collection("Users").document(currentuser1)
 
                 burntCalories.update("burntCalories", FieldValue.increment(burntcal))
                // adding a list of excercises
@@ -354,7 +323,7 @@ class MainActivity : AppCompatActivity() {
                         "exerciseCalories" to burntcal
 
                 )
-                db.collection("Users").document(currentuser).collection("Exercises").document().set(docData)
+                db.collection("Users").document(currentuser1).collection("Exercises").document().set(docData)
                     .addOnSuccessListener {
                     Log.d("main1","Added to collection")
                     Toast.makeText(this, "تمت اضافة التمرين", LENGTH_LONG).show()
