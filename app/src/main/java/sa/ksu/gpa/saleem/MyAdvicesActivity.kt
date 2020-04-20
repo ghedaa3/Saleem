@@ -44,9 +44,8 @@ import kotlin.collections.ArrayList
         }
 
         private fun getAdviceData() {
-
-            db.collection("users").document(currentuser).collection("Advices").
-            get().addOnSuccessListener{ documents ->
+            db.collection("Advices").whereEqualTo("UID",currentuser).get()
+                .addOnSuccessListener{ documents ->
                 for(document in documents){
                     key_list.add(document.id)
                     var title =document.get("text").toString()
@@ -95,7 +94,7 @@ import kotlin.collections.ArrayList
             list.removeAt(position)
             key_list.removeAt(position)
             adapter.notifyDataSetChanged()
-            db.collection("users").document(currentuser).collection("Advices").document(key).delete()
+            db.collection("Advices").document(key).delete()
                 .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully deleted!") }
                 .addOnFailureListener { e -> Log.w("TAG", "Error deleting document", e) }
 
@@ -120,8 +119,6 @@ import kotlin.collections.ArrayList
 
 
             mDialogView.dialogShareBtn.text = "تعديل"
-            //mDialogView.dialogAdviceET.setText(item.Title)
-            //mDialogView.dialogShareBtn.setText(item.Title)
             mDialogView.dialogShareBtn.setOnClickListener{
 
                 val adviceName = mDialogView.dialogAdviceET!!.editText!!.text.toString()
@@ -130,19 +127,19 @@ import kotlin.collections.ArrayList
                 }
                 else{
 
-                    val advice = HashMap<String, Any>()
-                    advice["text"] = adviceName
 
+                    val advice = hashMapOf(
+                        "UID" to currentuser!!.toString(),
+                        "text" to adviceName
+                    )
+                    db.collection("Advices").document(key).set(advice, SetOptions.merge())
 
-
-                    db.collection("users").document(currentuser).collection("Advices").document(key)
-                        .set(advice, SetOptions.merge())
+//                    db.collection("users").document(currentuser).collection("Advices").document(key)
+//                        .set(advice, SetOptions.merge())
 
                     mAlertDialog?.dismiss()
                     Toast.makeText(this, "تم تعديل النصيحة", Toast.LENGTH_LONG).show()
 
-
-//TODO(update burnt calories filed)
                 }
                 list.get(position).Title=adviceName
                 adapter.notifyDataSetChanged()
