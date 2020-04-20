@@ -7,7 +7,7 @@ class MyFood {
     var date:String = ""
     var user_id:String = ""
     var cal_of_food:Double = 0.0
-
+    var type_of_food:String = ""
     constructor()
 
 }

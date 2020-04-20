@@ -25,7 +25,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class AddFoodActivity(context: Context, myFood: MyFood?, key: String?, onSave: OnSave) : Dialog(context) {
+class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String,key: String?, onSave: OnSave) : Dialog(context) {
     var onSave = onSave
     var myFood = myFood
     var key = key
@@ -267,7 +267,8 @@ class AddFoodActivity(context: Context, myFood: MyFood?, key: String?, onSave: O
             "foods" to listdata,
             "date" to getCurrentDate(),
             "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1",
-            "cal_of_food" to sum
+            "cal_of_food" to sum,
+            "type_of_food" to type_of_food
         )
 
         if(myFood != null){

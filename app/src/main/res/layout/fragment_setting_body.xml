@@ -34,6 +34,44 @@
     android:layout_marginTop="30dp"
     />
         <LinearLayout
+            android:id="@+id/notification_page"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_radus_white"
+            android:clickable="true"
+            android:elevation="4dp"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center"
+
+            android:orientation="horizontal"
+
+            >
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="الاشعارات"
+                android:textColor="@color/material_blue_grey_80"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_margin="8dp"
+                android:src="@drawable/ic_notifications_black_24dp" />
+
+
+        </LinearLayout>
+        <LinearLayout
             android:id="@+id/profile_page"
 
             android:layout_width="match_parent"

@@ -56,6 +56,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         db= FirebaseFirestore.getInstance()
+
+        if(getIsNotification()){
+            ForegroundService.startService(this, "Foreground Service is running...")
+        }
+
         loadFragment(HomeFragment())
         bottomNavigation.setOnNavigationItemSelectedListener {
             when(it.itemId){
@@ -387,7 +392,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    fun getIsNotification():Boolean{
+        val sharedPref = getSharedPreferences("saleem_app_shared",Context.MODE_PRIVATE)
+        val highScore = sharedPref.getBoolean("isNotificationOn", true)
+        return highScore
 
+    }
+
+
+    fun getCounter():Int{
+        val sharedPref = getSharedPreferences("saleem_app_shared",Context.MODE_PRIVATE)
+        val highScore = sharedPref.getInt("counter", 1)
+        Log.e("getCounter","getCounter ==> "+highScore)
+        return highScore
+
+    }
 
     }
 

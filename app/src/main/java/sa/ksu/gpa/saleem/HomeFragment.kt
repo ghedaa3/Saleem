@@ -85,14 +85,14 @@ class HomeFragment : Fragment() {
 
         }
 //        view.findViewById<ImageView>(R.id.ivAddView).setOnClickListener { addFood() }
-        view.findViewById<LinearLayout>(R.id.add_breakfast).setOnClickListener { addFood() }
-        view.findViewById<LinearLayout>(R.id.add_lunch).setOnClickListener { addFood() }
-        view.findViewById<LinearLayout>(R.id.add_dinner).setOnClickListener { addFood() }
+        view.findViewById<LinearLayout>(R.id.add_breakfast).setOnClickListener { addFood("breakfast") }
+        view.findViewById<LinearLayout>(R.id.add_lunch).setOnClickListener { addFood("lunch") }
+        view.findViewById<LinearLayout>(R.id.add_dinner).setOnClickListener { addFood("dinner") }
        ////// view.findViewById<ImageView>(R.id.addWaterBtn).setOnClickListener { addWater() }
        // view.findViewById<ImageButton>(R.id.addWaterLL).setOnClickListener { onDeleteW() }
 
 
-        view.findViewById<LinearLayout>(R.id.add_snack).setOnClickListener { addFood() }
+        view.findViewById<LinearLayout>(R.id.add_snack).setOnClickListener { addFood("snack") }
         db= FirebaseFirestore.getInstance()
         currentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
@@ -176,7 +176,7 @@ class HomeFragment : Fragment() {
 //    }
 
 
-    fun showAddFood(data: ArrayList<String>) {
+    fun showAddFood(data: ArrayList<String>,type_of_food:String) {
         val fragment = ItemListDialogFragmentA(data)
         val bundle = Bundle()
         bundle.putStringArrayList("item_data", data)
@@ -185,17 +185,18 @@ class HomeFragment : Fragment() {
             override fun onItemClicked(position: Int) {
                 when(position){
                     0 -> {
-                        startAddFoodActivity()
+                        startAddFoodActivity(type_of_food)
                     }
                     1 -> {
-                        addExcercizeDialog()
+                        addExcercizeDialog(type_of_food)
                     }
                 }
             }
         })
     }
 
-    private fun startAddFoodActivity() {
+
+    private fun startAddFoodActivity( type_of_food:String) {
 
 //        var intent = Intent(activity,AddFoodActivity::class.java).apply{
 //
@@ -216,7 +217,7 @@ class HomeFragment : Fragment() {
                 updateHistory()
             }
         }
-        var dialog: AddFoodActivity? = context?.let { AddFoodActivity(it,null,null,onsave) }
+        var dialog: AddFoodActivity? = context?.let { AddFoodActivity(it,null,type_of_food,null,onsave) }
 
         dialog?.show()
 
@@ -228,15 +229,17 @@ class HomeFragment : Fragment() {
         }
     }
 
-    fun addFood(){
+
+    fun addFood(type_of_food:String){
         val list = ArrayList<String>()
         list.add("وجبة مفصلة")
         list.add("وجبة سريعة")
-        showAddFood(list)
+        showAddFood(list,type_of_food)
 
     }
 
-    private fun addExcercizeDialog() {
+
+    private fun addExcercizeDialog(type_of_food:String) {
         val mDialogView = LayoutInflater.from(context).inflate(R.layout.add_fast_food, null)
         val mBuilder = activity?.let {
             AlertDialog.Builder(it)
@@ -271,7 +274,8 @@ class HomeFragment : Fragment() {
                     "foods" to ArrayList<AddFoodActivity.Item>(),
                     "date" to getCurrentDate(),
                     "user_id" to currentuser,
-                    "cal_of_food" to burntStringData.toInt()
+                    "cal_of_food" to burntStringData.toInt(),
+                    "type_of_food" to type_of_food
                 )
                 showLoadingDialog()
                 db.collection("Foods").document().set(data1 as Map<String, Any>).addOnSuccessListener {
