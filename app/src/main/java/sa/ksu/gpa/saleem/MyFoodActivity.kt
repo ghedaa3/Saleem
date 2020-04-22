@@ -39,12 +39,7 @@ class MyFoodActivity : AppCompatActivity() {
         setContentView(R.layout.activity_my_food)
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.rv_my_food)
-        setSupportActionBar(toolbar);
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        toolbar.setNavigationOnClickListener {
-            onBackPressed()
-        }
+
         back_button.setOnClickListener{
             onBackPressed()
         }
