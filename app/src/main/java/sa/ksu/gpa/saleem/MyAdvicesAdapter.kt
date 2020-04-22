@@ -6,11 +6,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-
 class MyAdvicesAdapter (private val list: List<MyAdvice>, var onActionClick: OnActionClick): RecyclerView.Adapter<MyAdvicesAdapter.MyViewHolder>(){
 
     class MyViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.advice_dialog, parent, false)) {
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.item_my_food, parent, false)) {
         private var title: TextView? = null
         private var delete: ImageView? = null
         private var edit: ImageView? = null

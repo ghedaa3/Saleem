@@ -45,7 +45,9 @@ class MyFoodActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             onBackPressed()
         }
-
+        back_button.setOnClickListener{
+            onBackPressed()
+        }
         getMyFoodsData()
 
     }
@@ -94,7 +96,7 @@ class MyFoodActivity : AppCompatActivity() {
 
     private fun showEditItem(item: MyFood, position: Int) {
         if(item.type == "Detailed"){
-            var dialog: AddFoodActivity? = AddFoodActivity(this,item,key_list[position],object :AddFoodActivity.OnSave{
+            var dialog: AddFoodActivity? = AddFoodActivity(this,item,item.type_of_food,key_list[position],object :AddFoodActivity.OnSave{
                 override fun onSaveSuccess(sum: Double) {
 
                 }

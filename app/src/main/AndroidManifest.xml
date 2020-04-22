@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="sa.ksu.gpa.saleem">
 
     <uses-permission android:name="android.permission.CAMERA" />
@@ -12,10 +13,22 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".EditMyRecipe"></activity>
-        <activity android:name=".util.test"></activity>
+        android:theme="@style/AppTheme"
+        tools:ignore="GoogleAppIndexingWarning">
+        <activity android:name=".NotificationActivity"></activity>
+
+        <receiver android:name=".AlarmReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <service android:name=".ForegroundService"></service>
+
+        <activity android:name=".EditMyRecipe" />
+        <activity android:name=".util.test" />
         <activity android:name=".MyRecipesActivity" />
+        <activity android:name=".MyAdvicesActivity" />
         <activity android:name=".MyExcercise" />
         <activity android:name=".AddFoodActivity" />
         <activity android:name=".recipe.SharedRecipe.viewSharedRecipeActivity" />
@@ -23,31 +36,7 @@
         <activity android:name=".recipe.sharedRecipeInformaion" />
         <activity android:name=".recipe.ShareRecipeFirst" />
         <activity android:name=".exercise.InnerExercise" />
-        <activity
-            android:name=".exercise.SettingsActivity"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".exercise.InnerExercise" />
-        </activity>
-
-        <receiver
-            android:name=".exercise.TimerExpiredReceiver"
-            android:enabled="true"
-            android:exported="false" />
-        <receiver
-            android:name=".exercise.TimerNotificationActionReceiver"
-            android:enabled="true"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="stop" />
-                <action android:name="pause" />
-                <action android:name="resume" />
-                <action android:name="start" />
-            </intent-filter>
-        </receiver>
-
+        <activity android:name=".exercise.ExerciseListActivity" />
         <activity android:name=".register.registerOneActivity" />
         <activity
             android:name=".profile.Profile"
@@ -77,7 +66,7 @@
             android:name=".SplashScreenActivity"
             android:noHistory="true"
             android:theme="@style/splashTheme" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".register.registerThreeActivity"
             android:parentActivityName=".register.registerTwoActivity" />
