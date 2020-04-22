@@ -224,11 +224,6 @@ class AddFoodActivity(context: Context, myFood: MyFood?, key: String?, onSave: O
 
     }
 
-    //      <item>مل</item>
-//        <item>كأس</item>
-//        <item>جم</item>
-//        <item>ملعقة طعام كبيرة</item>
-//        <item>ملعقة صغيرة</item>Nutritional value
     inner class NutritionalValue {
         lateinit var array: ArrayList<Int>
 

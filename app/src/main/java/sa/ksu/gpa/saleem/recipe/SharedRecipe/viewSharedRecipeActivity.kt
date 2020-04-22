@@ -26,7 +26,6 @@ import kotlinx.android.synthetic.main.activity_viewsharedrecipe.*
 import sa.ksu.gpa.saleem.HomeFragment
 import sa.ksu.gpa.saleem.R
 import sa.ksu.gpa.saleem.SettingFragment
-import sa.ksu.gpa.saleem.exercise.ExerciseFragment
 import sa.ksu.gpa.saleem.exercise.ExerciseListActivity
 
 

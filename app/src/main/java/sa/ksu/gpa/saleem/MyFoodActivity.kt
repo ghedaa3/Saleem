@@ -56,7 +56,7 @@ class MyFoodActivity : AppCompatActivity() {
 
 
         db.collection("Foods")
-            .whereEqualTo("user_id","ckS3vhq8P8dyOeSI7CE7D4RgMiv1")
+            .whereEqualTo("user_id",currentuser)
 //            .whereEqualTo("user_id",currentuser)
             .whereEqualTo("date",getCurrentDate())
             .get().addOnSuccessListener{ documents ->
@@ -104,6 +104,12 @@ class MyFoodActivity : AppCompatActivity() {
         }else if(item.type == "unDetailed"){
             addExcercizeDialog(item,key_list[position])
         }
+        /*else if(item.type == "fromRecipes"){
+
+
+        }else if(item.type == "fromScanner"){
+
+        }*/
     }
 
     private fun deleteItem(item: MyFood, position: Int, key: String) {

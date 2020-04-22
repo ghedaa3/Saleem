@@ -66,6 +66,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".exercise.ExerciseActivity">
+
+        </activity>
+        <activity android:name=".exercise.ExerciseListActivity"></activity>
         <activity
             android:name=".register.registerFourActivity"
             android:parentActivityName=".register.registerThreeActivity" />

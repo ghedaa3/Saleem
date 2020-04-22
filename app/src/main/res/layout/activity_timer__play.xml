@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#4F329A"
+    android:background="#4F008B"
     tools:context=".Timer.Timer_Play">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,11 +16,10 @@
             android:layout_marginTop="20dp"
             android:id="@+id/back_button"
             android:layout_width="50dp"
-            android:layout_marginRight="350dp"
-            android:src="@drawable/ic_chevron_left_black_24dp"
+            android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
             android:layout_height="50dp"
-            android:gravity="right"
 
+            android:gravity="right"
 
 
             >
@@ -28,17 +27,17 @@
 
         <ImageView
             android:layout_marginTop="20dp"
-
+            android:gravity="left"
+            android:layout_marginRight="350dp"
             android:id="@+id/refresh"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:layout_marginRight="20dp"
-            android:gravity="left"
             android:src="@drawable/ic_refresh_black_24dp"></ImageView>
     </RelativeLayout>
 
 
     <RelativeLayout
+        android:layout_marginTop="50dp"
         android:layout_width="match_parent"
         android:layout_gravity="center"
         android:layout_height="wrap_content">
@@ -48,26 +47,26 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="110dp"
+            android:layout_marginTop="90dp"
             android:gravity="center"
             android:text="00 : 00"
             android:textColor="#ffff"
-            android:textSize="50dp"
+            android:textSize="80dp"
             android:textStyle="bold"></TextView>
 
-        <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-            android:id="@+id/progress_countdown"
-            style="@style/Widget.MaterialProgressBar.ProgressBar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:minWidth="300dp"
-            android:minHeight="300dp"
-            android:secondaryProgressTint="#FF4081"
-            app:mpb_progressTint="#FF4081"
-            app:mpb_progressStyle="circular">
+        <ProgressBar
 
-        </me.zhanghai.android.materialprogressbar.MaterialProgressBar>
+            android:id="@+id/progress_countdown"
+            style="?android:progressBarStyleHorizontal"
+            android:layout_width="350dp"
+            android:layout_height="350dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/progress_counter_color"
+            android:progress="0"
+            android:progressDrawable="@drawable/progress_counter_moving_color"
+            android:rotation="180" />
+
+
         <TextView
             android:id="@+id/timer_current_time"
             android:layout_width="match_parent"
@@ -104,7 +103,7 @@
             android:layout_marginTop="20dp"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:layout_gravity="center"
+            android:layout_gravity="right"
             android:background="@drawable/pause_shape">
 
         </Button>

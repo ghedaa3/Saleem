@@ -38,8 +38,8 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
     private val TAG = "exercise"
 
 
- /*   private lateinit var timer1: CountDownTimer
-    private var t by Delegates.notNull<Long>()*/
+    /*   private lateinit var timer1: CountDownTimer
+       private var t by Delegates.notNull<Long>()*/
 
     override fun onCreate(savedInstanceState: Bundle?) {
 
@@ -61,7 +61,7 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
 
         var Exercisetitle = findViewById<View>(sa.ksu.gpa.saleem.R.id.title) as TextView
 
-         var calT = findViewById<View>(sa.ksu.gpa.saleem.R.id.cal) as TextView
+        var calT = findViewById<View>(sa.ksu.gpa.saleem.R.id.cal) as TextView
 
 
         var backImg = findViewById<View>(sa.ksu.gpa.saleem.R.id.back_button)
@@ -189,13 +189,13 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
             sa.ksu.gpa.saleem.R.id.back_button -> {
                 finish()
             }
-         /*   sa.ksu.gpa.saleem.R.id.start ->{
+            /*   sa.ksu.gpa.saleem.R.id.start ->{
 
 
 
 
 
-            }*/
+               }*/
 
             else -> {
             }
@@ -215,7 +215,4 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
         }
     }
 }
-
-
-
 

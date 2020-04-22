@@ -33,7 +33,6 @@ import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import sa.ksu.gpa.saleem.Timer.TimerSettings
 import sa.ksu.gpa.saleem.exercise.ExerciseActivity
-import sa.ksu.gpa.saleem.exercise.ExerciseFragment
 import sa.ksu.gpa.saleem.exercise.ExerciseListActivity
 import sa.ksu.gpa.saleem.recipe.ShareRecipeFirst
 import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity

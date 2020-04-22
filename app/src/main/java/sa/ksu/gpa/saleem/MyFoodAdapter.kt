@@ -2,6 +2,7 @@ package sa.ksu.gpa.saleem
 
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
@@ -28,9 +29,13 @@ class MyFoodAdapter(private val list: List<MyFood>, var onActionClick: OnActionC
             delete?.setOnClickListener(View.OnClickListener {
                 onActionClick.onDelete(food,adapterPosition)
             })
+            if(food.type=="fromRecipes"||food.type=="fromScanner")
+                edit!!.visibility=GONE
+            else{
             edit?.setOnClickListener(View.OnClickListener {
                 onActionClick.onEdit(food,adapterPosition)
             })
+            }
 
         }
 
