@@ -36,6 +36,7 @@
                 android:textSize="18sp" />
 
             <ImageView
+                android:id="@+id/adviceFlag"
                 android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_margin="8dp"
