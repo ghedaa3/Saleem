@@ -21,6 +21,7 @@ import kotlinx.android.synthetic.main.activity_share_recipe_first.*
 import kotlinx.android.synthetic.main.field.*
 import kotlinx.android.synthetic.main.field.view.*
 import pl.utkala.searchablespinner.SearchableSpinner
+import sa.ksu.gpa.saleem.CaloriCalculater
 import sa.ksu.gpa.saleem.R
 import java.io.IOException
 
@@ -49,6 +50,7 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
     private lateinit var uri:String
     private lateinit var backButton:  ImageView
     lateinit var currentuser:String
+    var TotalCalories:Int=0
     lateinit var IngArray:Array<String>
     lateinit var quanArray:Array<String>
 
@@ -191,6 +193,26 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
 
         }
     }
+    private fun getTotalCalories(sd:Int): Int {
+        var i = main.childCount
+        Log.d("TotalCalories","i: "+i)
+
+        var count =0
+        while (i!=0){
+
+            var quantity = main.getChildAt(count)!!.quantity.text.toString()
+            var name = main.getChildAt(count).IngredientNames.selectedItem.toString()
+            var unit=main.getChildAt(count).unit.selectedItem.toString()
+            TotalCalories+=CaloriCalculater.calculateCalories(name,unit,quantity)
+            i--
+            count++
+
+        }
+        Log.d("TotalCalories","TotalCalories: "+TotalCalories)
+
+
+        return TotalCalories
+    }
 
     private fun launchGallery() {
         val intent = Intent()
@@ -248,6 +270,8 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
     } else if (main.getChildCount()==0)
         Toast.makeText(this, "الرجاء اضافة المقادير", Toast.LENGTH_LONG).show()
     else{
+        getTotalCalories(0)
+        Log.d("TotalCalories","TotalCalories inside db: "+TotalCalories)
 
 
 
@@ -296,7 +320,8 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
             "image" to uri,
             "name" to name,
             "prepration" to prepration,
-            "Type" to arrayListOf(type,type1,type2,type3,type4,type5)
+            "Type" to arrayListOf(type,type1,type2,type3,type4,type5),
+            "calories" to TotalCalories
         )
         val NumberOfCaloriesDoc = db.collection("Users").document(currentuser)
         NumberOfCaloriesDoc.get().addOnSuccessListener {

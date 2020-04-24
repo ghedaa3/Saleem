@@ -25,7 +25,7 @@ import java.util.*
 import kotlin.collections.ArrayList
 
 
-class AddFoodActivity(context: Context, myFood: MyFood?, key: String?, onSave: OnSave) : Dialog(context) {
+class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String,key: String?, onSave: OnSave) : Dialog(context) {
     var onSave = onSave
     var myFood = myFood
     var key = key
@@ -90,11 +90,37 @@ class AddFoodActivity(context: Context, myFood: MyFood?, key: String?, onSave: O
 
             addObject(it)
         }
+        spFood.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
 
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                updateAdapter(position)
+            }
+
+        }
 
     }
 
-    private fun initNutritionalValueList() {
+
+    public fun updateAdapter( position: Int) {
+        var list = ArrayList<String>()
+        if (position == 1 || position == 0) {
+            list.add("كوب")
+            list.add("كجم")
+        } else if (position == 3 || position == 2) {
+            list.add("العدد")
+        } else if (position == 5 || position == 4) {
+            list.add("كوب")
+            list.add("ملل")
+        }
+
+        val arrayAdapter = ArrayAdapter(this.context, android.R.layout.simple_spinner_item, list)
+        spWeight.adapter = arrayAdapter
+    }
+
+        private fun initNutritionalValueList() {
         //رز أبيض
         var risw: NutritionalValue = NutritionalValue()
         risw.array = ArrayList()
@@ -224,11 +250,6 @@ class AddFoodActivity(context: Context, myFood: MyFood?, key: String?, onSave: O
 
     }
 
-    //      <item>مل</item>
-//        <item>كأس</item>
-//        <item>جم</item>
-//        <item>ملعقة طعام كبيرة</item>
-//        <item>ملعقة صغيرة</item>Nutritional value
     inner class NutritionalValue {
         lateinit var array: ArrayList<Int>
 
@@ -267,7 +288,8 @@ class AddFoodActivity(context: Context, myFood: MyFood?, key: String?, onSave: O
             "foods" to listdata,
             "date" to getCurrentDate(),
             "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1",
-            "cal_of_food" to sum
+            "cal_of_food" to sum,
+            "type_of_food" to type_of_food
         )
 
         if(myFood != null){

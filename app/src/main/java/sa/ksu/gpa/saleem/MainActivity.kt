@@ -33,7 +33,6 @@ import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import sa.ksu.gpa.saleem.Timer.TimerSettings
 import sa.ksu.gpa.saleem.exercise.ExerciseActivity
-
 import sa.ksu.gpa.saleem.exercise.ExerciseListActivity
 import sa.ksu.gpa.saleem.recipe.ShareRecipeFirst
 import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity
@@ -57,6 +56,11 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         db= FirebaseFirestore.getInstance()
+
+        if(getIsNotification()){
+            ForegroundService.startService(this, "Foreground Service is running...")
+        }
+
         loadFragment(HomeFragment())
         bottomNavigation.setOnNavigationItemSelectedListener {
             when(it.itemId){
@@ -95,7 +99,6 @@ class MainActivity : AppCompatActivity() {
             false
 
         }
-        //showAddAdvice()
          ubdateBurntCaloris()
         Log.d("main","ID"+currentuser)
          speedDialView = findViewById<SpeedDialView>(R.id.speedDial)
@@ -177,11 +180,6 @@ class MainActivity : AppCompatActivity() {
             false
         })
 
-     
-        // set on-click listener
-    //    addWaterBtn.setOnClickListener {
-         //   addWater()
-        //}
 
         speedDialView.setOnChangeListener(object : SpeedDialView.OnChangeListener {
             override fun onMainActionSelected(): Boolean {
@@ -205,26 +203,6 @@ class MainActivity : AppCompatActivity() {
         transaction.addToBackStack(null)
         transaction.commit()
     }
-    private fun addWater(){
-        if (counter < 8) {
-            val inflater =
-                getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-            val rowView = inflater.inflate(R.layout.water_field, null)
-            waterInnerLL.addView(rowView, waterInnerLL.childCount - 1)
-            counter++
-            waterAmountTV.text = "$counter"
-
-        }
-    }
-
-    fun onDelete(v: View) {
-        if (counter > 0) {
-            waterInnerLL.removeView(v.parent as View)
-            counter--
-            waterAmountTV.text = "$counter"
-        }
-    }
-
 
     private fun addAdviceDialog(){
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.advice_dialog, null)
@@ -246,13 +224,11 @@ class MainActivity : AppCompatActivity() {
 
             else {
                 var body1=body.toString()
-                val advice = HashMap<String, Any>()
-                db.collection("Advices").document()
-                //advice.put("text",body) //advice["text"] = body
-                advice["text"] = body1
-                //db.collection("Advices").document().set(advice)
-                if (currentuser != null) {
-                    db.collection("users").document(currentuser).collection("Advices").document().set(advice)
+                val docData = hashMapOf(
+                    "UID" to currentuser!!.toString(),
+                    "text" to body1
+                )
+                db.collection("Advices").document().set(docData)
                         .addOnSuccessListener {
                             Log.d("main1","Added to collection")
                             Toast.makeText(this, "تمت  إضافة النصيحة", LENGTH_LONG).show()
@@ -261,8 +237,6 @@ class MainActivity : AppCompatActivity() {
                             Log.d("main1","not Added to collection"+it)
                             Toast.makeText(this, "حصل خطأ", LENGTH_LONG).show()
                         }
-                }
-                //advicesTV.text = body1
                 mAlertDialog.dismiss()
             }
 
@@ -274,23 +248,23 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    private fun showAddAdvice(){
-        //set input in TV
-        //advicesTV.text = data //advicesTV.setText("النصيحة اليومية: "+data)
-
-        db.collection("Advices")
-            .get()
-            .addOnSuccessListener { result ->
-                for (document in result) {
-                    Log.d("exists", "${document.id} => ${document.data}")
-                    advicesTV.text = document.getString("text")
-                }
-            }
-            .addOnFailureListener { exception ->
-                Log.w("error", "Error getting documents.", exception)
-            }
-
-    }
+//    private fun showAddAdvice(){
+//        //set input in TV
+//        //advicesTV.text = data //advicesTV.setText("النصيحة اليومية: "+data)
+//
+//        db.collection("Advices")
+//            .get()
+//            .addOnSuccessListener { result ->
+//                for (document in result) {
+//                    Log.d("exists", "${document.id} => ${document.data}")
+//                    advicesTV.text = document.getString("text")
+//                }
+//            }
+//            .addOnFailureListener { exception ->
+//                Log.w("error", "Error getting documents.", exception)
+//            }
+//
+//    }
 
 
     fun showAddFood(data: ArrayList<String>) {
@@ -381,13 +355,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun ubdateBurntCaloris() {
-        db.collection("users").document(currentuser).get().addOnSuccessListener {
+        /*
+        db.collection("Users").document(currentuser).get().addOnSuccessListener {
             if (it.get("burntCalories")!=0)
                 burnt_calories_textview.text=it.get("burntCalories").toString()
             else
                 burnt_calories_textview.text="0"
 
         }
+        */
 
     }
 
@@ -395,6 +371,10 @@ class MainActivity : AppCompatActivity() {
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA),CAMERA_REQUEST_CODE)
     }
 
+    override fun onResume() {
+        super.onResume()
+        speedDialView.visibility =View.VISIBLE
+    }
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         when (requestCode) {
             CAMERA_REQUEST_CODE -> {
@@ -412,7 +392,21 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+    fun getIsNotification():Boolean{
+        val sharedPref = getSharedPreferences("saleem_app_shared",Context.MODE_PRIVATE)
+        val highScore = sharedPref.getBoolean("isNotificationOn", true)
+        return highScore
 
+    }
+
+
+    fun getCounter():Int{
+        val sharedPref = getSharedPreferences("saleem_app_shared",Context.MODE_PRIVATE)
+        val highScore = sharedPref.getInt("counter", 1)
+        Log.e("getCounter","getCounter ==> "+highScore)
+        return highScore
+
+    }
 
     }
 

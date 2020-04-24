@@ -42,15 +42,22 @@
         <item>جم</item>
         <item>ملعقة طعام كبيرة</item>
         <item>ملعقة صغيرة</item>
+        <item>حبة</item>
+
     </string-array>
     <string-array name="Ingredients">
         <item>رز أبيض</item>
         <item>رز أسمر </item>
+        <item>مكرونة</item>
         <item>موزة</item>
         <item>تفاح</item>
+        <item>بادنجان</item>
+        <item>بطاطس</item>
         <item>لبن</item>
         <item>حليب</item>
+        <item>عصير ليمون</item>
     </string-array>
+
 
     <string-array name="planets_array">
         <item>خسارة الوزن</item>

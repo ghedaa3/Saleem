@@ -2,6 +2,7 @@ package sa.ksu.gpa.saleem
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,23 +10,33 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import cn.pedant.SweetAlert.SweetAlertDialog
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.zxing.Result
 import kotlinx.android.synthetic.main.activity_scan.*
 import kotlinx.android.synthetic.main.scanner_dialog_add_snack.*
 import kotlinx.android.synthetic.main.scanner_dialog_add_snack.view.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class ScanActivity : AppCompatActivity() ,ZXingScannerView.ResultHandler{
     private lateinit var mScannerView: ZXingScannerView
     lateinit var db:FirebaseFirestore
     var TAG="ScanActivity"
+    lateinit var currentuser:String
+    private lateinit var SnackName: String
+    private lateinit var SnackCalories: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_scan)
         db= FirebaseFirestore.getInstance()
+        currentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
+
         initScannerView()
     }
 
@@ -49,7 +60,7 @@ class ScanActivity : AppCompatActivity() ,ZXingScannerView.ResultHandler{
         r=result!!.toString()
         Log.d("testing",""+r)
 
-        val docRef = db.collection("Products").document(r)
+        val docRef = db.collection("Products").document("6281022120349")
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document.get("ID") == null) {
@@ -87,16 +98,18 @@ class ScanActivity : AppCompatActivity() ,ZXingScannerView.ResultHandler{
         mAlertDialog.protein.setText(protein)
         mAlertDialog.carb.setText(carb)
         mAlertDialog.fat.setText(fat)
-
+        SnackName=name
+        SnackCalories=calories
         mAlertDialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
         //cancel button click of custom layout
         mDialogView.cancel.setOnClickListener{
             mAlertDialog.dismiss()
-            // extra detail add a success shape
             Toast.makeText(this,"",Toast.LENGTH_LONG)
             finish()
+
         }
         mDialogView.add.setOnClickListener{
+            addasAmealDialog()
             mAlertDialog.dismiss()
             finish()
 
@@ -114,6 +127,34 @@ class ScanActivity : AppCompatActivity() ,ZXingScannerView.ResultHandler{
             }
             .show()
 
+    }
+    private fun addasAmealDialog(){
+
+
+        val data1 = hashMapOf(
+            "food_name" to SnackName,
+            "type" to "fromScanner",
+            "date" to getCurrentDate(),
+            "user_id" to currentuser,
+            "cal_of_food" to SnackCalories.toDouble()
+        )
+        db.collection("Foods").document().set(data1 as Map<String, Any>).addOnSuccessListener {
+            Toast.makeText(this,"تمت اضافة الوجبة",Toast.LENGTH_SHORT).show()
+        }.addOnFailureListener {
+            Toast.makeText(this,"حصل خطأ في عملية الاضافة",Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    fun getCurrentDate():String {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val formatted = current.format(formatter)
+            return formatted
+        }
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val currentDate = sdf.format(Date())
+        return "$currentDate"
     }
 
 

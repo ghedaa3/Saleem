@@ -39,13 +39,10 @@ class MyFoodActivity : AppCompatActivity() {
         setContentView(R.layout.activity_my_food)
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.rv_my_food)
-        setSupportActionBar(toolbar);
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.setDisplayShowHomeEnabled(true)
-        toolbar.setNavigationOnClickListener {
+
+        back_button.setOnClickListener{
             onBackPressed()
         }
-
         getMyFoodsData()
 
     }
@@ -56,7 +53,7 @@ class MyFoodActivity : AppCompatActivity() {
 
 
         db.collection("Foods")
-            .whereEqualTo("user_id","ckS3vhq8P8dyOeSI7CE7D4RgMiv1")
+            .whereEqualTo("user_id",currentuser)
 //            .whereEqualTo("user_id",currentuser)
             .whereEqualTo("date",getCurrentDate())
             .get().addOnSuccessListener{ documents ->
@@ -94,7 +91,7 @@ class MyFoodActivity : AppCompatActivity() {
 
     private fun showEditItem(item: MyFood, position: Int) {
         if(item.type == "Detailed"){
-            var dialog: AddFoodActivity? = AddFoodActivity(this,item,key_list[position],object :AddFoodActivity.OnSave{
+            var dialog: AddFoodActivity? = AddFoodActivity(this,item,item.type_of_food,key_list[position],object :AddFoodActivity.OnSave{
                 override fun onSaveSuccess(sum: Double) {
 
                 }
@@ -104,6 +101,12 @@ class MyFoodActivity : AppCompatActivity() {
         }else if(item.type == "unDetailed"){
             addExcercizeDialog(item,key_list[position])
         }
+        /*else if(item.type == "fromRecipes"){
+
+
+        }else if(item.type == "fromScanner"){
+
+        }*/
     }
 
     private fun deleteItem(item: MyFood, position: Int, key: String) {

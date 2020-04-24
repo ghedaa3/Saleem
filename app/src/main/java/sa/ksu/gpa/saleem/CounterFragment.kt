@@ -97,7 +97,7 @@ class CounterFragment(position: Int, date: String) : Fragment(), SensorEventList
         simpleStepDetector!!.registerListener(this)
 
 
-        db.collection("Users")
+        db.collection("users")
             .document(valcurrentuser)//test user
             .addSnapshotListener { documentSnapshot: DocumentSnapshot?, firebaseFirestoreException: FirebaseFirestoreException? ->
                 if (documentSnapshot != null) {

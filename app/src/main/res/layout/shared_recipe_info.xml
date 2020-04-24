@@ -24,6 +24,15 @@
         android:layout_height="50dp"
             >
     </ImageView>
+        <ImageView
+            android:layout_marginTop="20dp"
+            android:id="@+id/reporton"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginRight="20dp"
+            android:gravity="left"
+            android:onClick="showPopup"
+            android:src="@drawable/ic_more_vert_black_24dp"></ImageView>
 
     <LinearLayout
 android:layout_marginTop="190dp"

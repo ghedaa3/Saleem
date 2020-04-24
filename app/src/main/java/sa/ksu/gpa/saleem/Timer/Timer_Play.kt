@@ -1,5 +1,6 @@
 package sa.ksu.gpa.saleem.Timer
 
+import android.annotation.SuppressLint
 import android.media.MediaPlayer
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -9,6 +10,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_timer__play.*
 import sa.ksu.gpa.saleem.R
 
 
@@ -48,6 +50,7 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
 
 
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_timer__play)
@@ -67,8 +70,11 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
          repeat1=repeat.toInt()
          restRound1=restRound.toLong()
          secondsRemaining=prepare1
+        progress_countdown.progress = 0
+        progress_countdown.setMax(prepare1.toInt())
 
-       //looping through the list
+
+        //looping through the list
 
         Log.d("playhere","repeat1= "+repeat1)
         Log.d("playhere","round1= "+round1)
@@ -84,8 +90,6 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
         timerPause.visibility = View.GONE
 
         addRoundLis()
-
-
         // Click Listener
         timerPlay.setOnClickListener(this)
         timerPause.setOnClickListener(this)
@@ -106,9 +110,9 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
             while (j!=0){
                -- j
                 rounList.add(active1)
-                StringList.add("تحرك!!")
+                StringList.add("تحرك")
                 rounList.add(rest1)
-                StringList.add("الراحة!!")
+                StringList.add("الراحة")
 
             }
             rounList.add(restRound1)
@@ -147,8 +151,12 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
             timerPlay ->{
 
                 timerState = timerstate.Running
+
                 startTimer()
                 updateButtons()
+
+
+
 
             }
             timerPause ->{
@@ -166,6 +174,7 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
                     timer.cancel()
                     timerCurrentTime.text="استعد"
                     secondsRemaining=prepare1
+
                     onTimerFinished()
                     updateButtons()
                     updateCountdownUI()
@@ -180,6 +189,8 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
         rounList.clear()
         StringList.clear()
         addRoundLis()
+        progress_countdown.progress = 0
+        progress_countdown.setMax(prepare1.toInt())
 
     }
 
@@ -192,6 +203,7 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
         timerstate.Running ->{
             timerPlay.visibility = View.GONE
             timerPause.visibility = View.VISIBLE
+
 
         }
         timerstate.Stopped -> {
@@ -222,9 +234,11 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
 
             override fun onFinish(){
                 playSound()
+                progress_countdown.progress = 0
 
                 if (rounList.size!=0){
                     secondsRemaining=rounList[0]
+                    progress_countdown.setMax(rounList[0].toInt())
                     timerCurrentTime.text=StringList[0]
                     rounList.removeAt(0)
                     StringList.removeAt(0)
@@ -235,7 +249,9 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
                 else{
                     timerState=timerstate.Stopped
                     timerCurrentTime.text="تهانينا"
-
+                    onTimerFinished()
+                    progress_countdown.progress = 0
+                    progress_countdown.setMax(prepare1.toInt())
                     updateButtons()
 
                 }
@@ -260,7 +276,7 @@ class Timer_Play : AppCompatActivity(), View.OnClickListener {
         val secondsInMinuteUntilFinished = secondsRemaining - minutesUntilFinished * 60
         val secondsStr = secondsInMinuteUntilFinished.toString()
         timerTime.text = "$minutesUntilFinished:${if (secondsStr.length == 2) secondsStr else "0" + secondsStr}"
-    //    progress_countdown.progress = (timerLengthSeconds - secondsRemaining).toInt()
+       progress_countdown.progress = ( secondsRemaining).toInt()
     }
 
 }

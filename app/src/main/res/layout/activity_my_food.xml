@@ -6,42 +6,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MyFoodActivity">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbar"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:background="@drawable/icon_shape_circuler_two"
-        android:fitsSystemWindows="true"
-        android:theme="@style/AppTheme.ProfileTheme"
-        app:elevation="0dp">
+    >
+
 
         <TextView
             android:id="@+id/userName"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_height="70dp"
             android:gravity="center"
             android:text="وجباتي "
+            android:layout_centerInParent="true"
             android:layout_gravity="center"
-            android:textColor="@color/whiteTextColor"
             android:textSize="18dp"
             android:textStyle="bold"
             app:layout_anchor="@+id/appbar"
             app:layout_anchorGravity="center" />
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
 
-            android:layout_marginTop="13dp"
-            android:backgroundTint="#3F51B5"
-            android:gravity="center"
-            app:title=" "
-            app:titleTextColor="@color/whiteTextColor"
 
-            />
 
-    </com.google.android.material.appbar.AppBarLayout>
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginTop="28dp"
+        android:tint="@color/gray_btn_bg_pressed_color"
+        android:layout_marginLeft="340dp"
+        android:src="@drawable/kk">
+
+    </ImageView>
+</RelativeLayout>
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_margin="4dp"
