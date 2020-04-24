@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -22,6 +23,10 @@ import kotlinx.android.synthetic.main.activity_share_recipe_first.*
 import kotlinx.android.synthetic.main.field.view.*
 import pl.utkala.searchablespinner.SearchableSpinner
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 import kotlin.collections.ArrayList
 
 class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
@@ -35,6 +40,7 @@ class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
     private  var Quantity: EditText? = null
     private  var unit: Spinner? = null
     private  var IngredientNames: SearchableSpinner? = null
+    var TotalCalories:Int=0
 
     private lateinit var addIngrediant:Button
     private lateinit var db: FirebaseFirestore
@@ -432,6 +438,7 @@ class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
         }
 
         else{
+            getTotalCalories(0)
 
             var type: String? =null
             var type1:String? =null
@@ -477,7 +484,10 @@ class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
                 "image" to uri,
                 "name" to name,
                 "prepration" to prepration,
-                "Type" to arrayListOf(type,type1,type2,type3,type4,type5)
+                "Type" to arrayListOf(type,type1,type2,type3,type4,type5),
+                "calories" to TotalCalories,
+                "date"    to  getCurrentDate()
+
             )
 
 
@@ -499,6 +509,37 @@ class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
 
 
         }
+    fun getCurrentDate():String {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val formatted = current.format(formatter)
+            return formatted
+        }
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val currentDate = sdf.format(Date())
+        return "$currentDate"
+    }
+    private fun getTotalCalories(sd:Int): Int {
+        var i = main.childCount
+        Log.d("TotalCalories","i: "+i)
+
+        var count =0
+        while (i!=0){
+
+            var quantity = main.getChildAt(count)!!.quantity.text.toString()
+            var name = main.getChildAt(count).IngredientNames.selectedItem.toString()
+            var unit=main.getChildAt(count).unit.selectedItem.toString()
+            TotalCalories+=CaloriCalculater.calculateCalories(name,unit,quantity)
+            i--
+            count++
+
+        }
+        Log.d("TotalCalories","TotalCalories: "+TotalCalories)
+
+
+        return TotalCalories
+    }
 
 }
 

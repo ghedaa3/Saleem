@@ -25,6 +25,7 @@ class RecipesAdapter(var context:Context, var arrayList:ArrayList<RecipeModel>):
 
     init {
         filteringList=arrayList
+
     }
 
 
@@ -44,6 +45,7 @@ class RecipesAdapter(var context:Context, var arrayList:ArrayList<RecipeModel>):
         Glide.with(context).load(recipe.recipePicture).into(holder.recipeImage1)
         holder.recipeTitle2.text=recipe.recipeTitle
         holder.recipeCalories3.text=recipe.recipeCalories
+        holder.recipeDate4.text="("+recipe.recipeDate+")"
         holder.recipeId=recipe.recipeId
 
         holder.itemView.setOnClickListener {
@@ -59,6 +61,7 @@ class RecipesAdapter(var context:Context, var arrayList:ArrayList<RecipeModel>):
         var recipeImage1 = itemView.findViewById<ImageView>(R.id.recipe_image)
         var recipeTitle2= itemView.findViewById<TextView>(R.id.recipe_title)
         var recipeCalories3= itemView.findViewById<TextView>(R.id.recipe_calories)
+        var recipeDate4= itemView.findViewById<TextView>(R.id.recipe_date)
         lateinit var  recipeId:String
 
 

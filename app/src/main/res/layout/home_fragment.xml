@@ -285,4 +285,5 @@
 
         <include layout="@layout/fragment_home_body"/>
     </androidx.core.widget.NestedScrollView>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

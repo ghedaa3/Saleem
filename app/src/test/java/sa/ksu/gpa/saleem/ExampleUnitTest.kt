@@ -11,7 +11,12 @@ import org.junit.Assert.*
  */
 class ExampleUnitTest {
     @Test
-    fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+    fun isCaloriCorrect() {
+        var Ingredient="حليب"
+        var Measurment="مل"
+        var Quantity="100"
+        var actual=CaloriCalculater.calculateCalories(Ingredient,Measurment,Quantity)
+        var excpected=56
+        assertEquals(excpected, actual)
     }
 }

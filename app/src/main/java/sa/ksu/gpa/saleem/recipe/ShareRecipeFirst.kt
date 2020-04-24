@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
 import android.util.Log
@@ -24,6 +25,10 @@ import pl.utkala.searchablespinner.SearchableSpinner
 import sa.ksu.gpa.saleem.CaloriCalculater
 import sa.ksu.gpa.saleem.R
 import java.io.IOException
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
@@ -274,7 +279,6 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
         Log.d("TotalCalories","TotalCalories inside db: "+TotalCalories)
 
 
-
         var type: String? =null
         var type1:String? =null
         var type2:String? =null
@@ -321,7 +325,9 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
             "name" to name,
             "prepration" to prepration,
             "Type" to arrayListOf(type,type1,type2,type3,type4,type5),
-            "calories" to TotalCalories
+            "calories" to TotalCalories,
+            "date"    to  getCurrentDate()
+
         )
         val NumberOfCaloriesDoc = db.collection("Users").document(currentuser)
         NumberOfCaloriesDoc.get().addOnSuccessListener {
@@ -358,4 +364,16 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
 
     }
     }
+    fun getCurrentDate():String {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val formatted = current.format(formatter)
+            return formatted
+        }
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val currentDate = sdf.format(Date())
+        return "$currentDate"
+    }
+
 }

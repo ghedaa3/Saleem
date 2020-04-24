@@ -77,7 +77,7 @@ class ExerciseActivity : AppCompatActivity() ,View.OnClickListener {
         getRecipes()*/
 
         exerciseAdapter= ExerciseAdapter(applicationContext,exerciseList)
-        getRecipes()
+        getExcercise()
 
 
         gridLayout= StaggeredGridLayoutManager(1, LinearLayoutManager.VERTICAL)
@@ -122,7 +122,8 @@ class ExerciseActivity : AppCompatActivity() ,View.OnClickListener {
         return Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dp.toFloat(), r.displayMetrics))
     } //end dpToPx
 
-    private fun getRecipes() {
+
+    private fun getExcercise() {
 
        var pagetitle=intent.getStringExtra("title")
 

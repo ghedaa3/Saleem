@@ -124,7 +124,8 @@ class viewSharedRecipeActivity : AppCompatActivity(), BaseSliderView.OnSliderCli
                         var recipename= document.get("name").toString()
                         var recipeCalproes=document.get("calories").toString()
                         var recipeImage= document.get("image").toString()
-                        var recipe = RecipeModel(recipeId , recipename, recipeImage,recipeCalproes)
+                        var recipeDate= document.get("date").toString()
+                        var recipe = RecipeModel(recipeId , recipename, recipeImage,recipeCalproes,recipeDate)
                         recipeList.add(recipe)
                         recipesAdapter!!.notifyDataSetChanged()
 

@@ -7,6 +7,7 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -36,18 +37,19 @@ import sa.ksu.gpa.saleem.exercise.ExerciseActivity
 import sa.ksu.gpa.saleem.exercise.ExerciseListActivity
 import sa.ksu.gpa.saleem.recipe.ShareRecipeFirst
 import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity
-import java.util.ArrayList
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class MainActivity : AppCompatActivity() {
     private val CAMERA_REQUEST_CODE=123;
-    private var btn: Button? = null
-    private var addExcercize: Button? = null
     private lateinit var db:FirebaseFirestore
-    private var counter=0
     lateinit var speedDialView:SpeedDialView
-   val currentuser1 = "Kgr3rhDXC2kNuq5syHsm"
+     var totalBurntCalories:Int=0
     val currentuser = FirebaseAuth.getInstance().currentUser?.uid
+
 
 
 
@@ -100,43 +102,108 @@ class MainActivity : AppCompatActivity() {
 
         }
          ubdateBurntCaloris()
-        Log.d("main","ID"+currentuser)
-         speedDialView = findViewById<SpeedDialView>(R.id.speedDial)
+        initSpeedDialView()
+
+    }
+
+    @SuppressLint("ResourceType")
+    private fun initSpeedDialView() {
+        speedDialView = findViewById<SpeedDialView>(R.id.speedDial)
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10009, R.drawable.ic_scan)
-                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.purble, getTheme()))
-                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
+                .setFabBackgroundColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.purble,
+                        getTheme()
+                    )
+                )
+                .setFabImageTintColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.white,
+                        getTheme()
+                    )
+                )
                 .setLabel("مسح المنتج")
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10011, R.drawable.ic_dumbbell)
-                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.colorBlue, getTheme()))
-                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
+                .setFabBackgroundColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.colorBlue,
+                        getTheme()
+                    )
+                )
+                .setFabImageTintColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.white,
+                        getTheme()
+                    )
+                )
                 .setLabel("تمرين")
 
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10012, R.drawable.ic_timer_black_24dp)
-                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.green, getTheme()))
-                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
+                .setFabBackgroundColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.green,
+                        getTheme()
+                    )
+                )
+                .setFabImageTintColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.white,
+                        getTheme()
+                    )
+                )
                 .setLabel("مؤقت")
 
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10013, R.drawable.ic_white_dish)
-                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.orange, getTheme()))
-                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
+                .setFabBackgroundColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.orange,
+                        getTheme()
+                    )
+                )
+                .setFabImageTintColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.white,
+                        getTheme()
+                    )
+                )
                 .setLabel("وصفة")
 
                 .create()
         )
         speedDialView.addActionItem(
             SpeedDialActionItem.Builder(10014, R.drawable.ic_idea)
-                .setFabBackgroundColor(ResourcesCompat.getColor(getResources(), R.color.yellow, getTheme()))
-                .setFabImageTintColor(ResourcesCompat.getColor(getResources(), R.color.white, getTheme()))
+                .setFabBackgroundColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.yellow,
+                        getTheme()
+                    )
+                )
+                .setFabImageTintColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.white,
+                        getTheme()
+                    )
+                )
                 .setLabel("نصيحة")
 
                 .create()
@@ -146,32 +213,31 @@ class MainActivity : AppCompatActivity() {
             when (actionItem.id) {
                 10009 -> {
                     //select scan barcode
-                    val permisison= ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
+                    val permisison =
+                        ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA)
 
                     val intent = Intent(this@MainActivity, ScanActivity::class.java)
-                    if(permisison!= PackageManager.PERMISSION_GRANTED){
+                    if (permisison != PackageManager.PERMISSION_GRANTED) {
                         makeRequest()
-                    }
-
-                    else startActivity(intent)
+                    } else startActivity(intent)
                     speedDialView.close() // To close the Speed Dial with animation
                     return@OnActionSelectedListener true // false will close it without animation
                 }
-                10011 ->{
-                    Log.d("main1"," clicked")
+                10011 -> {
+                    Log.d("main1", " clicked")
 
                     addExcercizeDialog()
 
                 }
-                10014 ->{
+                10014 -> {
                     addAdviceDialog()
                 }
-                10013->{
+                10013 -> {
                     val intent = Intent(this@MainActivity, ShareRecipeFirst::class.java)
                     startActivity(intent)
 
                 }
-                10012->{
+                10012 -> {
                     val intent = Intent(this@MainActivity, TimerSettings::class.java)
                     startActivity(intent)
 
@@ -190,10 +256,7 @@ class MainActivity : AppCompatActivity() {
                 Log.d("MAIN", "Speed dial toggle state changed. Open = $isOpen")
             }
         })
-
     }
-
-
 
 
     private fun loadFragment(fragment: Fragment) {
@@ -248,24 +311,6 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-//    private fun showAddAdvice(){
-//        //set input in TV
-//        //advicesTV.text = data //advicesTV.setText("النصيحة اليومية: "+data)
-//
-//        db.collection("Advices")
-//            .get()
-//            .addOnSuccessListener { result ->
-//                for (document in result) {
-//                    Log.d("exists", "${document.id} => ${document.data}")
-//                    advicesTV.text = document.getString("text")
-//                }
-//            }
-//            .addOnFailureListener { exception ->
-//                Log.w("error", "Error getting documents.", exception)
-//            }
-//
-//    }
-
 
     fun showAddFood(data: ArrayList<String>) {
         val fragment = ItemListDialogFragmentA(data)
@@ -277,20 +322,6 @@ class MainActivity : AppCompatActivity() {
 
             }
         })
-    }
-    public fun addFood(){
-        val list = ArrayList<String>()
-        list.add("وجبة مفصلة")
-        list.add("وجبة ")
-        showAddFood(list)
-        // ItemListDialogFragment fragment = ItemListDialogFragment.newInstance(new Gson().toJson(menuDataArrayList));
-        //        fragment.show(getActivity().getSupportFragmentManager(), "tag");
-        //        fragment.setOnSelectData(position -> {
-        //            cetType.setText(data.get(position).getDepartmentName());
-        //            typeId = data.get(position).getId();
-        //        });
-
-
     }
 
     private fun addExcercizeDialog() {
@@ -319,16 +350,13 @@ class MainActivity : AppCompatActivity() {
                 var burntcal=burnt1.toDouble()
                 Log.d("main1","not empty")
 
-                val burntCalories = db.collection("Users").document(currentuser1)
-
-                burntCalories.update("burntCalories", FieldValue.increment(burntcal))
                // adding a list of excercises
                 val docData = hashMapOf(
                         "exerciseName" to workoutName,
-                        "exerciseCalories" to burntcal
-
+                        "exerciseCalories" to burntcal,
+                        "date"    to  getCurrentDate()
                 )
-                db.collection("Users").document(currentuser1).collection("Exercises").document().set(docData)
+                db.collection("Users").document(currentuser!!).collection("Exercises").document().set(docData)
                     .addOnSuccessListener {
                     Log.d("main1","Added to collection")
                     Toast.makeText(this, "تمت اضافة التمرين", LENGTH_LONG).show()
@@ -353,24 +381,37 @@ class MainActivity : AppCompatActivity() {
         }
 
     }
-
+    fun getCurrentDate():String {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val formatted = current.format(formatter)
+            return formatted
+        }
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val currentDate = sdf.format(Date())
+        return "$currentDate"
+    }
     private fun ubdateBurntCaloris() {
-        /*
-        db.collection("Users").document(currentuser).get().addOnSuccessListener {
-            if (it.get("burntCalories")!=0)
-                burnt_calories_textview.text=it.get("burntCalories").toString()
+        db.collection("Users").document(currentuser!!).collection("Exercises").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
+             for (documents in it){
+                 totalBurntCalories+=documents.get("exerciseCalories").toString().toInt()
+
+             }
+           if(totalBurntCalories!=null)
+                burnt_calories_textview.text= totalBurntCalories.toString()
             else
-                burnt_calories_textview.text="0"
+               burnt_calories_textview.text="0"
+
 
         }
-        */
+
 
     }
 
     private fun makeRequest() {
         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.CAMERA),CAMERA_REQUEST_CODE)
     }
-
     override fun onResume() {
         super.onResume()
         speedDialView.visibility =View.VISIBLE
@@ -398,8 +439,6 @@ class MainActivity : AppCompatActivity() {
         return highScore
 
     }
-
-
     fun getCounter():Int{
         val sharedPref = getSharedPreferences("saleem_app_shared",Context.MODE_PRIVATE)
         val highScore = sharedPref.getInt("counter", 1)

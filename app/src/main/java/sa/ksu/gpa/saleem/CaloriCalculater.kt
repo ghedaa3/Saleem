@@ -1,6 +1,11 @@
 package sa.ksu.gpa.saleem
 
 import android.net.wifi.WifiConfiguration.GroupCipher.strings
+import android.os.Build
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 object CaloriCalculater {
     var totscalories=0

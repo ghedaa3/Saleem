@@ -102,7 +102,7 @@ class CounterFragment(position: Int, date: String) : Fragment(), SensorEventList
             .addSnapshotListener { documentSnapshot: DocumentSnapshot?, firebaseFirestoreException: FirebaseFirestoreException? ->
                 if (documentSnapshot != null) {
                     var neededcal = documentSnapshot?.get("needed cal")
-                    totalcal = neededcal.toString().toDouble()
+                    totalcal = 11.0
 
                     tv_main_number1.setText("${totalcal.toInt()}")
                     pb_counter1.progress = remainderCal.toInt()

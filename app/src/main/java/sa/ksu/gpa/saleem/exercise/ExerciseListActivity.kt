@@ -86,25 +86,15 @@ class ExerciseListActivity : AppCompatActivity() {
 
             val intent = Intent(this, ExerciseActivity::class.java)
 
-
             intent.putExtra("title", titleb.text)
-
-            // Log.d("listact", "" + pageTitle?.toString())
-
             startActivity(intent)
-
-
         }
 
         findViewById<LinearLayout>(R.id.intermediate).setOnClickListener {
 
-
             val intent = Intent(this, ExerciseActivity::class.java)
-
-
             intent.putExtra("title", title1.text)
 
-            //Log.d("listact", "" + pageTitle?.toString())
 
             startActivity(intent)
 
@@ -118,8 +108,6 @@ class ExerciseListActivity : AppCompatActivity() {
 
 
             intent.putExtra("title", title2.text)
-
-            //  Log.d("listact", "" + pageTitle?.toString())
 
             startActivity(intent)
 
