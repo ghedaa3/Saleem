@@ -15,7 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".NotificationActivity"></activity>
+        <activity android:name=".Admin.AdminRecipes"></activity>
+        <activity android:name=".Admin.AdminAdvices" />
+        <activity android:name=".NotificationActivity" />
 
         <receiver android:name=".AlarmReceiver">
             <intent-filter>
@@ -23,7 +25,7 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".ForegroundService"></service>
+        <service android:name=".ForegroundService" />
 
         <activity android:name=".EditMyRecipe" />
         <activity android:name=".MyRecipesActivity" />
@@ -54,9 +56,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".exercise.ExerciseActivity">
-
-        </activity>
+        <activity android:name=".exercise.ExerciseActivity" />
         <activity
             android:name=".register.registerFourActivity"
             android:parentActivityName=".register.registerThreeActivity" />

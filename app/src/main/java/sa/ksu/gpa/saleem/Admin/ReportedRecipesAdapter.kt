@@ -1,4 +1,4 @@
-package sa.ksu.gpa.saleem
+package sa.ksu.gpa.saleem.Admin
 
 import android.view.LayoutInflater
 import android.view.View
@@ -6,9 +6,9 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import sa.ksu.gpa.saleem.R
 
-class AdminAdapter (private val list: List<MyAdmin>, var onActionClick: OnActionClick): RecyclerView.Adapter<AdminAdapter.MyViewHolder>(){
-
+class ReportedRecipesAdapter (private val list: List<ReportedRecipes>, var onActionClick: OnActionClick): RecyclerView.Adapter<ReportedRecipesAdapter.MyViewHolder>(){
 
     class MyViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.item_my_food, parent, false)) {
@@ -23,14 +23,13 @@ class AdminAdapter (private val list: List<MyAdmin>, var onActionClick: OnAction
             edit = itemView.findViewById(R.id.edit)
         }
 
-        fun bind(MyAdmin: MyAdmin, onActionClick: OnActionClick) {
-
-            title?.text = MyAdmin.title
+        fun bind(ReportedRecipes: ReportedRecipes, onActionClick: OnActionClick) {
+            title?.text = ReportedRecipes.report
             delete?.setOnClickListener(View.OnClickListener {
-                onActionClick.onDelete(MyAdmin,adapterPosition)
+                onActionClick.onDelete(ReportedRecipes,adapterPosition)
             })
             edit?.setOnClickListener(View.OnClickListener {
-                onActionClick.onEdit(MyAdmin,adapterPosition)
+                onActionClick.onEdit(ReportedRecipes,adapterPosition)
             })
 
         }
@@ -52,8 +51,8 @@ class AdminAdapter (private val list: List<MyAdmin>, var onActionClick: OnAction
     }
 
     interface OnActionClick{
-        fun onClick(item:MyAdmin , position:Int)
-        fun onEdit(item:MyAdmin , position:Int)
-        fun onDelete(item:MyAdmin , position:Int)
+        fun onClick(item: ReportedRecipes, position:Int)
+        fun onEdit(item: ReportedRecipes, position:Int)
+        fun onDelete(item: ReportedRecipes, position:Int)
     }
 }

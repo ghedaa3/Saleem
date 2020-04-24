@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import kotlinx.android.synthetic.main.activity_my_recipes.*
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcercise
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcerciseburentCal
@@ -43,6 +44,9 @@ class MyRecipesActivity : AppCompatActivity() {
 
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.recyclerViewRes)
+        my_rec_back_button.setOnClickListener{
+            onBackPressed()
+        }
         getExcerciseData()
         Log.d("RECIPE","Cureent"+currentuser)
 
