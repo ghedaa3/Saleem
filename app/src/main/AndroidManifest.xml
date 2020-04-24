@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" /> 
 
     <application
         android:name=".font.CustomFontApp"
@@ -15,9 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".Admin.AdminRecipes"></activity>
-        <activity android:name=".Admin.AdminAdvices" />
-        <activity android:name=".NotificationActivity" />
+        <activity android:name=".NotificationActivity"></activity>
 
         <receiver android:name=".AlarmReceiver">
             <intent-filter>
@@ -25,9 +24,10 @@
             </intent-filter>
         </receiver>
 
-        <service android:name=".ForegroundService" />
+        <service android:name=".ForegroundService"></service>
 
         <activity android:name=".EditMyRecipe" />
+        <activity android:name=".util.test" />
         <activity android:name=".MyRecipesActivity" />
         <activity android:name=".MyAdvicesActivity" />
         <activity android:name=".MyExcercise" />
@@ -56,7 +56,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".exercise.ExerciseActivity" />
+        <activity android:name=".exercise.ExerciseActivity">
+
+        </activity>
+        <activity android:name=".exercise.ExerciseListActivity"></activity>
         <activity
             android:name=".register.registerFourActivity"
             android:parentActivityName=".register.registerThreeActivity" />
