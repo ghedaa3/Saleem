@@ -90,11 +90,37 @@ class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String
 
             addObject(it)
         }
+        spFood.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
 
+            }
+
+            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                updateAdapter(position)
+            }
+
+        }
 
     }
 
-    private fun initNutritionalValueList() {
+
+    public fun updateAdapter( position: Int) {
+        var list = ArrayList<String>()
+        if (position == 1 || position == 0) {
+            list.add("كوب")
+            list.add("كجم")
+        } else if (position == 3 || position == 2) {
+            list.add("العدد")
+        } else if (position == 5 || position == 4) {
+            list.add("كوب")
+            list.add("ملل")
+        }
+
+        val arrayAdapter = ArrayAdapter(this.context, android.R.layout.simple_spinner_item, list)
+        spWeight.adapter = arrayAdapter
+    }
+
+        private fun initNutritionalValueList() {
         //رز أبيض
         var risw: NutritionalValue = NutritionalValue()
         risw.array = ArrayList()

@@ -16,18 +16,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.*
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcercise
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcerciseburentCal
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.cancelExcercise
 import kotlinx.android.synthetic.main.add_fast_food.view.*
+import kotlinx.android.synthetic.main.advice_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
-import kotlinx.android.synthetic.main.water_field.*
 import sa.ksu.gpa.saleem.AddFoodActivity.OnSave
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -47,8 +45,9 @@ class HomeFragment : Fragment() {
     var previousDaysCount = 0
     var history_Id = ""
     var currentuser = ""
-
     private var counter=0
+    private lateinit var adviceID:String
+    private var flag:Boolean=true
     private lateinit var pagerAdapter: PagerAdapter
     private lateinit var date: String
     lateinit var dialog:ProgressDialog
@@ -92,9 +91,10 @@ class HomeFragment : Fragment() {
         view.findViewById<LinearLayout>(R.id.add_breakfast).setOnClickListener { addFood("breakfast") }
         view.findViewById<LinearLayout>(R.id.add_lunch).setOnClickListener { addFood("lunch") }
         view.findViewById<LinearLayout>(R.id.add_dinner).setOnClickListener { addFood("dinner") }
-        view.findViewById<ImageView>(R.id.addWaterBtn).setOnClickListener { addWater() }
+        view.findViewById<ImageView>(R.id.adviceFlag).setOnClickListener { onFlagClicked() }
 
-
+        ////// view.findViewById<ImageView>(R.id.addWaterBtn).setOnClickListener { addWater() }
+       // view.findViewById<ImageButton>(R.id.addWaterLL).setOnClickListener { onDeleteW() }
 
 
         view.findViewById<LinearLayout>(R.id.add_snack).setOnClickListener { addFood("snack") }
@@ -151,6 +151,7 @@ class HomeFragment : Fragment() {
         db.collection("Advices").get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
+                    adviceID = document.id
                     var title = document.get("text").toString()
                     advicesTV.text = title
                 }
@@ -160,27 +161,101 @@ class HomeFragment : Fragment() {
                     }
     }
 
+    private fun onFlagClicked(){
+        flagAdvice()
 
-   private fun addWater() {
-        if (counter < 8) {
+        if (flag){
+            Log.d("flag1", "isReporting is ="+flagAdvice())
+            Toast.makeText(context, "لقد أبلغت عن هذه النصحية مسبقا", Toast.LENGTH_LONG).show()
 
-            val inflater = activity!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-
-            val rowView = inflater.inflate(R.layout.water_field, null)
-            waterInnerLL.addView(rowView, waterInnerLL.getChildCount())
-           counter++
-           waterAmountTV.text = "$counter"
-          // rowView.setOnClickListener { myOnClick(rowView) }
         }
-   }
-  fun myOnClick(v: View) {
-       if (counter > 0) {
-           waterInnerLL.removeView(v.parent as View)
-            counter--
-          waterAmountTV.text = "$counter"
-        }
-  }
+        else reportAdviceDialog()
 
+        true
+    }
+
+    private fun flagAdvice(){
+        db.collection("ReportedAdvices").whereEqualTo("reporterUID",currentuser).whereEqualTo("adviceID",adviceID)
+            .get().addOnSuccessListener { documents ->
+                if (documents.isEmpty()){
+                    flag=false
+                }
+
+            }.addOnFailureListener {
+                Log.d("flag1", "isReporting is inside else =")
+            }
+    }
+
+    private fun reportAdviceDialog(){
+        val mDialogView = LayoutInflater.from(context).inflate(R.layout.advice_dialog, null)
+        val mBuilder = activity?.let {
+            AlertDialog.Builder(it)
+                .setView(mDialogView)
+        }
+
+        val  mAlertDialog = mBuilder?.show()
+        mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        mDialogView.textinadvice.text="بلاغك"
+        mDialogView.dialogShareBtn.text="تبليغ"
+
+        mDialogView.dialogShareBtn.setOnClickListener{
+            var body = mDialogView.dialogAdviceET!!.editText!!.text
+
+            if (body.length > 140){
+                Toast.makeText(context, "لا يمكن ان يكون البلاغ أطول من ١٤٠ حرف", Toast.LENGTH_LONG).show()
+            }
+            else if (body.isEmpty()){
+                Toast.makeText(context, "لا يمكن ترك هذه الخانة فارغة ", Toast.LENGTH_LONG).show()
+            }
+
+            else {
+                var body1=body.toString()
+
+                val docData = hashMapOf(
+                    "text" to body1,
+                    "reporterUID" to currentuser,
+                    "adviceID" to adviceID
+                )
+
+
+                db.collection("ReportedAdvices").document(adviceID).set(docData).addOnSuccessListener {
+                    Log.d("advice", "added rports:" )
+
+
+                }.addOnFailureListener {
+                    Log.d("advice", "error added rports:" )
+
+                }
+                Toast.makeText(context, "تم نشر البلاغ ", Toast.LENGTH_LONG).show()
+                mAlertDialog?.dismiss()
+            }
+        }
+
+        mDialogView.dialogCancelBtn.setOnClickListener{
+            mAlertDialog?.dismiss()
+        }
+    }
+
+
+
+//    private fun addWater() {
+//        if (counter < 8) {
+//            val inflater = activity
+//                ?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+//            val rowView = inflater.inflate(R.layout.water_field, null)
+//            waterInnerLL.addView(rowView, waterInnerLL.childCount - 1)
+//            counter++
+//            waterAmountTV.text = "$counter"
+//            rowView.setOnClickListener { myOnClick(rowView) }
+//        }
+//    }
+//    fun myOnClick(v: View) {
+//        if (counter > 0) {
+//            waterInnerLL.removeView(v.parent as View)
+//            counter--
+//            waterAmountTV.text = "$counter"
+//        }
+//    }
 
 
     fun showAddFood(data: ArrayList<String>,type_of_food:String) {

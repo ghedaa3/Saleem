@@ -23,7 +23,8 @@ class ForegroundService : Service() {
 
     private lateinit var db: FirebaseFirestore
     var currentUser = ""
-
+    var currantDate=""
+    var dayCount = 0
     private val CHANNEL_ID = "ForegroundService Kotlin"
 
     companion object {
@@ -84,6 +85,23 @@ class ForegroundService : Service() {
     }
 
     private fun checkIfEat() {
+
+        if(!currantDate.equals(getCurrentDate())){
+            currantDate = getCurrentDate()
+            dayCount ++
+
+        }
+        if(dayCount == 8){
+            Companion.stopService(this)
+            getNotification("احسنت!! لقد قمت بتحقيق هدفك خلال الاسبوع الماضي")?.let {
+                scheduleNotification(
+                    it,
+                    0
+                )
+            }
+
+            return
+        }
         var message: String = ""
         var calender = Calendar.getInstance()
         Log.e("checkIfEat","${calender.get(Calendar.HOUR)}");

@@ -136,7 +136,7 @@ class editProf : AppCompatActivity() ,View.OnClickListener {
                     levell=2
                 else if (level=="متقدم")
                     levell=3
-               Log.d("TAG", "تم تعديل المستوى"+levell+"hhhhhhhhhhhhhhhhhhhhhhh"+level)
+               Log.d("TAG", "تم تعديل المستوى"+levell+level)
 
                 val firebaseFirestore = FirebaseFirestore.getInstance()
                 var userUid = FirebaseAuth.getInstance().currentUser!!.uid
