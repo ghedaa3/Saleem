@@ -61,12 +61,11 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
         Log.d("pro","ID:"+userUid)
 
 
-        Log.d(registerFourActivity.TAG, "kkkkkkkkkkkkkkkkkkkkk"+userUid)
 
 
         val db = FirebaseFirestore.getInstance()
 
-        val docRef = db.collection("Users").document(userUid)
+        val docRef = db.collection("users").document(userUid)
 
         docRef.get().addOnSuccessListener { document ->
             if (document != null) {
@@ -80,7 +79,7 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
                 val gender = document.get("gender").toString()
                 val age = document.get("age").toString()
 
-                Log.d(registerFourActivity.TAG, "kkkkkkkkkkkkkkkkkkkkk"+userUid+name+wight)
+                Log.d(registerFourActivity.TAG, "profile"+userUid+name+wight)
 
                 val weight=wight.toDouble()
                 val length=hight.toString().toDouble()
@@ -90,7 +89,7 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
                 val goal=goalll.toString().toInt()
                 var level=levelll.toString().toInt()
 
-                Log.e(registerOneActivity.TAG, "kkkkkkkkkkkkkkkkkkkkkoo"+level)
+                Log.e(registerOneActivity.TAG, "profile"+level)
 
                 var bmi = (weight) / (length / 100 * length / 100)
 
@@ -254,18 +253,6 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
 }
 
 
-       // var ref = FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid)
-
-  /*      val menuListener = object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                user = dataSnapshot.getValue() as User
-                textView.text = user?.getName()
-            }
-            override fun onCancelled(databaseError: DatabaseError) {
-                // handle error
-            }
-        }*/
-      //  ref.addListenerForSingleValueEvent(menuListener)
 
 
 

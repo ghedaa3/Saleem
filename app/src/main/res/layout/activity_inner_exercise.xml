@@ -5,6 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blackTextColor"
+
     tools:context=".exercise.InnerExercise">
 
 
@@ -22,7 +24,8 @@
                 android:layout_marginTop="60dp"
                 android:layout_marginBottom="20dp"
                 android:padding="5dp"
-                android:textColor="#111"
+
+                android:textColor="#FFFFFF"
                 android:text="تمرين استقامة"/>
 
         <ImageView
@@ -73,9 +76,9 @@
         android:text=" 10 مرات"
 
         android:padding="5dp"
-        android:textColor="#111"
+        android:textColor="#FFFFFF"
      />
-        <View
+       <!-- <View
             android:layout_height="1dp"
             android:layout_width="match_parent"
             android:gravity="center"
@@ -83,7 +86,7 @@
             android:layout_below="@+id/timer"
             android:id="@+id/line"
 
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"/>-->
 
         <TextView
 
@@ -98,8 +101,9 @@
             android:textAlignment="center"
             android:text=" 10 مرات"
 
+
             android:padding="5dp"
-            android:textColor="#111"
+            android:textColor="#FFFFFF"
             />
 
     </RelativeLayout>

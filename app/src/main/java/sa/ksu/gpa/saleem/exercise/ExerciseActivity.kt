@@ -142,7 +142,7 @@ class ExerciseActivity : AppCompatActivity() ,View.OnClickListener {
                         exerciseList.add(
                             ExerciseModel(
                                 "Watch",
-                                "الجلوس المعدل",
+                                "تمارين معدة",
                                 R.drawable.set_up,
                                 "2 ",
                                 "التكرار: 10 "
@@ -194,7 +194,7 @@ class ExerciseActivity : AppCompatActivity() ,View.OnClickListener {
                         exerciseList.add(
                             ExerciseModel(
                                 "Watch",
-                                "الجلوس المعدل",
+                                "تمارين معدة",
                                 R.drawable.set_up,
                                 "4 ",
                                 "التكرار: 20 "
@@ -245,7 +245,7 @@ class ExerciseActivity : AppCompatActivity() ,View.OnClickListener {
                         exerciseList.add(
                             ExerciseModel(
                                 "Watch",
-                                "الجلوس المعدل",
+                                "تمارين معدة",
                                 R.drawable.set_up,
                                 "6 ",
                                 "التكرار: 30 "

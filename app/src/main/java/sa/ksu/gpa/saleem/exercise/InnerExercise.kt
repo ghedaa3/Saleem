@@ -88,16 +88,17 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
             // adding a list of excercises
             val docData = hashMapOf(
                 "exerciseName" to title,
-                "exerciseCalories" to cal
+                "exerciseCalories" to cal,
+                "exerciseType" to "FromExercise"
 
             )
             db.collection("users").document(userUid).collection("Exercises").document().set(docData)
                 .addOnSuccessListener {
-                    Log.d("main1","Added to collection exercise hhhhhhhhhhhhhhhhhh")
-                    Toast.makeText(this, "hhhhhhhhhhhhhتمت اضافة التمرين", Toast.LENGTH_LONG).show()
+                    Log.d("main1","Added to collection exercise ")
+                    Toast.makeText(this, "تمت اضافة التمرين", Toast.LENGTH_LONG).show()
 
                 }.addOnFailureListener {
-                    Log.d("main1","not Added to collectionhhhhhhh"+it)
+                    Log.d("main1","not Added to collection"+it)
                     Toast.makeText(this, "حصل خطأ", Toast.LENGTH_LONG).show()
 
 
@@ -123,7 +124,7 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
         Exercisetitle.setText(title)
         time.setText(duration)
 
-        calT.setText(calories+"سعرة محروقة")
+        calT.setText(calories+" سعرة محروقة ")
         //cal.setText(calories)
 
         if (id == "Watch") {
@@ -151,7 +152,6 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
 
         if (id == "1") {
 
-            //الجلوس المعدل
 
             Glide.with(this)
                 .load(sa.ksu.gpa.saleem.R.drawable.warm_up)

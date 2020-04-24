@@ -33,7 +33,7 @@ import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import sa.ksu.gpa.saleem.Timer.TimerSettings
 import sa.ksu.gpa.saleem.exercise.ExerciseActivity
-import sa.ksu.gpa.saleem.exercise.ExerciseFragment
+
 import sa.ksu.gpa.saleem.exercise.ExerciseListActivity
 import sa.ksu.gpa.saleem.recipe.ShareRecipeFirst
 import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity
@@ -95,7 +95,7 @@ class MainActivity : AppCompatActivity() {
             false
 
         }
-        showAddAdvice()
+        //showAddAdvice()
          ubdateBurntCaloris()
         Log.d("main","ID"+currentuser)
          speedDialView = findViewById<SpeedDialView>(R.id.speedDial)
@@ -250,9 +250,19 @@ class MainActivity : AppCompatActivity() {
                 db.collection("Advices").document()
                 //advice.put("text",body) //advice["text"] = body
                 advice["text"] = body1
-                db.collection("Advices").document().set(advice)
-                Toast.makeText(this, "تمت اضافة النصيحة", LENGTH_LONG).show()
-                advicesTV.text = body1
+                //db.collection("Advices").document().set(advice)
+                if (currentuser != null) {
+                    db.collection("users").document(currentuser).collection("Advices").document().set(advice)
+                        .addOnSuccessListener {
+                            Log.d("main1","Added to collection")
+                            Toast.makeText(this, "تمت  إضافة النصيحة", LENGTH_LONG).show()
+
+                        }.addOnFailureListener {
+                            Log.d("main1","not Added to collection"+it)
+                            Toast.makeText(this, "حصل خطأ", LENGTH_LONG).show()
+                        }
+                }
+                //advicesTV.text = body1
                 mAlertDialog.dismiss()
             }
 
@@ -261,7 +271,6 @@ class MainActivity : AppCompatActivity() {
             mAlertDialog.dismiss()
 
         }
-
 
     }
 
@@ -372,15 +381,13 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun ubdateBurntCaloris() {
-        /*
-        db.collection("Users").document(currentuser).get().addOnSuccessListener {
+        db.collection("users").document(currentuser).get().addOnSuccessListener {
             if (it.get("burntCalories")!=0)
                 burnt_calories_textview.text=it.get("burntCalories").toString()
             else
                 burnt_calories_textview.text="0"
 
         }
-        */
 
     }
 

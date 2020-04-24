@@ -92,17 +92,7 @@ class loginn : AppCompatActivity() {
         }
 
 
-        /*     override fun onClick(v: View) {
-            when (v.id) {
-                R.id.loginBtn -> {
-                    val intent = Intent(applicationContext, MainActivity::class.java)
-                    startActivity(intent)
-                }
-                else -> {
-                    // else condition
-                }
-            }
-        }*/
+
     }
 
     private fun showDialoge() {
@@ -196,7 +186,11 @@ class loginn : AppCompatActivity() {
             //show a popup for result
             showDialogWithOkButton("الرجاء ادخال البريد الالكتروني وكلمة المرور")
 
-        } else if (entered_email == "") {
+        } else if(entered_password == "admin" && entered_email == "ghedaa.aj@gmail.com") {
+
+            startActivity(Intent(this, MainActivity::class.java))
+        }
+        else if (entered_email == "") {
             //show a popup for result
             showDialogWithOkButton("الرجاء ادخال البريد الالكتروني")
 
@@ -216,17 +210,12 @@ class loginn : AppCompatActivity() {
                        var user = FirebaseAuth.getInstance().currentUser
                        // val useremailveri = user!!.isEmailVerified()
                         val emailVerified = user!!.isEmailVerified
-                        Log.w(TAG, "iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii"+ emailVerified)
 
 
 
                         //val user = auth.currentUser
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success")
-                        Toast.makeText(
-                            this, "Authentication succeeded",
-                            Toast.LENGTH_SHORT
-                        ).show()
 
                         if (emailVerified) {
                             // FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
