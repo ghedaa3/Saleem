@@ -64,7 +64,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         date = getCurrentDate()
         tvDate.text = date
-
         pagerAdapter = activity?.supportFragmentManager?.let { PagerAdapter(it,date) }!!
         viewPager.adapter = pagerAdapter
         dotsIndicator.setViewPager(viewPager)
@@ -100,24 +99,11 @@ class HomeFragment : Fragment() {
         view.findViewById<LinearLayout>(R.id.add_snack).setOnClickListener { addFood("snack") }
         db= FirebaseFirestore.getInstance()
         currentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
+        ubdateBurntCaloris()
 
 
-//        val burntCalories = db.collection("users").document(currentuser)
-//        val burntCalories = db.collection("users")
-//            .document("ckS3vhq8P8dyOeSI7CE7D4RgMiv1")//test user
-//            .addSnapshotListener(EventListener(){ documentSnapshot: DocumentSnapshot?, firebaseFirestoreException: FirebaseFirestoreException? ->
-//                var neededcal = documentSnapshot?.getDouble("needed cal")
-//                totalcal = neededcal as Double
-//
-//                tv_main_number.setText("${totalcal.toInt()}")
-//                pb_counter.progress =remainderCal.toInt()
-//                pb_counter.max = totalcal.toInt()
-//
-//                Log.e("hhhh","${totalcal.toInt()}")
-//                Log.e("wwww","${consumerCal.toInt()}")
-//
-//
-//            })
+
+
         db.collection("History")
             .whereEqualTo("date",getCurrentDate())
             .whereEqualTo("user_id",currentuser)
@@ -185,7 +171,23 @@ class HomeFragment : Fragment() {
                 Log.d("flag1", "isReporting is inside else =")
             }
     }
+    private fun ubdateBurntCaloris() {
+        var totalBurntCalories:Double=0.0
+        db.collection("users").document(currentuser!!).collection("Exercises").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
+            for (documents in it){
+                totalBurntCalories+=documents.get("exerciseCalories").toString().toDouble()
 
+            }
+            if(totalBurntCalories!=null)
+                burnt_calories_textview.text= totalBurntCalories.toString()
+            else
+                burnt_calories_textview.text="0"
+
+
+        }
+
+
+    }
     private fun reportAdviceDialog(){
         val mDialogView = LayoutInflater.from(context).inflate(R.layout.advice_dialog, null)
         val mBuilder = activity?.let {
