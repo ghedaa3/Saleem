@@ -1,4 +1,4 @@
-package sa.ksu.gpa.saleem.admin
+package sa.ksu.gpa.saleem.Admin
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity

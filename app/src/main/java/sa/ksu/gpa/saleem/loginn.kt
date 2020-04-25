@@ -17,7 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import sa.ksu.gpa.saleem.register.registerOneActivity
 import android.text.Html
-import sa.ksu.gpa.saleem.admin.AdminActivity
+import sa.ksu.gpa.saleem.Admin.AdminActivity
 
 
 class loginn : AppCompatActivity() {

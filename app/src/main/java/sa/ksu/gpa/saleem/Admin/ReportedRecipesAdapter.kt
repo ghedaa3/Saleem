@@ -1,7 +1,6 @@
-package sa.ksu.gpa.saleem.admin
+package sa.ksu.gpa.saleem.Admin
 
 import android.content.Context
-import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View

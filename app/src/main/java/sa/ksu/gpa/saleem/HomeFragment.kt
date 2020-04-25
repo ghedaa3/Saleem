@@ -133,44 +133,89 @@ class HomeFragment : Fragment() {
             }
     }
 
-    private fun showAddAdvice() {
+      private fun showAddAdvice() {
+//        db.collection("Advices").whereEqualTo("date",getCurrentDate())
+//            .get().addOnSuccessListener {documents ->
         db.collection("Advices").get()
             .addOnSuccessListener { documents ->
+
                 for (document in documents) {
                     adviceID = document.id
                     var title = document.get("text").toString()
                     advicesTV.text = title
                 }
             }
-            .addOnFailureListener { exception ->
-                Log.w("error", "Error getting documents.", exception)
-            }
+                    .addOnFailureListener { exception ->
+                        Log.w("error", "Error getting documents.", exception)
+                    }
     }
+
 
     private fun onFlagClicked(){
-        flagAdvice()
-
-        if (flag){
-            Log.d("flag1", "isReporting is ="+flagAdvice())
-            Toast.makeText(context, "لقد أبلغت عن هذه النصحية مسبقا", Toast.LENGTH_LONG).show()
-
-        }
-        else reportAdviceDialog()
-
-        true
-    }
-
-    private fun flagAdvice(){
         db.collection("ReportedAdvices").whereEqualTo("reporterUID",currentuser).whereEqualTo("adviceID",adviceID)
             .get().addOnSuccessListener { documents ->
-                if (documents.isEmpty()){
-                    flag=false
+                if (documents.isEmpty){
+                    reportAdviceDialog()
                 }
+                else
+                    Toast.makeText(context, "لقد أبلغت عن هذه النصحية مسبقا", Toast.LENGTH_LONG).show()
 
             }.addOnFailureListener {
-                Log.d("flag1", "isReporting is inside else =")
+                Log.d("flag", "onFlagClicked inside else")
             }
     }
+
+    private fun reportAdviceDialog(){
+        val mDialogView = LayoutInflater.from(context).inflate(R.layout.advice_dialog, null)
+        val mBuilder = activity?.let {
+            AlertDialog.Builder(it)
+                .setView(mDialogView)
+        }
+
+        val  mAlertDialog = mBuilder?.show()
+        mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        mDialogView.textinadvice.text="بلاغك"
+        mDialogView.dialogShareBtn.text="تبليغ"
+
+        mDialogView.dialogShareBtn.setOnClickListener{
+            var body = mDialogView.dialogAdviceET!!.editText!!.text
+
+            when {
+                body.length > 140 -> {
+                    Toast.makeText(context, "لا يمكن ان يكون البلاغ أطول من ١٤٠ حرف", Toast.LENGTH_LONG).show()
+                }
+                body.isEmpty() -> {
+                    Toast.makeText(context, "لا يمكن ترك هذه الخانة فارغة ", Toast.LENGTH_LONG).show()
+                }
+                else -> {
+                    var body1=body.toString()
+
+                    val docData = hashMapOf(
+                        "text" to body1,
+                        "reporterUID" to currentuser,
+                        "adviceID" to adviceID,
+                        "date" to getCurrentDate()
+                    )
+
+                    db.collection("ReportedAdvices").document(adviceID).set(docData).addOnSuccessListener {
+                        Log.d("advice", "added reports:" )
+
+                    }.addOnFailureListener {
+                        Log.d("advice", "error added reports:" )
+
+                    }
+                    Toast.makeText(context, "تم نشر البلاغ ", Toast.LENGTH_LONG).show()
+                    mAlertDialog?.dismiss()
+                }
+            }
+        }
+
+        mDialogView.dialogCancelBtn.setOnClickListener{
+            mAlertDialog?.dismiss()
+        }
+    }
+
+
     private fun ubdateBurntCaloris() {
         var totalBurntCalories:Double=0.0
         db.collection("users").document(currentuser!!).collection("Exercises").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
@@ -188,57 +233,6 @@ class HomeFragment : Fragment() {
 
 
     }
-    private fun reportAdviceDialog(){
-        val mDialogView = LayoutInflater.from(context).inflate(R.layout.advice_dialog, null)
-        val mBuilder = activity?.let {
-            AlertDialog.Builder(it)
-                .setView(mDialogView)
-        }
-
-        val  mAlertDialog = mBuilder?.show()
-        mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        mDialogView.textinadvice.text="بلاغك"
-        mDialogView.dialogShareBtn.text="تبليغ"
-
-        mDialogView.dialogShareBtn.setOnClickListener{
-            var body = mDialogView.dialogAdviceET!!.editText!!.text
-
-            if (body.length > 140){
-                Toast.makeText(context, "لا يمكن ان يكون البلاغ أطول من ١٤٠ حرف", Toast.LENGTH_LONG).show()
-            }
-            else if (body.isEmpty()){
-                Toast.makeText(context, "لا يمكن ترك هذه الخانة فارغة ", Toast.LENGTH_LONG).show()
-            }
-
-            else {
-                var body1=body.toString()
-
-                val docData = hashMapOf(
-                    "text" to body1,
-                    "reporterUID" to currentuser,
-                    "adviceID" to adviceID
-                )
-
-
-                db.collection("ReportedAdvices").document(adviceID).set(docData).addOnSuccessListener {
-                    Log.d("advice", "added rports:" )
-
-
-                }.addOnFailureListener {
-                    Log.d("advice", "error added rports:" )
-
-                }
-                Toast.makeText(context, "تم نشر البلاغ ", Toast.LENGTH_LONG).show()
-                mAlertDialog?.dismiss()
-            }
-        }
-
-        mDialogView.dialogCancelBtn.setOnClickListener{
-            mAlertDialog?.dismiss()
-        }
-    }
-
-
 
 //    private fun addWater() {
 //        if (counter < 8) {
