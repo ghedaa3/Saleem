@@ -38,7 +38,8 @@
                 android:layout_gravity="center"
                 android:gravity="center"
                 android:text="الاشعارات"
-                android:textSize="18dp"
+                android:textColor="#4F329A"
+                android:textSize="30dp"
                 android:textStyle="bold"
                 app:layout_anchorGravity="center" />
         </RelativeLayout>
