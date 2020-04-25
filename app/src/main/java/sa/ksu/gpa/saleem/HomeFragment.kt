@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
     var previousDaysCount = 0
     var history_Id = ""
     var currentuser = ""
-    private var waterCount=0
+    private var counter=0
     private lateinit var adviceID:String
     private var flag:Boolean=true
     private lateinit var pagerAdapter: PagerAdapter
@@ -91,7 +91,9 @@ class HomeFragment : Fragment() {
         view.findViewById<LinearLayout>(R.id.add_lunch).setOnClickListener { addFood("lunch") }
         view.findViewById<LinearLayout>(R.id.add_dinner).setOnClickListener { addFood("dinner") }
         view.findViewById<ImageView>(R.id.adviceFlag).setOnClickListener { onFlagClicked() }
-//        view.findViewById<LinearLayout>(R.id.add_water_amount).setOnClickListener { addWater() }
+
+        ////// view.findViewById<ImageView>(R.id.addWaterBtn).setOnClickListener { addWater() }
+        // view.findViewById<ImageButton>(R.id.addWaterLL).setOnClickListener { onDeleteW() }
 
 
         view.findViewById<LinearLayout>(R.id.add_snack).setOnClickListener { addFood("snack") }
@@ -132,34 +134,41 @@ class HomeFragment : Fragment() {
     }
 
     private fun showAddAdvice() {
-//        db.collection("Advices").whereEqualTo("date",getCurrentDate())
-//            .get().addOnSuccessListener {documents ->
         db.collection("Advices").get()
             .addOnSuccessListener { documents ->
-
                 for (document in documents) {
                     adviceID = document.id
                     var title = document.get("text").toString()
                     advicesTV.text = title
                 }
             }
-                    .addOnFailureListener { exception ->
-                        Log.w("error", "Error getting documents.", exception)
-                    }
+            .addOnFailureListener { exception ->
+                Log.w("error", "Error getting documents.", exception)
+            }
     }
 
-
     private fun onFlagClicked(){
+        flagAdvice()
+
+        if (flag){
+            Log.d("flag1", "isReporting is ="+flagAdvice())
+            Toast.makeText(context, "لقد أبلغت عن هذه النصحية مسبقا", Toast.LENGTH_LONG).show()
+
+        }
+        else reportAdviceDialog()
+
+        true
+    }
+
+    private fun flagAdvice(){
         db.collection("ReportedAdvices").whereEqualTo("reporterUID",currentuser).whereEqualTo("adviceID",adviceID)
             .get().addOnSuccessListener { documents ->
-                if (documents.isEmpty){
-                    reportAdviceDialog()
+                if (documents.isEmpty()){
+                    flag=false
                 }
-                else
-                    Toast.makeText(context, "لقد أبلغت عن هذه النصحية مسبقا", Toast.LENGTH_LONG).show()
 
             }.addOnFailureListener {
-                Log.d("flag", "onFlagClicked inside else")
+                Log.d("flag1", "isReporting is inside else =")
             }
     }
     private fun ubdateBurntCaloris() {
@@ -173,14 +182,6 @@ class HomeFragment : Fragment() {
                 burnt_calories_textview.text= totalBurntCalories.toString()
             else
                 burnt_calories_textview.text="0"
-
-
-            }
-            if(totalBurntCalories!=null)
-                burnt_calories_textview.text= totalBurntCalories.toString()
-            else
-                burnt_calories_textview.text="0"
-
 
 
         }
@@ -202,33 +203,33 @@ class HomeFragment : Fragment() {
         mDialogView.dialogShareBtn.setOnClickListener{
             var body = mDialogView.dialogAdviceET!!.editText!!.text
 
-            when {
-                body.length > 140 -> {
-                    Toast.makeText(context, "لا يمكن ان يكون البلاغ أطول من ١٤٠ حرف", Toast.LENGTH_LONG).show()
+            if (body.length > 140){
+                Toast.makeText(context, "لا يمكن ان يكون البلاغ أطول من ١٤٠ حرف", Toast.LENGTH_LONG).show()
+            }
+            else if (body.isEmpty()){
+                Toast.makeText(context, "لا يمكن ترك هذه الخانة فارغة ", Toast.LENGTH_LONG).show()
+            }
+
+            else {
+                var body1=body.toString()
+
+                val docData = hashMapOf(
+                    "text" to body1,
+                    "reporterUID" to currentuser,
+                    "adviceID" to adviceID
+                )
+
+
+                db.collection("ReportedAdvices").document(adviceID).set(docData).addOnSuccessListener {
+                    Log.d("advice", "added rports:" )
+
+
+                }.addOnFailureListener {
+                    Log.d("advice", "error added rports:" )
+
                 }
-                body.isEmpty() -> {
-                    Toast.makeText(context, "لا يمكن ترك هذه الخانة فارغة ", Toast.LENGTH_LONG).show()
-                }
-                else -> {
-                    var body1=body.toString()
-
-                    val docData = hashMapOf(
-                        "text" to body1,
-                        "reporterUID" to currentuser,
-                        "adviceID" to adviceID,
-                        "date" to getCurrentDate()
-                    )
-
-                    db.collection("ReportedAdvices").document(adviceID).set(docData).addOnSuccessListener {
-                        Log.d("advice", "added reports:" )
-
-                    }.addOnFailureListener {
-                        Log.d("advice", "error added reports:" )
-
-                    }
-                    Toast.makeText(context, "تم نشر البلاغ ", Toast.LENGTH_LONG).show()
-                    mAlertDialog?.dismiss()
-                }
+                Toast.makeText(context, "تم نشر البلاغ ", Toast.LENGTH_LONG).show()
+                mAlertDialog?.dismiss()
             }
         }
 
@@ -236,7 +237,6 @@ class HomeFragment : Fragment() {
             mAlertDialog?.dismiss()
         }
     }
-
 
 
 
@@ -297,7 +297,7 @@ class HomeFragment : Fragment() {
                 pb_counter.max = totalcal.toInt()
                 remainder_cal.setText("${remainderCal.toInt()}")
                 tv_main_number.setText("${(totalcal-remainderCal).toInt()}")
-                Toast.makeText(context,"تمت إضافة الوجبة", Toast.LENGTH_LONG)
+                Toast.makeText(context,"تمت اضافة الوجبة", Toast.LENGTH_LONG)
                 updateHistory()
             }
         }
@@ -364,10 +364,10 @@ class HomeFragment : Fragment() {
                 showLoadingDialog()
                 db.collection("Foods").document().set(data1 as Map<String, Any>).addOnSuccessListener {
                     dialog.dismiss()
-                    Toast.makeText(context,"تمت إضافة الوجبة",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,"تمت اضافة الوجبة",Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener {
                     dialog.dismiss()
-                    Toast.makeText(context,"حصل خطأ في عملية الإضافة",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"حصل خطأ في عملية الاضافة",Toast.LENGTH_SHORT).show();
                 };
 
 
