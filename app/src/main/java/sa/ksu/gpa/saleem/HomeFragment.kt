@@ -167,7 +167,6 @@ class HomeFragment : Fragment() {
         db.collection("users").document(currentuser!!).collection("Exercises").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
             for (documents in it){
                 totalBurntCalories+=documents.get("exerciseCalories").toString().toDouble()
-<<<<<<< HEAD
 
             }
             if(totalBurntCalories!=null)
@@ -175,7 +174,6 @@ class HomeFragment : Fragment() {
             else
                 burnt_calories_textview.text="0"
 
-=======
 
             }
             if(totalBurntCalories!=null)
@@ -183,7 +181,7 @@ class HomeFragment : Fragment() {
             else
                 burnt_calories_textview.text="0"
 
->>>>>>> 65efe1dd4ba9a4aa0ec0386f24d46128b6715341
+
 
         }
 
