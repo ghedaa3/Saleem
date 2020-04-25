@@ -45,7 +45,7 @@ class HomeFragment : Fragment() {
     var previousDaysCount = 0
     var history_Id = ""
     var currentuser = ""
-    private var counter=0
+    private var waterCount=0
     private lateinit var adviceID:String
     private var flag:Boolean=true
     private lateinit var pagerAdapter: PagerAdapter
@@ -92,9 +92,7 @@ class HomeFragment : Fragment() {
         view.findViewById<LinearLayout>(R.id.add_lunch).setOnClickListener { addFood("lunch") }
         view.findViewById<LinearLayout>(R.id.add_dinner).setOnClickListener { addFood("dinner") }
         view.findViewById<ImageView>(R.id.adviceFlag).setOnClickListener { onFlagClicked() }
-
-        ////// view.findViewById<ImageView>(R.id.addWaterBtn).setOnClickListener { addWater() }
-       // view.findViewById<ImageButton>(R.id.addWaterLL).setOnClickListener { onDeleteW() }
+//        view.findViewById<LinearLayout>(R.id.add_water_amount).setOnClickListener { addWater() }
 
 
         view.findViewById<LinearLayout>(R.id.add_snack).setOnClickListener { addFood("snack") }
@@ -148,8 +146,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun showAddAdvice() {
-        db.collection("Advices").get()
-            .addOnSuccessListener { documents ->
+        db.collection("Advices").whereEqualTo("date",getCurrentDate())
+            .get().addOnSuccessListener {documents ->
+//        db.collection("Advices").get()
+//            .addOnSuccessListener { documents ->
                 for (document in documents) {
                     adviceID = document.id
                     var title = document.get("text").toString()
@@ -214,16 +214,15 @@ class HomeFragment : Fragment() {
                 val docData = hashMapOf(
                     "text" to body1,
                     "reporterUID" to currentuser,
-                    "adviceID" to adviceID
+                    "adviceID" to adviceID,
+                    "date" to getCurrentDate()
                 )
 
-
                 db.collection("ReportedAdvices").document(adviceID).set(docData).addOnSuccessListener {
-                    Log.d("advice", "added rports:" )
-
+                    Log.d("advice", "added reports:" )
 
                 }.addOnFailureListener {
-                    Log.d("advice", "error added rports:" )
+                    Log.d("advice", "error added reports:" )
 
                 }
                 Toast.makeText(context, "تم نشر البلاغ ", Toast.LENGTH_LONG).show()
@@ -295,7 +294,7 @@ class HomeFragment : Fragment() {
                 pb_counter.max = totalcal.toInt()
                 remainder_cal.setText("${remainderCal.toInt()}")
                 tv_main_number.setText("${(totalcal-remainderCal).toInt()}")
-                Toast.makeText(context,"تمت اضافة الوجبة", Toast.LENGTH_LONG)
+                Toast.makeText(context,"تمت إضافة الوجبة", Toast.LENGTH_LONG)
                 updateHistory()
             }
         }
@@ -362,10 +361,10 @@ class HomeFragment : Fragment() {
                 showLoadingDialog()
                 db.collection("Foods").document().set(data1 as Map<String, Any>).addOnSuccessListener {
                     dialog.dismiss()
-                    Toast.makeText(context,"تمت اضافة الوجبة",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,"تمت إضافة الوجبة",Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener {
                     dialog.dismiss()
-                    Toast.makeText(context,"حصل خطأ في عملية الاضافة",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"حصل خطأ في عملية الإضافة",Toast.LENGTH_SHORT).show();
                 };
 
 

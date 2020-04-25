@@ -31,10 +31,12 @@
     <string name="male">male</string>
 
     <string name="female">female</string>
-    <string name="add_snack">اضافة وجبة خفيفة</string>
-    <string name="add_dinner">اضافة عشاء</string>
-    <string name="add_lunch">اضافة غداء</string>
-    <string name="add_breakfast">اضافة فطور</string>
+    <string name="add_snack">إضافة وجبة خفيفة</string>
+    <string name="add_dinner">إضافة عشاء</string>
+    <string name="add_lunch">إضافة غداء</string>
+    <string name="add_breakfast">إضافة فطور</string>
+    <string name="add_water">إضافة ماء</string>
+
 
     <string-array name="Quantities">
         <item>مل</item>

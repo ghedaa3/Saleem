@@ -289,7 +289,8 @@ class MainActivity : AppCompatActivity() {
                 var body1=body.toString()
                 val docData = hashMapOf(
                     "UID" to currentuser!!.toString(),
-                    "text" to body1
+                    "text" to body1,
+                    "date" to getCurrentDate()
                 )
                 db.collection("Advices").document().set(docData)
                         .addOnSuccessListener {
@@ -354,12 +355,12 @@ class MainActivity : AppCompatActivity() {
                 val docData = hashMapOf(
                         "exerciseName" to workoutName,
                         "exerciseCalories" to burntcal,
-                        "date"    to  getCurrentDate()
+                        "date"  to  getCurrentDate()
                 )
                 db.collection("Users").document(currentuser!!).collection("Exercises").document().set(docData)
                     .addOnSuccessListener {
                     Log.d("main1","Added to collection")
-                    Toast.makeText(this, "تمت اضافة التمرين", LENGTH_LONG).show()
+                    Toast.makeText(this, "تمت إضافة التمرين", LENGTH_LONG).show()
 
                 }.addOnFailureListener {
                     Log.d("main1","not Added to collection"+it)
@@ -425,7 +426,7 @@ class MainActivity : AppCompatActivity() {
                     Log.d("tag","Permission Denied")
 
                 } else {
-                    Log.d("tag","permisson granted")
+                    Log.d("tag","permission granted")
                     val intent = Intent(this@MainActivity, ScanActivity::class.java)
                     startActivity(intent)
 
