@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -51,7 +52,7 @@ class MyExcercise : AppCompatActivity() {
 
     private fun getExcerciseData() {
 
-        db.collection("Users").document(currentuser).collection("Exercises").
+        db.collection("users").document(currentuser).collection("Exercises").
          get().addOnSuccessListener{ documents ->
             for(document in documents){
                 key_list.add(document.id)
@@ -76,7 +77,8 @@ class MyExcercise : AppCompatActivity() {
                 }
 
                 override fun onDelete(item: MyExcersie, position: Int) {
-                    deleteItem(item,position, key_list[position])
+                    deleteDialog(item,position, key_list[position])
+
                 }
             })
             recyclerView.layoutManager = LinearLayoutManager(this)
@@ -85,6 +87,22 @@ class MyExcercise : AppCompatActivity() {
 
 
     }
+
+    private fun deleteDialog(item: MyExcersie, position: Int, s: String) {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText("هل انت متأكد من حذف التمرين؟")
+            .setConfirmButton("حسنًا") { sDialog -> sDialog.dismissWithAnimation()
+                deleteItem(item,position, key_list[position])
+
+
+            }.setCancelButton("إلغاء"){
+                it.dismissWithAnimation()
+
+            }
+            .show()
+
+    }
+
     fun getCurrentDate():String {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val current = LocalDateTime.now()
@@ -143,7 +161,8 @@ class MyExcercise : AppCompatActivity() {
 
                 val data1 = hashMapOf(
                     "exerciseName" to workoutName,
-                    "exerciseCalories" to (burnt.toString().toDouble())
+                    "exerciseCalories" to (burnt.toString().toDouble()),
+                     "date" to getCurrentDate()
                 )
 
 
@@ -154,7 +173,6 @@ class MyExcercise : AppCompatActivity() {
                 Toast.makeText(this, "تم تعديل التمرين", Toast.LENGTH_LONG).show()
 
 
-//TODO(update burnt calories filed)
             }
             list.get(position).Title=workoutName
             list.get(position).Claories=burnt.toString()

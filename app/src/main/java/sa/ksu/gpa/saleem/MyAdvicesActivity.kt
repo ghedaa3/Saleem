@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -72,7 +73,8 @@ import kotlin.collections.ArrayList
                     }
 
                     override fun onDelete(item: MyAdvice, position: Int) {
-                        deleteItem(item,position, key_list[position])
+                        deleteDialog(item,position, key_list[position])
+
                     }
                 })
                 recyclerView.layoutManager = LinearLayoutManager(this)
@@ -81,6 +83,21 @@ import kotlin.collections.ArrayList
 
 
         }
+
+        private fun deleteDialog(item: MyAdvice, position: Int, s: String) {
+            SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("هل انت متأكد من حذف النصيحة؟")
+                .setConfirmButton("حسنًا") { sDialog -> sDialog.dismissWithAnimation()
+                    deleteItem(item,position, key_list[position])
+
+
+                }.setCancelButton("إلغاء"){
+                    it.dismissWithAnimation()
+
+                }
+                .show()
+        }
+
         fun getCurrentDate():String {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val current = LocalDateTime.now()

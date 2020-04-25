@@ -1,27 +1,16 @@
 package sa.ksu.gpa.saleem
 
 import android.content.Intent
-import android.graphics.Color
-import android.graphics.drawable.ColorDrawable
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.widget.Toast
-import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.Query
-import com.google.firebase.firestore.SetOptions
-import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
-import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcercise
-import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcerciseburentCal
-import kotlinx.android.synthetic.main.add_excercise_dialog.view.cancelExcercise
-import kotlinx.android.synthetic.main.add_fast_food.view.*
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -78,7 +67,7 @@ class MyRecipesActivity : AppCompatActivity() {
                 }
 
                 override fun onDelete(item: MyRecipe, position: Int) {
-                    deleteItem(item,position, key_list[position])
+                    deleteDialog(item,position, key_list[position])
                 }
             })
             recyclerView.layoutManager = LinearLayoutManager(this)
@@ -112,12 +101,25 @@ class MyRecipesActivity : AppCompatActivity() {
             .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully deleted!") }
             .addOnFailureListener { e -> Log.w("TAG", "Error deleting document", e) }
 
-        //decrement number of recipes
-        val NumberOfCaloriesDoc = db.collection("Users").document(currentuser)
-        NumberOfCaloriesDoc.update("NumberOfRecipes", FieldValue.increment(-1))
 
     }
+    private fun deleteDialog(
+        item: MyRecipe,
+        position: Int,
+        s: String
+    ) {
+     SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText("هل انت متأكد من حذف الوصفة؟")
+            .setConfirmButton("حسنًا") { sDialog -> sDialog.dismissWithAnimation()
+                deleteItem(item,position, key_list[position])
 
+
+            }.setCancelButton("إلغاء"){
+                 it.dismissWithAnimation()
+            }
+            .show()
+
+    }
     private fun showEditItem(item: MyRecipe, position: Int) {
         editExcercizeDialog(key_list[position])
         Log.d("EditMyRecipe","key_list[position]"+key_list[position])

@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
@@ -73,7 +74,8 @@ class MyFoodActivity : AppCompatActivity() {
                     }
 
                     override fun onDelete(item: MyFood, position: Int) {
-                        deleteItem(item,position, key_list[position])
+                        deleteDialog(item,position, key_list[position])
+
                     }
                 })
                 recyclerView.layoutManager = LinearLayoutManager(this)
@@ -81,6 +83,21 @@ class MyFoodActivity : AppCompatActivity() {
         }
 
 
+
+    }
+
+    private fun deleteDialog(item: MyFood, position: Int, s: String) {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText("هل انت متأكد من حذف الوجبة؟")
+            .setConfirmButton("حسنًا") { sDialog -> sDialog.dismissWithAnimation()
+                deleteItem(item,position, key_list[position])
+
+
+            }.setCancelButton("إلغاء"){
+                it.dismissWithAnimation()
+
+            }
+            .show()
 
     }
 
