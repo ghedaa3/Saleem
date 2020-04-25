@@ -15,12 +15,12 @@ import java.time.format.DateTimeFormatter
 import java.util.*
 
 class AdminRecipes : AppCompatActivity() {
-    lateinit var adapter: ReportedAdvicesAdapter
+    lateinit var adapter: ReportedRecipesAdapter
     private lateinit var db: FirebaseFirestore
     lateinit var recyclerView: RecyclerView
     var cal : Double = 0.0
     var key_list:ArrayList<String> = ArrayList()
-    var list:ArrayList<ReportedAdvices> = ArrayList()
+    var list:ArrayList<ReportedRecipes> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,21 +41,21 @@ class AdminRecipes : AppCompatActivity() {
                     var userID = document.get("UIDrporter").toString()
                     var recipeID = document.get("recipeID").toString()
                     var report = document.get("text").toString()
-                    var reportedAdv = ReportedAdvices(userID, recipeID, report)
+                    var reportedAdv = ReportedRecipes(userID, recipeID, report)
                     list.add(reportedAdv)
                     Log.d("ADMIN","List : "+list)
 
                 }
-                adapter = ReportedAdvicesAdapter(list,  object  : ReportedAdvicesAdapter.OnActionClick {
-                    override fun onClick(item: ReportedAdvices, position: Int) {
+                adapter = ReportedRecipesAdapter(list,  object  : ReportedRecipesAdapter.OnActionClick {
+                    override fun onClick(item: ReportedRecipes, position: Int) {
                         showDescItem(item,position)
                     }
 
-                    override fun onEdit(item: ReportedAdvices, position: Int) {
+                    override fun onEdit(item: ReportedRecipes, position: Int) {
                         showEditItem(item,position)
                     }
 
-                    override fun onDelete(item: ReportedAdvices, position: Int) {
+                    override fun onDelete(item: ReportedRecipes, position: Int) {
                         deleteItem(item,position, key_list[position])
                     }
                 })
@@ -78,22 +78,22 @@ class AdminRecipes : AppCompatActivity() {
         return "$currentDate"
     }
 
-    private fun showDescItem(item: ReportedAdvices, position: Int) {
+    private fun showDescItem(item: ReportedRecipes, position: Int) {
         adapter.notifyDataSetChanged()
 
     }
-    private fun deleteItem(item: ReportedAdvices, position: Int, key: String) {
+    private fun deleteItem(item: ReportedRecipes, position: Int, key: String) {
         list.removeAt(position)
         key_list.removeAt(position)
         adapter.notifyDataSetChanged()
-        db.collection("Advices").document(key).delete()
+        db.collection("Recipes").document(key).delete()
             .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully deleted!") }
             .addOnFailureListener { e -> Log.w("TAG", "Error deleting document", e) }
 
 
     }
 
-    private fun showEditItem(item: ReportedAdvices, position: Int) {
+    private fun showEditItem(item: ReportedRecipes, position: Int) {
         adapter.notifyDataSetChanged()
     }
 }

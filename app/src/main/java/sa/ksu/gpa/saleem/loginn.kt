@@ -188,7 +188,7 @@ class loginn : AppCompatActivity() {
             //show a popup for result
             showDialogWithOkButton("الرجاء ادخال البريد الالكتروني وكلمة المرور")
 
-        } else if(entered_password == "admin" && entered_email == "ghedaa.aj@gmail.com") {
+        } else if(entered_email == "ghedaa.aj@gmail.com") {
 
             startActivity(Intent(this, AdminActivity::class.java))
         }

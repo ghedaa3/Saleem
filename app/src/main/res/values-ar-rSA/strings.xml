@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="action_settings">الأعدادات</string>
+    <string name="action_settings">الإعدادات</string>
     <string name="app_name">سليم</string>
     <string name="action_sign_in_short">تسجيل الدخول</string>
     <string name="invalid_password">كلمة مرور غير صالحة</string>
     <string name="invalid_username">اسم المستخدم غير صالح</string>
     <string name="login_failed">فشل تسجيل الدخول</string>
-    <string name="prompt_email">ايميل</string>
-    <string name="prompt_password">كلمة م</string>
+    <string name="prompt_email">البريد الإلكتروني</string>
+    <string name="prompt_password">كلمة المرور</string>
     <string name="action_sign_in">تسجيل الدخول</string>
-    <string name="title_activity_login">تسجسل الدخول</string>
+    <string name="title_activity_login">تسجيل الدخول</string>
     <string name="welcome">مرحباً</string>
 
     <string name="login_btn">تسجيل الدخول</string>
@@ -28,15 +28,16 @@
     <string name="Register">تسجيل</string>
     <string name="NoresultData">لا توجد بيانات</string>
     <string name="Thankyou">شكرَا لك</string>
-    <string name="cancel">الغاء</string>
+    <string name="cancel">إلغاء</string>
 
 
     <string name="male">ذكر</string>
 
-    <string name="female">انثى</string>
-    <string name="add_snack">اضافة وجبة خفيفة</string>
-    <string name="add_dinner">اضافة عشاء</string>
-    <string name="add_lunch">اضافة غداء</string>
-    <string name="add_breakfast">اضافة فطور</string>
+    <string name="female">أنثى</string>
+    <string name="add_snack">إضافة وجبة خفيفة</string>
+    <string name="add_dinner">إضافة عشاء</string>
+    <string name="add_lunch">إضافة غداء</string>
+    <string name="add_breakfast">إضافة فطور</string>
+    <string name="add_water">إضافة ماء</string>
 
 </resources>

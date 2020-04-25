@@ -9,9 +9,14 @@
     android:layout_marginTop="10dp"
     android:layout_marginBottom="10dp">
 
-
+<ImageView
+    android:id="@+id/addWater"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:src="@drawable/add_glass"
+    android:alpha="0.5"></ImageView>
     <ImageView
-        android:id="@+id/water"
+        android:id="@+id/deleteWater"
         android:src="@drawable/ic_water_glass"
         android:layout_width="50dp"
         android:layout_height="50dp"
