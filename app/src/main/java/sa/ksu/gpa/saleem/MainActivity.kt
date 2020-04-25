@@ -47,7 +47,7 @@ class MainActivity : AppCompatActivity() {
     private val CAMERA_REQUEST_CODE=123;
     private lateinit var db:FirebaseFirestore
     lateinit var speedDialView:SpeedDialView
-     var totalBurntCalories:Int=0
+     var totalBurntCalories:Double=0.0
     val currentuser = FirebaseAuth.getInstance().currentUser?.uid
 
 
@@ -395,7 +395,7 @@ class MainActivity : AppCompatActivity() {
     private fun ubdateBurntCaloris() {
         db.collection("Users").document(currentuser!!).collection("Exercises").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
              for (documents in it){
-                 totalBurntCalories+=documents.get("exerciseCalories").toString().toInt()
+                 totalBurntCalories+=documents.get("exerciseCalories").toString().toDouble()
 
              }
            if(totalBurntCalories!=null)

@@ -42,25 +42,26 @@ class MyExcercise : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.recyclerViewExcer)
         getExcerciseData()
-        //TODO(get currrent user id)
-
 
     }
 
     private fun getExcerciseData() {
 
-        db.collection("users").document(currentuser).collection("Exercises").
+        db.collection("Users").document(currentuser).collection("Exercises").
          get().addOnSuccessListener{ documents ->
             for(document in documents){
                 key_list.add(document.id)
                 var title =document.get("exerciseName").toString()
+                var Date =document.get("date").toString()
                 var calori =document.get("exerciseCalories").toString()
-                var myExcercise=MyExcersie(title,calori)
+                var myExcercise=MyExcersie(title,calori,Date)
                 list.add(myExcercise)
                 Log.d("EX","List : "+list)
 
 
             }
+            list.sortByDescending { it.Date }
+
             adapter = MyExcersieAdapter(list,  object  : MyExcersieAdapter.OnActionClick {
                 override fun onClick(item: MyExcersie, position: Int) {
                     showDescItem(item,position)

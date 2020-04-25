@@ -49,13 +49,16 @@ import kotlin.collections.ArrayList
                 for(document in documents){
                     key_list.add(document.id)
                     var title =document.get("text").toString()
-                    var myAdvice=MyAdvice(title)
+                    var date =document.get("date").toString()
+                    var myAdvice=MyAdvice(title,date)
                     list.add(myAdvice)
                     Log.d("ADV","List : "+list)
 
 
                 }
-                adapter = MyAdvicesAdapter(list,  object  : MyAdvicesAdapter.OnActionClick {
+                    list.sortByDescending { it.Date }
+
+                    adapter = MyAdvicesAdapter(list,  object  : MyAdvicesAdapter.OnActionClick {
                     override fun onClick(item: MyAdvice, position: Int) {
                         showDescItem(item,position)
                     }

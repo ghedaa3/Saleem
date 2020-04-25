@@ -54,8 +54,6 @@ class MyFoodActivity : AppCompatActivity() {
 
         db.collection("Foods")
             .whereEqualTo("user_id",currentuser)
-//            .whereEqualTo("user_id",currentuser)
-            .whereEqualTo("date",getCurrentDate())
             .get().addOnSuccessListener{ documents ->
             for(document in documents){
                 key_list.add(document.id)
@@ -63,6 +61,7 @@ class MyFoodActivity : AppCompatActivity() {
                 list.add(myFood)
                 sum += myFood.cal_of_food
             }
+                list.sortByDescending { it.Date }
 
                 adapter = MyFoodAdapter(list,  object  : OnActionClick {
                     override fun onClick(item: MyFood, position: Int) {

@@ -11,18 +11,23 @@ class MyAdvicesAdapter (private val list: List<MyAdvice>, var onActionClick: OnA
     class MyViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.item_my_food, parent, false)) {
         private var title: TextView? = null
+        private var date: TextView? = null
+
         private var delete: ImageView? = null
         private var edit: ImageView? = null
 
 
         init {
             title = itemView.findViewById(R.id.title)
+            date = itemView.findViewById(R.id.date)
             delete = itemView.findViewById(R.id.delete)
             edit = itemView.findViewById(R.id.edit)
         }
 
         fun bind(MyAdvice: MyAdvice, onActionClick: OnActionClick) {
             title?.text = MyAdvice.Title
+            date?.text = MyAdvice.Date
+
             delete?.setOnClickListener(View.OnClickListener {
                 onActionClick.onDelete(MyAdvice,adapterPosition)
             })

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.SetOptions
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcercise
@@ -33,6 +34,7 @@ class MyRecipesActivity : AppCompatActivity() {
     lateinit var recyclerView: RecyclerView
     var cal : Double = 0.0
     var key_list:ArrayList<String> = ArrayList()
+    var date_list:ArrayList<String> = ArrayList()
     var list:ArrayList<MyRecipe> = ArrayList()
     val currentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
 
@@ -43,26 +45,30 @@ class MyRecipesActivity : AppCompatActivity() {
 
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.recyclerViewRes)
-        getExcerciseData()
         Log.d("RECIPE","Cureent"+currentuser)
-
+        getExcerciseData()
     }
+
+
 
     private fun getExcerciseData() {
 
         db.collection("Recipes").whereEqualTo("UID",currentuser).get().
             addOnSuccessListener{ documents ->
-            for(document in documents){
-                key_list.add(document.id)
-                var recipename= document.get("name").toString()
-                var recipeCalproes=document.get("calories").toString()
-                var recipe = MyRecipe( recipename,recipeCalproes)
-                list.add(recipe)
-                Log.d("RECIPE","List : "+list)
+                for(document in documents){
+                    key_list.add(document.id)
+                    var recipeDate=document.get("date").toString()
+                    date_list.add(recipeDate)
+                    var recipename= document.get("name").toString()
+                    var recipeId= document.get("UID").toString()
+                    var recipe = MyRecipe( recipename,recipeDate,recipeId)
+                    list.add(recipe)
+
+                }
+                 list.sortByDescending { it.Date }
 
 
-            }
-            adapter = MyRecipesApapter(list,  object  : MyRecipesApapter.OnActionClick {
+                adapter = MyRecipesApapter(list,  object  : MyRecipesApapter.OnActionClick {
                 override fun onClick(item: MyRecipe, position: Int) {
                     showDescItem(item,position)
                 }
@@ -77,7 +83,8 @@ class MyRecipesActivity : AppCompatActivity() {
             })
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = adapter
-        }
+            }
+
 
 
     }

@@ -12,23 +12,26 @@ class MyRecipesApapter (private val list: List<MyRecipe>, var onActionClick: OnA
     class MyViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.item_my_food, parent, false)) {
         private var title: TextView? = null
+        private var date: TextView? = null
         private var delete: ImageView? = null
         private var edit: ImageView? = null
 
 
         init {
             title = itemView.findViewById(R.id.title)
+            date = itemView.findViewById(R.id.date)
             delete = itemView.findViewById(R.id.delete)
             edit = itemView.findViewById(R.id.edit)
         }
 
-        fun bind(MyExcersie: MyRecipe, onActionClick: OnActionClick) {
-            title?.text = MyExcersie.Title
+        fun bind(myRecipe: MyRecipe, onActionClick: OnActionClick) {
+            title?.text = myRecipe.Title
+            date?.text = myRecipe.Date
             delete?.setOnClickListener(View.OnClickListener {
-                onActionClick.onDelete(MyExcersie,adapterPosition)
+                onActionClick.onDelete(myRecipe,adapterPosition)
             })
             edit?.setOnClickListener(View.OnClickListener {
-                onActionClick.onEdit(MyExcersie,adapterPosition)
+                onActionClick.onEdit(myRecipe,adapterPosition)
             })
 
         }

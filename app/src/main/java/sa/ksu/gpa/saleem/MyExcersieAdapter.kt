@@ -11,18 +11,21 @@ class MyExcersieAdapter (private val list: List<MyExcersie>, var onActionClick: 
     class MyViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
         RecyclerView.ViewHolder(inflater.inflate(R.layout.item_my_food, parent, false)) {
         private var title: TextView? = null
+        private var date: TextView? = null
         private var delete: ImageView? = null
         private var edit: ImageView? = null
 
 
         init {
             title = itemView.findViewById(R.id.title)
+            date = itemView.findViewById(R.id.date)
             delete = itemView.findViewById(R.id.delete)
             edit = itemView.findViewById(R.id.edit)
         }
 
         fun bind(MyExcersie: MyExcersie, onActionClick: OnActionClick) {
             title?.text = MyExcersie.Title
+            date?.text = MyExcersie.Date
             delete?.setOnClickListener(View.OnClickListener {
                 onActionClick.onDelete(MyExcersie,adapterPosition)
             })
