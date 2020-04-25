@@ -40,7 +40,7 @@ class MyFoodActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.rv_my_food)
 
-        back_button.setOnClickListener{
+        my_meals_back_button.setOnClickListener{
             onBackPressed()
         }
         getMyFoodsData()

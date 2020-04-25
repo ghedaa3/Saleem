@@ -75,8 +75,8 @@ class ForegroundService : Service() {
         thread {
             while (true) {
 //                Toast.makeText(applicationContext,"test any thine ",Toast.LENGTH_SHORT).show()
-                Thread.sleep(60*60*1000)
-               // Thread.sleep(10 * 1000)
+                //   Thread.sleep(60*60*1000)
+                Thread.sleep(10 * 1000)
                 checkIfEat()
 
             }
@@ -85,7 +85,12 @@ class ForegroundService : Service() {
     }
 
     private fun checkIfEat() {
-
+        getNotification("احسنت!! لقد قمت بتحقيق هدفك خلال الاسبوع الماضي")?.let {
+            scheduleNotification(
+                it,
+                0
+            )
+        }
         if(!currantDate.equals(getCurrentDate())){
             currantDate = getCurrentDate()
             dayCount ++
@@ -117,7 +122,7 @@ class ForegroundService : Service() {
                 .whereEqualTo("type_of_food", "lunch")
                 .whereEqualTo("date", getCurrentDate()).get().addOnSuccessListener {
                     if (it.isEmpty) {
-                        getNotification("حان وقت الغداء")?.let {
+                        getNotification("هل ادخلت وجبة الغداء لليوم؟")?.let {
                             scheduleNotification(
                                 it,
                                 0
@@ -134,7 +139,7 @@ class ForegroundService : Service() {
                 .whereEqualTo("type_of_food", "breakfast")
                 .whereEqualTo("date", getCurrentDate()).get().addOnSuccessListener {
                     if (it.isEmpty) {
-                        getNotification("حان وقت الفطور")?.let {
+                        getNotification("هل ادخلت وجبة الفطور لليوم؟")?.let {
                             scheduleNotification(
                                 it,
                                 0
@@ -151,7 +156,7 @@ class ForegroundService : Service() {
                 .whereEqualTo("type_of_food", "dinner")
                 .whereEqualTo("date", getCurrentDate()).get().addOnSuccessListener {
                     if (it.isEmpty) {
-                        getNotification("حان وقت العشاء")?.let {
+                        getNotification("هل ادخلت وجبة العشاء لليوم؟")?.let {
                             scheduleNotification(
                                 it,
                                 0
@@ -216,7 +221,7 @@ class ForegroundService : Service() {
         builder.setContentText(content)
         builder.setSmallIcon(R.drawable.ic_launcher_foreground)
         builder.setAutoCancel(true)
-        builder.setChannelId("10002"+Random(4))
+        builder.setChannelId("10001")
         return builder.build()
     }
 

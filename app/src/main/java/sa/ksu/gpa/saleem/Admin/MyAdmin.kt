@@ -1,4 +1,4 @@
-package sa.ksu.gpa.saleem
+package sa.ksu.gpa.saleem.Admin
 
 
     class MyAdmin(    var title:String,

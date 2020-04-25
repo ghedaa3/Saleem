@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import kotlinx.android.synthetic.main.activity_my_excercise.*
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcercise
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcerciseburentCal
@@ -41,6 +42,9 @@ class MyExcercise : AppCompatActivity() {
 
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.recyclerViewExcer)
+        my_exe_back_button.setOnClickListener{
+            onBackPressed()
+        }
         getExcerciseData()
 
     }

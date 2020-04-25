@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
+import kotlinx.android.synthetic.main.activity_my_advices.*
 import kotlinx.android.synthetic.main.advice_dialog.view.*
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -40,6 +41,9 @@ import kotlin.collections.ArrayList
 
             db = FirebaseFirestore.getInstance()
             recyclerView = findViewById(R.id.recyclerViewAdv)
+            my_adv_back_button.setOnClickListener{
+                onBackPressed()
+            }
             getAdviceData()
         }
 

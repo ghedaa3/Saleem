@@ -28,6 +28,8 @@ import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.text.Html
 import android.text.SpannableString
+import sa.ksu.gpa.saleem.Admin.Admin
+import sa.ksu.gpa.saleem.Admin.AdminActivity
 
 
 class loginn : AppCompatActivity() {
@@ -188,7 +190,7 @@ class loginn : AppCompatActivity() {
 
         } else if(entered_password == "admin" && entered_email == "ghedaa.aj@gmail.com") {
 
-            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, AdminActivity::class.java))
         }
         else if (entered_email == "") {
             //show a popup for result
