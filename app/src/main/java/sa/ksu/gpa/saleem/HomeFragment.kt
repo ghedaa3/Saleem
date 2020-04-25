@@ -64,7 +64,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         date = getCurrentDate()
         tvDate.text = date
-
         pagerAdapter = activity?.supportFragmentManager?.let { PagerAdapter(it,date) }!!
         viewPager.adapter = pagerAdapter
         dotsIndicator.setViewPager(viewPager)
@@ -98,24 +97,11 @@ class HomeFragment : Fragment() {
         view.findViewById<LinearLayout>(R.id.add_snack).setOnClickListener { addFood("snack") }
         db= FirebaseFirestore.getInstance()
         currentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
+        ubdateBurntCaloris()
 
 
-//        val burntCalories = db.collection("users").document(currentuser)
-//        val burntCalories = db.collection("users")
-//            .document("ckS3vhq8P8dyOeSI7CE7D4RgMiv1")//test user
-//            .addSnapshotListener(EventListener(){ documentSnapshot: DocumentSnapshot?, firebaseFirestoreException: FirebaseFirestoreException? ->
-//                var neededcal = documentSnapshot?.getDouble("needed cal")
-//                totalcal = neededcal as Double
-//
-//                tv_main_number.setText("${totalcal.toInt()}")
-//                pb_counter.progress =remainderCal.toInt()
-//                pb_counter.max = totalcal.toInt()
-//
-//                Log.e("hhhh","${totalcal.toInt()}")
-//                Log.e("wwww","${consumerCal.toInt()}")
-//
-//
-//            })
+
+
         db.collection("History")
             .whereEqualTo("date",getCurrentDate())
             .whereEqualTo("user_id",currentuser)
@@ -146,10 +132,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun showAddAdvice() {
-        db.collection("Advices").whereEqualTo("date",getCurrentDate())
-            .get().addOnSuccessListener {documents ->
-//        db.collection("Advices").get()
-//            .addOnSuccessListener { documents ->
+//        db.collection("Advices").whereEqualTo("date",getCurrentDate())
+//            .get().addOnSuccessListener {documents ->
+        db.collection("Advices").get()
+            .addOnSuccessListener { documents ->
+
                 for (document in documents) {
                     adviceID = document.id
                     var title = document.get("text").toString()
@@ -161,31 +148,47 @@ class HomeFragment : Fragment() {
                     }
     }
 
+
     private fun onFlagClicked(){
-        flagAdvice()
-
-        if (flag){
-            Log.d("flag1", "isReporting is ="+flagAdvice())
-            Toast.makeText(context, "لقد أبلغت عن هذه النصحية مسبقا", Toast.LENGTH_LONG).show()
-
-        }
-        else reportAdviceDialog()
-
-        true
-    }
-
-    private fun flagAdvice(){
         db.collection("ReportedAdvices").whereEqualTo("reporterUID",currentuser).whereEqualTo("adviceID",adviceID)
             .get().addOnSuccessListener { documents ->
-                if (documents.isEmpty()){
-                    flag=false
+                if (documents.isEmpty){
+                    reportAdviceDialog()
                 }
+                else
+                    Toast.makeText(context, "لقد أبلغت عن هذه النصحية مسبقا", Toast.LENGTH_LONG).show()
 
             }.addOnFailureListener {
-                Log.d("flag1", "isReporting is inside else =")
+                Log.d("flag", "onFlagClicked inside else")
             }
     }
+    private fun ubdateBurntCaloris() {
+        var totalBurntCalories:Double=0.0
+        db.collection("users").document(currentuser!!).collection("Exercises").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
+            for (documents in it){
+                totalBurntCalories+=documents.get("exerciseCalories").toString().toDouble()
+<<<<<<< HEAD
 
+            }
+            if(totalBurntCalories!=null)
+                burnt_calories_textview.text= totalBurntCalories.toString()
+            else
+                burnt_calories_textview.text="0"
+
+=======
+
+            }
+            if(totalBurntCalories!=null)
+                burnt_calories_textview.text= totalBurntCalories.toString()
+            else
+                burnt_calories_textview.text="0"
+
+>>>>>>> 65efe1dd4ba9a4aa0ec0386f24d46128b6715341
+
+        }
+
+
+    }
     private fun reportAdviceDialog(){
         val mDialogView = LayoutInflater.from(context).inflate(R.layout.advice_dialog, null)
         val mBuilder = activity?.let {
@@ -201,32 +204,33 @@ class HomeFragment : Fragment() {
         mDialogView.dialogShareBtn.setOnClickListener{
             var body = mDialogView.dialogAdviceET!!.editText!!.text
 
-            if (body.length > 140){
-                Toast.makeText(context, "لا يمكن ان يكون البلاغ أطول من ١٤٠ حرف", Toast.LENGTH_LONG).show()
-            }
-            else if (body.isEmpty()){
-                Toast.makeText(context, "لا يمكن ترك هذه الخانة فارغة ", Toast.LENGTH_LONG).show()
-            }
-
-            else {
-                var body1=body.toString()
-
-                val docData = hashMapOf(
-                    "text" to body1,
-                    "reporterUID" to currentuser,
-                    "adviceID" to adviceID,
-                    "date" to getCurrentDate()
-                )
-
-                db.collection("ReportedAdvices").document(adviceID).set(docData).addOnSuccessListener {
-                    Log.d("advice", "added reports:" )
-
-                }.addOnFailureListener {
-                    Log.d("advice", "error added reports:" )
-
+            when {
+                body.length > 140 -> {
+                    Toast.makeText(context, "لا يمكن ان يكون البلاغ أطول من ١٤٠ حرف", Toast.LENGTH_LONG).show()
                 }
-                Toast.makeText(context, "تم نشر البلاغ ", Toast.LENGTH_LONG).show()
-                mAlertDialog?.dismiss()
+                body.isEmpty() -> {
+                    Toast.makeText(context, "لا يمكن ترك هذه الخانة فارغة ", Toast.LENGTH_LONG).show()
+                }
+                else -> {
+                    var body1=body.toString()
+
+                    val docData = hashMapOf(
+                        "text" to body1,
+                        "reporterUID" to currentuser,
+                        "adviceID" to adviceID,
+                        "date" to getCurrentDate()
+                    )
+
+                    db.collection("ReportedAdvices").document(adviceID).set(docData).addOnSuccessListener {
+                        Log.d("advice", "added reports:" )
+
+                    }.addOnFailureListener {
+                        Log.d("advice", "error added reports:" )
+
+                    }
+                    Toast.makeText(context, "تم نشر البلاغ ", Toast.LENGTH_LONG).show()
+                    mAlertDialog?.dismiss()
+                }
             }
         }
 
@@ -234,6 +238,7 @@ class HomeFragment : Fragment() {
             mAlertDialog?.dismiss()
         }
     }
+
 
 
 

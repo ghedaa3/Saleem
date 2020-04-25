@@ -6,7 +6,7 @@ xmlns:tools="http://schemas.android.com/tools"
 android:layout_width="match_parent"
 android:layout_height="wrap_content"
 android:orientation="vertical"
-tools:context=".Admin.AdminAdvices">
+tools:context=".admin.AdminAdvices">
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">

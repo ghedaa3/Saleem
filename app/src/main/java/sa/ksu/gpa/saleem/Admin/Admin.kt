@@ -1,4 +1,4 @@
-package sa.ksu.gpa.saleem.Admin
+package sa.ksu.gpa.saleem.admin
 
 import android.os.Build
 import android.os.Bundle
@@ -52,14 +52,17 @@ class Admin : AppCompatActivity() {
                     Log.d("ADMIN","List : "+list)
 
                 }
+
                 adapter = AdminAdapter(list,  object  : AdminAdapter.OnActionClick {
                     override fun onClick(item: MyAdmin, position: Int) {
+
                         showDescItem(item,position)
                     }
 
                     override fun onEdit(item: MyAdmin, position: Int) {
                         showEditItem(item,position)
                     }
+
 
                     override fun onDelete(item: MyAdmin, position: Int) {
                         deleteItem(item,position, key_list[position])
@@ -85,6 +88,7 @@ class Admin : AppCompatActivity() {
     }
 
     private fun showDescItem(item: MyAdmin, position: Int) {
+
         adapter.notifyDataSetChanged()
 
     }

@@ -1,4 +1,4 @@
-package sa.ksu.gpa.saleem.Admin
+package sa.ksu.gpa.saleem.admin
 
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -52,9 +52,7 @@ class AdminAdvices : AppCompatActivity() {
                         showDescItem(item,position)
                     }
 
-                    override fun onEdit(item: ReportedAdvices, position: Int) {
-                        showEditItem(item,position)
-                    }
+
 
                     override fun onDelete(item: ReportedAdvices, position: Int) {
                         deleteItem(item,position, key_list[position])

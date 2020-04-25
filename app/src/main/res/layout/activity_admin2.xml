@@ -57,9 +57,10 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:id="@+id/users"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="ملفي الشخصي"
+                android:text="المستخدمين"
                 android:textColor="@color/material_blue_grey_80"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -97,7 +98,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="نصائحي"
+                android:id="@+id/adviceTitle"
+                android:text="النصائح"
                 android:textColor="@color/material_blue_grey_80"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -134,8 +136,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:id="@+id/recipe_title"
                 android:gravity="center"
-                android:text="وصفاتي"
+                android:text="الوصفات"
                 android:textColor="@color/material_blue_grey_80"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -148,6 +151,22 @@
 
 
         </LinearLayout>
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="250dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_below="@+id/durationT"
+            android:layout_marginTop="180dp"
+            android:layout_centerInParent="true"
+            android:backgroundTint="#69F0AE"
+            android:background="@drawable/border"
+            android:text="تسجيل الخروج"
+            android:textSize="20sp"
+
+            android:textColor="#C6020000" />
+
 
 
 

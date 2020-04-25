@@ -27,7 +27,6 @@
         <service android:name=".ForegroundService"></service>
 
         <activity android:name=".EditMyRecipe" />
-        <activity android:name=".util.test" />
         <activity android:name=".MyRecipesActivity" />
         <activity android:name=".MyAdvicesActivity" />
         <activity android:name=".MyExcercise" />
@@ -39,10 +38,10 @@
         <activity android:name=".exercise.InnerExercise" />
         <activity android:name=".exercise.ExerciseListActivity" />
         <activity android:name=".register.registerOneActivity" />
-        <activity android:name=".Admin.AdminRecipes"></activity>
-        <activity android:name=".Admin.AdminAdvices" />
-        <activity android:name=".Admin.Admin" />
-        <activity android:name=".Admin.AdminActivity"></activity>
+        <activity android:name=".admin.AdminRecipes"></activity>
+        <activity android:name=".admin.AdminAdvices" />
+        <activity android:name=".admin.Admin" />
+        <activity android:name=".admin.AdminActivity"></activity>
 
         <activity
             android:name=".profile.Profile"
@@ -64,7 +63,6 @@
         <activity android:name=".exercise.ExerciseActivity">
 
         </activity>
-        <activity android:name=".exercise.ExerciseListActivity"></activity>
         <activity
             android:name=".register.registerFourActivity"
             android:parentActivityName=".register.registerThreeActivity" />
