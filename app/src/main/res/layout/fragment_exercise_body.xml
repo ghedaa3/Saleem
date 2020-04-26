@@ -16,7 +16,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
-
+                android:gravity="center"
                 android:text="التمارين"
                 android:textStyle="bold"
                 android:textSize="40dp"
@@ -42,11 +42,10 @@
             <ImageView
                 android:id="@+id/back_button"
                 android:layout_width="wrap_content"
-                android:rotation="180"
                 android:layout_height="30dp"
                 android:layout_marginTop="20dp"
                 android:tint="@color/gray_btn_bg_pressed_color"
-                android:layout_marginRight="340dp"
+                android:layout_marginLeft="340dp"
                 android:src="@drawable/kk"></ImageView>
 
 

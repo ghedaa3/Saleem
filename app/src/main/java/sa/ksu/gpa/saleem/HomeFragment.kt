@@ -4,7 +4,6 @@ package sa.ksu.gpa.saleem
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -14,7 +13,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
@@ -23,6 +24,7 @@ import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcercise
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcerciseburentCal
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.cancelExcercise
 import kotlinx.android.synthetic.main.add_fast_food.view.*
+import kotlinx.android.synthetic.main.add_water.view.*
 import kotlinx.android.synthetic.main.advice_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
@@ -45,9 +47,8 @@ class HomeFragment : Fragment() {
     var previousDaysCount = 0
     var history_Id = ""
     var currentuser = ""
-    private var counter=0
+    private var waterCount=0
     private lateinit var adviceID:String
-    private var flag:Boolean=true
     private lateinit var pagerAdapter: PagerAdapter
     private lateinit var date: String
     lateinit var dialog:ProgressDialog
@@ -91,15 +92,14 @@ class HomeFragment : Fragment() {
         view.findViewById<LinearLayout>(R.id.add_lunch).setOnClickListener { addFood("lunch") }
         view.findViewById<LinearLayout>(R.id.add_dinner).setOnClickListener { addFood("dinner") }
         view.findViewById<ImageView>(R.id.adviceFlag).setOnClickListener { onFlagClicked() }
-
-        ////// view.findViewById<ImageView>(R.id.addWaterBtn).setOnClickListener { addWater() }
-        // view.findViewById<ImageButton>(R.id.addWaterLL).setOnClickListener { onDeleteW() }
+        view.findViewById<LinearLayout>(R.id.add_water).setOnClickListener { addWater() }
 
 
         view.findViewById<LinearLayout>(R.id.add_snack).setOnClickListener { addFood("snack") }
         db= FirebaseFirestore.getInstance()
         currentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
         ubdateBurntCaloris()
+        updateWater()
 
 
 
@@ -132,13 +132,89 @@ class HomeFragment : Fragment() {
                 }
             }
     }
+    private fun addWater(){
+        val mDialogView = LayoutInflater.from(context).inflate(R.layout.add_water, null)
+        val mBuilder = activity?.let {
+            AlertDialog.Builder(it)
+                .setView(mDialogView)
+        }
 
-      private fun showAddAdvice() {
+        val  mAlertDialog = mBuilder?.show()
+        mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        var water = mDialogView.addWaterAmount!!.text
+        Log.d("this",""+water)
+
+        mDialogView.addWaterBtn.setOnClickListener{
+
+            if (water.isEmpty()){
+                Toast.makeText(context, "لا يمكن ترك هذه الخانة فارغة", Toast.LENGTH_LONG).show()
+            }
+            else{
+                var waterStringData = water.toString()
+                var data =  waterStringData.toInt()
+                waterCount += data
+
+                if(data>15 || waterCount>15){
+                    waterCount -= data
+                    Toast.makeText(context,"هذه الكمية أكثر من الاحتياج اليومي للماء",Toast.LENGTH_SHORT).show() }
+
+                else{
+                    val docData = hashMapOf(
+                        "date" to getCurrentDate(),
+                        "user_id" to currentuser,
+                        "amountOfWater" to waterStringData.toInt() )
+                    db.collection("users").document(currentuser!!).collection("Water")
+                        .document().set(docData)
+                        .addOnSuccessListener {
+                            Toast.makeText(context,"تمت إضافة كمية الماء",Toast.LENGTH_SHORT).show()
+                        }.addOnFailureListener {
+                            Toast.makeText(context,"حصل خطأ في عملية الإضافة",Toast.LENGTH_SHORT).show();
+                        }
+                    mAlertDialog?.dismiss()
+                    updateWater()
+                }
+            }
+        }
+        mDialogView.cancelWaterBtn.setOnClickListener{
+            mAlertDialog?.dismiss()
+        }
+    }
+
+    private fun  updateWater(){
+        var totalWaterAmount = 0
+        db.collection("users").document(currentuser!!)
+            .collection("Water").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
+                for (documents in it){
+                    totalWaterAmount+=documents.get("amountOfWater").toString().toInt()
+
+                }
+                if(totalWaterAmount!=null)
+                    waterAmountTV.text= totalWaterAmount.toString()
+                else
+                    waterAmountTV.text="0"
+            }
+    }
+
+    private fun showAddAdvice() {
+        var advicesList:ArrayList<String> = ArrayList()
+        val rand = Random()
 //        db.collection("Advices").whereEqualTo("date",getCurrentDate())
 //            .get().addOnSuccessListener {documents ->
+        db.collection("Advices").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
+                for (documents in it){
+                    advicesList.add(documents.get("text").toString())
+                }
+                if(advicesList!=null){
+            val index = rand.nextInt(advicesList.size - 1)
+                    advicesTV.text = (advicesList[index])
+                }
+                else
+                    showLastAdv()
+            }
+    }
+          private fun showLastAdv() {
         db.collection("Advices").get()
             .addOnSuccessListener { documents ->
-
                 for (document in documents) {
                     adviceID = document.id
                     var title = document.get("text").toString()

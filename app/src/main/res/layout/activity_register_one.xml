@@ -54,6 +54,8 @@
                 android:padding="10dp"
                 android:layout_marginStart="30dp"
 
+                android:maxLength="20"
+
                 android:layout_marginEnd="20dp"
                 android:ems="10"
                 android:hint="     الأسم     "
@@ -79,6 +81,8 @@
                 android:ems="10"
                 android:hint="    الإيميل   "
                 android:background="@drawable/border"
+
+                android:maxLength="30"
                 android:inputType="textEmailAddress"
                 android:textSize="15dp" />
 
@@ -102,6 +106,8 @@
                 android:ems="10"
                 android:hint="   كلمة المرور   "
                 android:inputType="textPassword"
+
+                android:maxLength="20"
                 android:textSize="15dp"
                 app:passwordToggleEnabled="true"
 
@@ -126,6 +132,8 @@
                 android:padding="10dp"
                 android:ems="10"
                 android:hint="   إعادة كلمة المرور   "
+
+                android:maxLength="20"
                 android:inputType="textPassword"
                 android:textSize="15dp"
                 app:passwordToggleEnabled="true"

@@ -28,6 +28,7 @@
             android:layout_width="match_parent"
             android:layout_marginRight="10dp"
             android:layout_marginTop="10dp"
+
             android:layout_height="wrap_content"
 
             android:text="التمارين"
@@ -42,13 +43,15 @@
             android:id="@+id/beginner"
 
             android:layout_width="377dp"
-            android:layout_height="161dp"
+            android:layout_height="100dp"
             android:layout_alignParentTop="true"
             android:layout_margin="8dp"
+            android:layout_marginTop="40dp"
             android:background="@drawable/bg_radus_white"
             android:clickable="true"
             android:elevation="4dp"
             android:focusable="true"
+
             android:layout_gravity="center"
             android:foreground="?attr/selectableItemBackground"
             android:gravity="center"
@@ -84,7 +87,7 @@
 
 
             android:layout_width="377dp"
-            android:layout_height="161dp"
+            android:layout_height="100dp"
             android:layout_alignParentTop="true"
             android:layout_margin="8dp"
             android:background="@drawable/bg_radus_white"
@@ -121,7 +124,7 @@
         <LinearLayout
             android:id="@+id/advance"
             android:layout_width="377dp"
-            android:layout_height="161dp"
+            android:layout_height="100dp"
             android:layout_alignParentTop="true"
             android:layout_margin="8dp"
             android:background="@drawable/bg_radus_white"

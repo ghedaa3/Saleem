@@ -59,8 +59,12 @@ class MyExcercise : AppCompatActivity() {
                 var title =document.get("exerciseName").toString()
                 var Date =document.get("date").toString()
                 var calori =document.get("exerciseCalories").toString()
-                var myExcercise=MyExcersie(title,calori,Date)
+                var type=document.get("exerciseType").toString()
+                var myExcercise=MyExcersie(title,calori,Date,type)
                 list.add(myExcercise)
+
+              /*  val myFood =document.toObject(MyFood::class.java)
+                list.add(myFood)*/
                 Log.d("EX","List : "+list)
 
 

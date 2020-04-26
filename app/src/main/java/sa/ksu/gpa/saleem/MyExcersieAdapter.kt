@@ -29,6 +29,9 @@ class MyExcersieAdapter (private val list: List<MyExcersie>, var onActionClick: 
             delete?.setOnClickListener(View.OnClickListener {
                 onActionClick.onDelete(MyExcersie,adapterPosition)
             })
+
+            if(MyExcersie.Type=="FromExercise")
+                edit!!.visibility= View.GONE
             edit?.setOnClickListener(View.OnClickListener {
                 onActionClick.onEdit(MyExcersie,adapterPosition)
             })

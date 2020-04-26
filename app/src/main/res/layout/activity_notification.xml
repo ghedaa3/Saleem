@@ -37,12 +37,17 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="الاشعارات"
+                android:text="الإشعارات"
                 android:textColor="#4F329A"
                 android:textSize="30dp"
                 android:textStyle="bold"
                 app:layout_anchorGravity="center" />
         </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="22dp"
+        ></LinearLayout>
 
 
 

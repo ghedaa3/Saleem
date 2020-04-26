@@ -6,7 +6,8 @@ data class ExerciseModel(
     var exerciseTitle: String,
     var exercisePicture: Int,
     var exerciseCalories:String,
-    var exerciseDuration:String) {
-    constructor() : this("", "", 0,"","")
+    var exerciseDuration:String,
+    var exerciseDescription:String) {
+    constructor() : this("", "", 0,"","","")
 
 }
