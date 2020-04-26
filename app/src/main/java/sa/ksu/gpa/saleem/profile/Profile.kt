@@ -52,9 +52,9 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
 
         val toolbar = findViewById<View>(sa.ksu.gpa.saleem.R.id.toolbar)
         setSupportActionBar(toolbar as Toolbar?)
-        supportActionBar!!.setTitle("")
+/*        supportActionBar!!.setTitle("")
         supportActionBar!!.setDisplayHomeAsUpEnabled(false)
-        supportActionBar!!.setHomeButtonEnabled(false)
+        supportActionBar!!.setHomeButtonEnabled(false)*/
 
 
         val userUid = FirebaseAuth.getInstance().currentUser!!.uid

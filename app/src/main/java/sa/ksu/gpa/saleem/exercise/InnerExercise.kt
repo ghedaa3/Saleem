@@ -101,7 +101,7 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
             db.collection("users").document(userUid).collection("Exercises").document().set(docData)
                 .addOnSuccessListener {
                     Log.d("main1","Added to collection exercise ")
-                    Toast.makeText(this, "تمت اضافة التمرين", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "تم اضافة التمرين", Toast.LENGTH_LONG).show()
 
                 }.addOnFailureListener {
                     Log.d("main1","not Added to collection"+it)

@@ -5,19 +5,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFFFFF"
     android:orientation="vertical"
     >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+
+        android:layout_height="wrap_content">
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="المعلومات"
+        android:text="ملفي الشخصي"
         android:layout_gravity="center"
+        android:background="#FFFFFF"
         android:textColor="#4F329A"
         android:textSize="30dp"
         android:textStyle="bold"
         app:layout_anchor="@+id/appbar"
         app:layout_anchorGravity="center" />
+
+
+    <ImageView
+        android:id="@+id/back_button"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_marginLeft="340dp"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/kk"
+        android:tint="@color/gray_btn_bg_pressed_color"></ImageView>
+
+    </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -42,7 +62,7 @@
             <LinearLayout
                 android:id="@+id/linlay1"
                 android:layout_width="match_parent"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="30dp"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
 
@@ -62,7 +82,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/nameSignUp"
@@ -593,7 +613,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/age"
@@ -623,7 +643,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
 
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/ageHin"
@@ -670,7 +690,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/level"
@@ -699,7 +719,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/levelHin"
@@ -743,7 +763,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/goal"
@@ -773,7 +793,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
 
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
 
                         <TextView
                             android:id="@+id/goalHin"
@@ -819,18 +839,6 @@
                 android:text="تسجيل الخروج"
                 android:textColor="#C6020000" />
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-
-                android:layout_marginTop="13dp"
-                android:backgroundTint="#4F329A"
-                android:gravity="center"
-                app:title=" "
-                app:titleTextColor="#4F329A"
-
-                />
 
 
 
@@ -840,36 +848,7 @@
 
 
 
-    <androidx.viewpager.widget.ViewPager
-        android:id="@+id/view_pager"
-        android:layout_width="400dp"
-        android:layout_height="691dp"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-    <TextView
-        android:id="@+id/userName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:text="ملفي الشخصي"
-
-        android:textColor="#4F329A"
-        android:textSize="30sp"
-        android:textStyle="bold"
-        app:layout_anchor="@+id/appbar"
-        app:layout_anchorGravity="center" />
-
-    <ImageView
-        android:id="@+id/back_button"
-        android:layout_width="wrap_content"
-        android:layout_height="20dp"
-        android:layout_marginTop="28dp"
-        android:tint="@color/gray_btn_bg_pressed_color"
-        android:layout_marginLeft="340dp"
-        android:src="@drawable/kk">
-
-    </ImageView>
 
 
 
