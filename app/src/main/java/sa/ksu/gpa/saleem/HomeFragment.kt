@@ -4,7 +4,6 @@ package sa.ksu.gpa.saleem
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
-import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -14,7 +13,9 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
@@ -194,12 +195,26 @@ class HomeFragment : Fragment() {
             }
     }
 
-      private fun showAddAdvice() {
+    private fun showAddAdvice() {
+        var advicesList:ArrayList<String> = ArrayList()
+        val rand = Random()
 //        db.collection("Advices").whereEqualTo("date",getCurrentDate())
 //            .get().addOnSuccessListener {documents ->
+        db.collection("Advices").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
+                for (documents in it){
+                    advicesList.add(documents.get("text").toString())
+                }
+                if(advicesList!=null){
+            val index = rand.nextInt(advicesList.size - 1)
+                    advicesTV.text = (advicesList[index])
+                }
+                else
+                    showLastAdv()
+            }
+    }
+          private fun showLastAdv() {
         db.collection("Advices").get()
             .addOnSuccessListener { documents ->
-
                 for (document in documents) {
                     adviceID = document.id
                     var title = document.get("text").toString()
@@ -371,8 +386,8 @@ class HomeFragment : Fragment() {
 
     fun addFood(type_of_food:String){
         val list = ArrayList<String>()
-        list.add("وجبة مفصلة")
-        list.add("وجبة سريعة")
+        list.add("اضافة بالمكونات")
+        list.add("اضافة سريعة")
         showAddFood(list,type_of_food)
 
     }
