@@ -310,8 +310,8 @@ class HomeFragment : Fragment() {
 
     fun addFood(type_of_food:String){
         val list = ArrayList<String>()
-        list.add("وجبة مفصلة")
-        list.add("وجبة سريعة")
+        list.add("اضافة بالمكونات")
+        list.add("اضافة سريعة")
         showAddFood(list,type_of_food)
 
     }

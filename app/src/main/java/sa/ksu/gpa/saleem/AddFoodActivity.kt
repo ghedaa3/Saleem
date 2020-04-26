@@ -41,7 +41,7 @@ class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         setContentView(R.layout.activity_add_food)
 
-        toolbar.title = "اضافة وجبة مفصلة"
+        toolbar.title = "اضافة وجبة بالمكونات"
         toolbar.setNavigationIcon(android.R.drawable.ic_menu_close_clear_cancel)
         toolbar.setNavigationOnClickListener {
             onBackPressed()
