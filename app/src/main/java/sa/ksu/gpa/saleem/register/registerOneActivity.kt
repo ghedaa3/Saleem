@@ -132,83 +132,6 @@ class registerOneActivity : AppCompatActivity() {
         // [END send_email_verification]
     }
 
-    private fun validateForm(): Boolean {
-        var valid = true
-
-        val nameTxt = findViewById<View>(R.id.nameET) as EditText?
-        val emailTxt = findViewById<View>(R.id.emailET) as EditText?
-        val passTxt = findViewById<View>(R.id.passwordED) as EditText?
-        val repassTxt = findViewById<View>(R.id.repasswordED) as EditText?
-
-        var nameEd = nameTxt?.text.toString()
-        var emailEd = emailTxt?.text.toString()
-        var passEd = passTxt?.text.toString()
-        var repassEd = repassTxt?.text.toString()
-
-
-
-        if (TextUtils.isEmpty(emailEd) && TextUtils.isEmpty(nameEd) && TextUtils.isEmpty(passEd) && TextUtils.isEmpty(
-                repassEd
-            )
-        )
-        {
-
-            showDialogWithOkButton("الرجاء ادخال اسم المستخدم و البريد الالكتروني وكلمة المرور")
-
-        } else if (TextUtils.isEmpty(emailEd)) {
-
-            showDialogWithOkButton("الرجاء ادخال البريد الالكتروني")
-
-        } else
-            if (TextUtils.isEmpty(passEd)) {
-
-                showDialogWithOkButton("الرجاء تعين كلمة المرور")
-            } else
-                if (TextUtils.isEmpty(repassEd)) {
-                    repasswordED.error = "Required."
-                    showDialogWithOkButton("الرجاء اعادة تعين كلمة المرور")
-
-                } else
-                    if (TextUtils.isEmpty(nameEd)) {
-
-
-                        showDialogWithOkButton("الرجاء ادخال اسم المستخدم")
-                    }
-        else if(passEd.length < 5){
-                        showDialogWithOkButton("الرجاء ادخال كلمة المرور من 6 او اكثر ارقام")
-
-                    }
-
-
-
-        // checkPassword(passEd,repassEd)
-
-
-        return valid
-    }
-
-/*    private fun updateUI(user: FirebaseUser? {
-        hideProgressBar()
-        if (user != null) {
-            status.text = getString(R.string.emailpassword_status_fmt,
-                user.email, user.isEmailVerified)
-            detail.text = getString(R.string.firebase_status_fmt, user.uid)
-
-            emailPasswordButtons.visibility = View.GONE
-            emailPasswordFields.visibility = View.GONE
-            signedInButtons.visibility = View.VISIBLE
-
-            verifyEmailButton.isEnabled = !user.isEmailVerified
-        } else {
-            status.setText(R.string.signed_out)
-            detail.text = null
-
-            emailPasswordButtons.visibility = View.VISIBLE
-            emailPasswordFields.visibility = View.VISIBLE
-            signedInButtons.visibility = View.GONE
-        }
-    }*/
-
 
     companion object {
         const val TAG = "EmailPassword"
@@ -245,39 +168,39 @@ class registerOneActivity : AppCompatActivity() {
 
         else if (emailTxt == "" && passTxt == "" && nameTxt?.text.toString() == "" && repassTxt?.text.toString() == "") {
             //show a popup for result
-            showDialogWithOkButton("الرجاء ادخال اسم المستخدم و البريد الالكتروني وكلمة المرور")
+            showDialogWithOkButton("الرجاء إدخال اسم المستخدم و البريد الالكتروني وكلمة المرور")
             return false
 
         } else if (emailTxt == "") {
             //show a popup for result
-            showDialogWithOkButton("الرجاء ادخال البريد الالكتروني")
+            showDialogWithOkButton("الرجاء إدخال البريد الالكتروني")
             return false
 
         }//end if
         else if (nameTxt?.text.toString() == "") {
             //show a popup for result
-            showDialogWithOkButton("الرجاء ادخال اسم المستخدم")
+            showDialogWithOkButton("الرجاء إدخال اسم المستخدم")
             return false
 
         }//end if
         else if (repassTxt?.text.toString() == "") {
             //show a popup for result
-            showDialogWithOkButton("الرجاء اعادة تعين كلمة المرور")
+            showDialogWithOkButton("الرجاء إعادة تعين كلمة المرور")
             return false
         }//end if
         else if (passTxt == "") {
             //show a popup for result
-            showDialogWithOkButton("الرجاء ادخال كلمة المرور")
+            showDialogWithOkButton("الرجاء إدخال كلمة المرور")
             return false
 
 
         } else if(passTxt.length < 5){
-            showDialogWithOkButton("الرجاء ادخال كلمة المرور من 6 او اكثر ارقام")
+            showDialogWithOkButton("الرجاء إدخال كلمة المرور من 6 خانات او اكثر")
             return false
 
         }
         else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(emailTxt).matches()){
-            showDialogWithOkButton("الرجاء ادخال الايميل بطريقة صحيحة")
+            showDialogWithOkButton("الرجاء إدخال الايميل بطريقة صحيحة")
 
             return false
         }
