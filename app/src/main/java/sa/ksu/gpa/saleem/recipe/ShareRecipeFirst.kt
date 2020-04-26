@@ -329,13 +329,13 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
             "date"    to  getCurrentDate()
 
         )
-        val NumberOfCaloriesDoc = db.collection("Users").document(currentuser)
+        val NumberOfCaloriesDoc = db.collection("users").document(currentuser)
         NumberOfCaloriesDoc.get().addOnSuccessListener {
                 documentSnapshot ->
 
             if( documentSnapshot.get("NumberOfRecipes")==null){
                 NumberOfRecipes= 0
-                db.collection("Users").document(currentuser).update("NumberOfRecipes", NumberOfRecipes)
+                db.collection("users").document(currentuser).update("NumberOfRecipes", NumberOfRecipes)
                     .addOnSuccessListener { Log.d("this", "DocumentSnapshot successfully updated!") }
                     .addOnFailureListener { e -> Log.w("this", "Error updating document", e) }
             }
