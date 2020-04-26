@@ -34,12 +34,14 @@ class MyFoodAdapter(private val list: List<MyFood>, var onActionClick: OnActionC
                 onActionClick.onDelete(food,adapterPosition)
             })
             if(food.type=="fromRecipes"||food.type=="fromScanner")
-                edit!!.visibility=GONE
-            else{
+                edit!!.visibility=View.GONE
+            else
+                edit!!.visibility=View.VISIBLE
+
             edit?.setOnClickListener(View.OnClickListener {
                 onActionClick.onEdit(food,adapterPosition)
             })
-            }
+
 
         }
 

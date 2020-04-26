@@ -81,6 +81,7 @@ class MyExcercise : AppCompatActivity() {
                 }
 
                 override fun onDelete(item: MyExcersie, position: Int) {
+
                     deleteDialog(item,position, key_list[position])
 
                 }
