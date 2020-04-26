@@ -43,6 +43,7 @@ class registerTwoActivity : AppCompatActivity(),View.OnClickListener {
     val TAG = "MyActivity"
     val user = HashMap<String, Any>()
     lateinit var genderr: String
+    var userAge="0"
     var pic:ImageButton?=null
     var level = 0
 
@@ -116,57 +117,9 @@ class registerTwoActivity : AppCompatActivity(),View.OnClickListener {
 
             }
 
-            //  var bmi = (wight) / (height / 100 * height / 100)
-            //val type = calculateBmi(wight = wight, height = height)
-
-
-            // Get the checked radio button id from radio group
-        //    var id: Int = radio_group.checkedRadioButtonId
-            //   if (id!=-1){ // If any radio button checked from radio group
-            // Get the instance of radio button using id
 
 
 
-            fun onDateSet(
-                view: DatePicker, year: Int, monthOfYear: Int,
-                dayOfMonth: Int
-            ) {
-                cal.set(Calendar.YEAR, year)
-                cal.set(Calendar.MONTH, monthOfYear)
-                cal.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-
-                val dob = Calendar.getInstance()
-                val today = Calendar.getInstance()
-
-                dob.set(year, monthOfYear, dayOfMonth)
-
-                var age = today.get(Calendar.YEAR) - dob.get(Calendar.YEAR)
-
-                if (today.get(Calendar.DAY_OF_YEAR) < dob.get(Calendar.DAY_OF_YEAR))
-                    age--
-
-
-                val ageInt = age + 1
-
-                var userAge = age?.toString()
-
-                getIntent().putExtra("age", userAge)
-
-                intent.putExtra("age1", userAge)
-
-                Log.d("this2", "age in 2nd activity" + userAge)
-                updateDateInView()
-            }
-
-
-
-
-
-
-
-
-          /*  intent.putExtra("BMI", bmi)
-            intent.putExtra("type", type)*/
             intent.putExtra("name", name)
 
 
@@ -223,17 +176,34 @@ class registerTwoActivity : AppCompatActivity(),View.OnClickListener {
 
                 // val user = HashMap<String, Any>()
                // user.put("DOB", age)
-               val userAge=age?.toString()
 
-                getIntent().putExtra("age",userAge)
-                intent.putExtra("age",userAge)
+                if(age>115){
 
-                getIntent().putExtra("agee",age)
-                intent.putExtra("agee",age)
+                    showDialogWithOkButton("الرجاء إدخال العمر الصحيح " +
+                            "\n العمر الأعلى 115 سنة ")
+
+                }else if(age<=6){
+                    showDialogWithOkButton("الرجاء إدخال العمر الصحيح " +
+                            "\nالعمر الأدنى 6 سنوات ")
+
+                }else {
+
+                    userAge=age?.toString()
 
 
-                Log.d("this2","age in 2nd activity"+userAge)
-                updateDateInView()
+
+                    getIntent().putExtra("age",userAge)
+                    intent.putExtra("age",userAge)
+
+
+
+                    Log.d("this2","age in 2nd activity"+userAge)
+                    updateDateInView()
+
+                }
+
+
+
             }
 
         }
@@ -276,25 +246,33 @@ class registerTwoActivity : AppCompatActivity(),View.OnClickListener {
 
         var wight = wightTxt?.text.toString()
         var height = heightTxt?.text.toString()
+        var age=userAge.toInt()
+
         var id: Int = radio_group.checkedRadioButtonId
 
 
         if (wight == "") {
-            showDialogWithOkButton("الرجاء ادخال الوزن")
+            showDialogWithOkButton("الرجاء إدخال الوزن")
             return false
         } else if (height == "") {
 
-            showDialogWithOkButton("الرجاء ادخال الطول")
+            showDialogWithOkButton("الرجاء إدخال الطول")
             return false
 
 
         } else if (id == -1) {
 
 
-            showDialogWithOkButton("الرجاء اختيار الجنس")
+            showDialogWithOkButton("الرجاء إختيار الجنس")
             return false
 
+        }else       if(age==0||age==-1){
+
+            showDialogWithOkButton("الرجاء إدخال العمر ")
+            return false
         }
+
+
         /*    else if(radio_group.c){
 
         }*/
