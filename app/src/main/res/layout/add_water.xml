@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/border"
+    android:weightSum="100"
+    android:backgroundTint="#FFFFFF"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:src="@drawable/add_glass" />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="20dp"
+        android:layout_weight="3"
+        android:text="كمية أكواب الماء ">
+    </TextView>
+    <EditText
+        android:id="@+id/addWaterAmount"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@drawable/border"
+        android:padding="5dp"
+        android:layout_weight="2"
+        android:inputType="number"
+        android:gravity="center"
+        android:hint="0" ></EditText>
+    <TextView
+        android:id="@+id/addWaterAmountError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="#FF3131">
+    </TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+        <Button
+            android:id="@+id/cancelWaterBtn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_gravity="center"
+            android:background="@drawable/border"
+            android:backgroundTint="#341A1818"
+            android:textSize="15dp"
+            android:text="إلغاء"
+            android:textColor="#F7FFFFFF"></Button>
+        <Button
+            android:id="@+id/addWaterBtn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/border"
+            android:layout_weight="0.5"
+            android:backgroundTint="#69F0AE"
+            android:text="إضافة"
+            android:textSize="15dp"
+            android:textColor="#F7FFFFFF">
+
+        </Button>
+    </LinearLayout>
+
+</LinearLayout>

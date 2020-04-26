@@ -23,6 +23,7 @@ import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcercise
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcerciseburentCal
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.cancelExcercise
 import kotlinx.android.synthetic.main.add_fast_food.view.*
+import kotlinx.android.synthetic.main.add_water.view.*
 import kotlinx.android.synthetic.main.advice_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
@@ -47,7 +48,6 @@ class HomeFragment : Fragment() {
     var currentuser = ""
     private var waterCount=0
     private lateinit var adviceID:String
-    private var flag:Boolean=true
     private lateinit var pagerAdapter: PagerAdapter
     private lateinit var date: String
     lateinit var dialog:ProgressDialog
@@ -64,7 +64,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         date = getCurrentDate()
         tvDate.text = date
-
         pagerAdapter = activity?.supportFragmentManager?.let { PagerAdapter(it,date) }!!
         viewPager.adapter = pagerAdapter
         dotsIndicator.setViewPager(viewPager)
@@ -92,30 +91,18 @@ class HomeFragment : Fragment() {
         view.findViewById<LinearLayout>(R.id.add_lunch).setOnClickListener { addFood("lunch") }
         view.findViewById<LinearLayout>(R.id.add_dinner).setOnClickListener { addFood("dinner") }
         view.findViewById<ImageView>(R.id.adviceFlag).setOnClickListener { onFlagClicked() }
-//        view.findViewById<LinearLayout>(R.id.add_water_amount).setOnClickListener { addWater() }
+        view.findViewById<LinearLayout>(R.id.add_water).setOnClickListener { addWater() }
 
 
         view.findViewById<LinearLayout>(R.id.add_snack).setOnClickListener { addFood("snack") }
         db= FirebaseFirestore.getInstance()
         currentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
+        ubdateBurntCaloris()
+        updateWater()
 
 
-//        val burntCalories = db.collection("users").document(currentuser)
-//        val burntCalories = db.collection("users")
-//            .document("ckS3vhq8P8dyOeSI7CE7D4RgMiv1")//test user
-//            .addSnapshotListener(EventListener(){ documentSnapshot: DocumentSnapshot?, firebaseFirestoreException: FirebaseFirestoreException? ->
-//                var neededcal = documentSnapshot?.getDouble("needed cal")
-//                totalcal = neededcal as Double
-//
-//                tv_main_number.setText("${totalcal.toInt()}")
-//                pb_counter.progress =remainderCal.toInt()
-//                pb_counter.max = totalcal.toInt()
-//
-//                Log.e("hhhh","${totalcal.toInt()}")
-//                Log.e("wwww","${consumerCal.toInt()}")
-//
-//
-//            })
+
+
         db.collection("History")
             .whereEqualTo("date",getCurrentDate())
             .whereEqualTo("user_id",currentuser)
@@ -144,12 +131,75 @@ class HomeFragment : Fragment() {
                 }
             }
     }
+    private fun addWater(){
+        val mDialogView = LayoutInflater.from(context).inflate(R.layout.add_water, null)
+        val mBuilder = activity?.let {
+            AlertDialog.Builder(it)
+                .setView(mDialogView)
+        }
 
-    private fun showAddAdvice() {
-        db.collection("Advices").whereEqualTo("date",getCurrentDate())
-            .get().addOnSuccessListener {documents ->
-//        db.collection("Advices").get()
-//            .addOnSuccessListener { documents ->
+        val  mAlertDialog = mBuilder?.show()
+        mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+        var water = mDialogView.addWaterAmount!!.text
+        Log.d("this",""+water)
+
+        mDialogView.addWaterBtn.setOnClickListener{
+
+            if (water.isEmpty()){
+                Toast.makeText(context, "لا يمكن ترك هذه الخانة فارغة", Toast.LENGTH_LONG).show()
+            }
+            else{
+                var waterStringData = water.toString()
+                var data =  waterStringData.toInt()
+                waterCount += data
+
+                if(data>15 || waterCount>15){
+                    waterCount -= data
+                    Toast.makeText(context,"هذه الكمية أكثر من الاحتياج اليومي للماء",Toast.LENGTH_SHORT).show() }
+
+                else{
+                    val docData = hashMapOf(
+                        "date" to getCurrentDate(),
+                        "user_id" to currentuser,
+                        "amountOfWater" to waterStringData.toInt() )
+                    db.collection("users").document(currentuser!!).collection("Water")
+                        .document().set(docData)
+                        .addOnSuccessListener {
+                            Toast.makeText(context,"تمت إضافة كمية الماء",Toast.LENGTH_SHORT).show()
+                        }.addOnFailureListener {
+                            Toast.makeText(context,"حصل خطأ في عملية الإضافة",Toast.LENGTH_SHORT).show();
+                        }
+                    mAlertDialog?.dismiss()
+                    updateWater()
+                }
+            }
+        }
+        mDialogView.cancelWaterBtn.setOnClickListener{
+            mAlertDialog?.dismiss()
+        }
+    }
+
+    private fun  updateWater(){
+        var totalWaterAmount = 0
+        db.collection("users").document(currentuser!!)
+            .collection("Water").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
+                for (documents in it){
+                    totalWaterAmount+=documents.get("amountOfWater").toString().toInt()
+
+                }
+                if(totalWaterAmount!=null)
+                    waterAmountTV.text= totalWaterAmount.toString()
+                else
+                    waterAmountTV.text="0"
+            }
+    }
+
+      private fun showAddAdvice() {
+//        db.collection("Advices").whereEqualTo("date",getCurrentDate())
+//            .get().addOnSuccessListener {documents ->
+        db.collection("Advices").get()
+            .addOnSuccessListener { documents ->
+
                 for (document in documents) {
                     adviceID = document.id
                     var title = document.get("text").toString()
@@ -161,28 +211,18 @@ class HomeFragment : Fragment() {
                     }
     }
 
+
     private fun onFlagClicked(){
-        flagAdvice()
-
-        if (flag){
-            Log.d("flag1", "isReporting is ="+flagAdvice())
-            Toast.makeText(context, "لقد أبلغت عن هذه النصحية مسبقا", Toast.LENGTH_LONG).show()
-
-        }
-        else reportAdviceDialog()
-
-        true
-    }
-
-    private fun flagAdvice(){
         db.collection("ReportedAdvices").whereEqualTo("reporterUID",currentuser).whereEqualTo("adviceID",adviceID)
             .get().addOnSuccessListener { documents ->
-                if (documents.isEmpty()){
-                    flag=false
+                if (documents.isEmpty){
+                    reportAdviceDialog()
                 }
+                else
+                    Toast.makeText(context, "لقد أبلغت عن هذه النصحية مسبقا", Toast.LENGTH_LONG).show()
 
             }.addOnFailureListener {
-                Log.d("flag1", "isReporting is inside else =")
+                Log.d("flag", "onFlagClicked inside else")
             }
     }
 
@@ -201,32 +241,33 @@ class HomeFragment : Fragment() {
         mDialogView.dialogShareBtn.setOnClickListener{
             var body = mDialogView.dialogAdviceET!!.editText!!.text
 
-            if (body.length > 140){
-                Toast.makeText(context, "لا يمكن ان يكون البلاغ أطول من ١٤٠ حرف", Toast.LENGTH_LONG).show()
-            }
-            else if (body.isEmpty()){
-                Toast.makeText(context, "لا يمكن ترك هذه الخانة فارغة ", Toast.LENGTH_LONG).show()
-            }
-
-            else {
-                var body1=body.toString()
-
-                val docData = hashMapOf(
-                    "text" to body1,
-                    "reporterUID" to currentuser,
-                    "adviceID" to adviceID,
-                    "date" to getCurrentDate()
-                )
-
-                db.collection("ReportedAdvices").document(adviceID).set(docData).addOnSuccessListener {
-                    Log.d("advice", "added reports:" )
-
-                }.addOnFailureListener {
-                    Log.d("advice", "error added reports:" )
-
+            when {
+                body.length > 140 -> {
+                    Toast.makeText(context, "لا يمكن ان يكون البلاغ أطول من ١٤٠ حرف", Toast.LENGTH_LONG).show()
                 }
-                Toast.makeText(context, "تم نشر البلاغ ", Toast.LENGTH_LONG).show()
-                mAlertDialog?.dismiss()
+                body.isEmpty() -> {
+                    Toast.makeText(context, "لا يمكن ترك هذه الخانة فارغة ", Toast.LENGTH_LONG).show()
+                }
+                else -> {
+                    var body1=body.toString()
+
+                    val docData = hashMapOf(
+                        "text" to body1,
+                        "reporterUID" to currentuser,
+                        "adviceID" to adviceID,
+                        "date" to getCurrentDate()
+                    )
+
+                    db.collection("ReportedAdvices").document(adviceID).set(docData).addOnSuccessListener {
+                        Log.d("advice", "added reports:" )
+
+                    }.addOnFailureListener {
+                        Log.d("advice", "error added reports:" )
+
+                    }
+                    Toast.makeText(context, "تم نشر البلاغ ", Toast.LENGTH_LONG).show()
+                    mAlertDialog?.dismiss()
+                }
             }
         }
 
@@ -236,6 +277,23 @@ class HomeFragment : Fragment() {
     }
 
 
+    private fun ubdateBurntCaloris() {
+        var totalBurntCalories:Double=0.0
+        db.collection("users").document(currentuser!!).collection("Exercises").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
+            for (documents in it){
+                totalBurntCalories+=documents.get("exerciseCalories").toString().toDouble()
+
+            }
+            if(totalBurntCalories!=null)
+                burnt_calories_textview.text= totalBurntCalories.toString()
+            else
+                burnt_calories_textview.text="0"
+
+
+        }
+
+
+    }
 
 //    private fun addWater() {
 //        if (counter < 8) {
@@ -294,7 +352,7 @@ class HomeFragment : Fragment() {
                 pb_counter.max = totalcal.toInt()
                 remainder_cal.setText("${remainderCal.toInt()}")
                 tv_main_number.setText("${(totalcal-remainderCal).toInt()}")
-                Toast.makeText(context,"تمت إضافة الوجبة", Toast.LENGTH_LONG)
+                Toast.makeText(context,"تمت اضافة الوجبة", Toast.LENGTH_LONG)
                 updateHistory()
             }
         }
@@ -361,10 +419,10 @@ class HomeFragment : Fragment() {
                 showLoadingDialog()
                 db.collection("Foods").document().set(data1 as Map<String, Any>).addOnSuccessListener {
                     dialog.dismiss()
-                    Toast.makeText(context,"تمت إضافة الوجبة",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(context,"تمت اضافة الوجبة",Toast.LENGTH_SHORT).show()
                 }.addOnFailureListener {
                     dialog.dismiss()
-                    Toast.makeText(context,"حصل خطأ في عملية الإضافة",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context,"حصل خطأ في عملية الاضافة",Toast.LENGTH_SHORT).show();
                 };
 
 

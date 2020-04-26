@@ -75,8 +75,8 @@ class ForegroundService : Service() {
         thread {
             while (true) {
 //                Toast.makeText(applicationContext,"test any thine ",Toast.LENGTH_SHORT).show()
-                //   Thread.sleep(60*60*1000)
-                Thread.sleep(10 * 1000)
+                Thread.sleep(60*60*1000)
+//                Thread.sleep(10 * 1000)
                 checkIfEat()
 
             }
@@ -85,12 +85,7 @@ class ForegroundService : Service() {
     }
 
     private fun checkIfEat() {
-        getNotification("احسنت!! لقد قمت بتحقيق هدفك خلال الاسبوع الماضي")?.let {
-            scheduleNotification(
-                it,
-                0
-            )
-        }
+
         if(!currantDate.equals(getCurrentDate())){
             currantDate = getCurrentDate()
             dayCount ++
@@ -116,13 +111,26 @@ class ForegroundService : Service() {
             hour+=12
         }
 
-        if (hour == 12) {
+        if (hour in 9..20) {
+            if ( hour == 14 || hour == 20 ){
+
+            }
+            Log.e("service TAG","وقت شرب الماء")
+            getNotification("وقت شرب الماء")?.let {
+                scheduleNotification(
+                    it,
+                    0
+                )
+            }
+        }
+        if (hour == 14) {
+            Log.e("service TAG","حان وقت الغداء")
             db.collection("Foods")
                 .whereEqualTo("user_id", currentUser)
                 .whereEqualTo("type_of_food", "lunch")
                 .whereEqualTo("date", getCurrentDate()).get().addOnSuccessListener {
                     if (it.isEmpty) {
-                        getNotification("هل ادخلت وجبة الغداء لليوم؟")?.let {
+                        getNotification("حان وقت الغداء")?.let {
                             scheduleNotification(
                                 it,
                                 0
@@ -134,12 +142,13 @@ class ForegroundService : Service() {
 
         }
         if (hour == 7) {
+            Log.e("service TAG","حان وقت الفطور")
             db.collection("Foods")
                 .whereEqualTo("user_id", currentUser)
                 .whereEqualTo("type_of_food", "breakfast")
                 .whereEqualTo("date", getCurrentDate()).get().addOnSuccessListener {
                     if (it.isEmpty) {
-                        getNotification("هل ادخلت وجبة الفطور لليوم؟")?.let {
+                        getNotification("حان وقت الفطور")?.let {
                             scheduleNotification(
                                 it,
                                 0
@@ -151,12 +160,13 @@ class ForegroundService : Service() {
 
         }
         if (hour == 20) {
+            Log.e("service TAG","حان وقت العشاء")
             db.collection("Foods")
                 .whereEqualTo("user_id", currentUser)
                 .whereEqualTo("type_of_food", "dinner")
                 .whereEqualTo("date", getCurrentDate()).get().addOnSuccessListener {
                     if (it.isEmpty) {
-                        getNotification("هل ادخلت وجبة العشاء لليوم؟")?.let {
+                        getNotification("حان وقت العشاء")?.let {
                             scheduleNotification(
                                 it,
                                 0
@@ -166,16 +176,7 @@ class ForegroundService : Service() {
                 }
         }
 
-        if (calender.get(Calendar.HOUR) in 9..20) {
 
-
-            getNotification("وقت شرب الماء")?.let {
-                scheduleNotification(
-                    it,
-                    0
-                )
-            }
-        }
 
 
     }

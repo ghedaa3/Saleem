@@ -18,16 +18,17 @@ class AdminRecipes : AppCompatActivity() {
     lateinit var adapter: ReportedRecipesAdapter
     private lateinit var db: FirebaseFirestore
     lateinit var recyclerView: RecyclerView
-    var cal : Double = 0.0
-    var key_list:ArrayList<String> = ArrayList()
-    var list:ArrayList<ReportedRecipes> = ArrayList()
+    var cal: Double = 0.0
+    var key_list: ArrayList<String> = ArrayList()
+    var list: ArrayList<ReportedRecipes> = ArrayList()
+    lateinit var recipeID: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_admin_recipes)
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.recyclerViewRepRec)
-        rep_rep_back_button.setOnClickListener{
+        rep_rep_back_button.setOnClickListener {
             onBackPressed()
         }
         getReportedRecipes()
@@ -35,30 +36,31 @@ class AdminRecipes : AppCompatActivity() {
 
     private fun getReportedRecipes() {
         db.collection("ReportedRecipes").get()
-            .addOnSuccessListener{ documents ->
-                for(document in documents){
+            .addOnSuccessListener { documents ->
+                for (document in documents) {
                     key_list.add(document.id)
                     var userID = document.get("UIDrporter").toString()
-                    var recipeID = document.get("recipeID").toString()
+                    recipeID = document.get("recipeID").toString()
                     var report = document.get("text").toString()
+
                     var reportedAdv = ReportedRecipes(userID, recipeID, report)
                     list.add(reportedAdv)
-                    Log.d("ADMIN","List : "+list)
+                    Log.d("ADMIN", "List : " + list)
 
                 }
-                adapter = ReportedRecipesAdapter(list,  object  : ReportedRecipesAdapter.OnActionClick {
-                    override fun onClick(item: ReportedRecipes, position: Int) {
-                        showDescItem(item,position)
-                    }
+                adapter =
+                    ReportedRecipesAdapter(list, object : ReportedRecipesAdapter.OnActionClick {
 
-                    override fun onEdit(item: ReportedRecipes, position: Int) {
-                        showEditItem(item,position)
-                    }
+                        override fun onClick(item: ReportedRecipes, position: Int) {
+                            showDescItem(item, position)
+                            // editExcercizeDialog(item,key_list[position], position)
+                        }
 
-                    override fun onDelete(item: ReportedRecipes, position: Int) {
-                        deleteItem(item,position, key_list[position])
-                    }
-                })
+
+                        override fun onDelete(item: ReportedRecipes, position: Int) {
+                            deleteItem(item, position, key_list[position])
+                        }
+                    }, this)
                 recyclerView.layoutManager = LinearLayoutManager(this)
                 recyclerView.adapter = adapter
             }
@@ -66,7 +68,7 @@ class AdminRecipes : AppCompatActivity() {
 
     }
 
-    fun getCurrentDate():String {
+    fun getCurrentDate(): String {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val current = LocalDateTime.now()
             val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH)
@@ -82,6 +84,7 @@ class AdminRecipes : AppCompatActivity() {
         adapter.notifyDataSetChanged()
 
     }
+
     private fun deleteItem(item: ReportedRecipes, position: Int, key: String) {
         list.removeAt(position)
         key_list.removeAt(position)
@@ -96,5 +99,6 @@ class AdminRecipes : AppCompatActivity() {
     private fun showEditItem(item: ReportedRecipes, position: Int) {
         adapter.notifyDataSetChanged()
     }
+
 }
 

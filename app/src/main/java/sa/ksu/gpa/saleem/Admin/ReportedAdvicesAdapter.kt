@@ -12,27 +12,23 @@ import sa.ksu.gpa.saleem.R
 class ReportedAdvicesAdapter (private val list: List<ReportedAdvices>, var onActionClick: OnActionClick): RecyclerView.Adapter<ReportedAdvicesAdapter.MyViewHolder>(){
 
     class MyViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.item_my_food, parent, false)) {
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.admin_card, parent, false)) {
         private var title: TextView? = null
         private var delete: ImageView? = null
-        private var edit: ImageView? = null
 
 
         init {
             title = itemView.findViewById(R.id.title)
+
             delete = itemView.findViewById(R.id.delete)
-            edit = itemView.findViewById(R.id.edit)
         }
 
         fun bind(ReportedAdvices: ReportedAdvices, onActionClick: OnActionClick) {
             title?.text = ReportedAdvices.report
+
             delete?.setOnClickListener(View.OnClickListener {
                 onActionClick.onDelete(ReportedAdvices,adapterPosition)
             })
-            edit?.setOnClickListener(View.OnClickListener {
-                onActionClick.onEdit(ReportedAdvices,adapterPosition)
-            })
-
         }
 
     }
@@ -53,7 +49,6 @@ class ReportedAdvicesAdapter (private val list: List<ReportedAdvices>, var onAct
 
     interface OnActionClick{
         fun onClick(item: ReportedAdvices, position:Int)
-        fun onEdit(item: ReportedAdvices, position:Int)
         fun onDelete(item: ReportedAdvices, position:Int)
     }
 }

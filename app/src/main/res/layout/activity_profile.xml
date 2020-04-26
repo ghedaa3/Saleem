@@ -1,11 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="المعلومات"
+        android:layout_gravity="center"
+        android:textColor="#4F329A"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_anchor="@+id/appbar"
+        app:layout_anchorGravity="center" />
 
     <ScrollView
         android:id="@+id/scrollView"
@@ -23,7 +35,7 @@
             android:layout_gravity="right"
             android:layout_margin="5dp"
 
-            android:title="المعلومات">
+            android:title="">
 
 
 
@@ -41,7 +53,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_weight="1"
-
                     android:background="@color/white"
                     android:gravity="right"
                     android:paddingBottom="5dp"
@@ -51,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/nameSignUp"
@@ -582,7 +593,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/age"
@@ -612,7 +623,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
 
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/ageHin"
@@ -659,7 +670,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/level"
@@ -688,7 +699,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/levelHin"
@@ -732,7 +743,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/goal"
@@ -762,7 +773,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_horizontal"
 
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
 
                         <TextView
                             android:id="@+id/goalHin"
@@ -811,14 +822,12 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="70dp"
 
-                android:layout_marginTop="15dp"
-
+                android:layout_marginTop="13dp"
+                android:backgroundTint="#4F329A"
                 android:gravity="center"
-                android:background="#FFFFFF"
-
-                app:title="        "
+                app:title=" "
                 app:titleTextColor="#4F329A"
 
                 />
@@ -865,7 +874,7 @@
 
 
 
-</RelativeLayout>
+</LinearLayout>
 
 
 

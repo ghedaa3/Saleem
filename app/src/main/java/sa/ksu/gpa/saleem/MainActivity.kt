@@ -47,7 +47,6 @@ class MainActivity : AppCompatActivity() {
     private val CAMERA_REQUEST_CODE=123;
     private lateinit var db:FirebaseFirestore
     lateinit var speedDialView:SpeedDialView
-     var totalBurntCalories:Double=0.0
     val currentuser = FirebaseAuth.getInstance().currentUser?.uid
 
 
@@ -357,7 +356,7 @@ class MainActivity : AppCompatActivity() {
                         "exerciseCalories" to burntcal,
                         "date"  to  getCurrentDate()
                 )
-                db.collection("Users").document(currentuser!!).collection("Exercises").document().set(docData)
+                db.collection("users").document(currentuser!!).collection("Exercises").document().set(docData)
                     .addOnSuccessListener {
                     Log.d("main1","Added to collection")
                     Toast.makeText(this, "تمت إضافة التمرين", LENGTH_LONG).show()
@@ -394,7 +393,9 @@ class MainActivity : AppCompatActivity() {
         return "$currentDate"
     }
     private fun ubdateBurntCaloris() {
-        db.collection("Users").document(currentuser!!).collection("Exercises").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
+        var totalBurntCalories:Double=0.0
+
+        db.collection("users").document(currentuser!!).collection("Exercises").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
              for (documents in it){
                  totalBurntCalories+=documents.get("exerciseCalories").toString().toDouble()
 

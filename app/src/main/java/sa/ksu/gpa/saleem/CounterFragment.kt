@@ -83,9 +83,9 @@ class CounterFragment(position: Int, date: String) : Fragment(), SensorEventList
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (position == 1) {
-            tv_title.setText("عدد الخطوات")
+            tv_title.setText("خطوة")
         } else {
-            tv_title.setText("سعرات المتبقية")
+            tv_title.setText("سعرة المتبقية")
         }
         valcurrentuser = FirebaseAuth.getInstance().currentUser?.uid!!
             Log.e("valcurrentuser",valcurrentuser);
@@ -102,7 +102,7 @@ class CounterFragment(position: Int, date: String) : Fragment(), SensorEventList
             .addSnapshotListener { documentSnapshot: DocumentSnapshot?, firebaseFirestoreException: FirebaseFirestoreException? ->
                 if (documentSnapshot != null) {
                     var neededcal = documentSnapshot?.get("needed cal")
-                    totalcal = 11.0
+                    totalcal = neededcal as Double
 
                     tv_main_number1.setText("${totalcal.toInt()}")
                     pb_counter1.progress = remainderCal.toInt()

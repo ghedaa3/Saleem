@@ -1,6 +1,5 @@
 package sa.ksu.gpa.saleem
 
-import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -14,21 +13,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.android.synthetic.main.activity_loginn.*
-import kotlinx.android.synthetic.main.fragment_item_list_dialog_item.view.*
 import sa.ksu.gpa.saleem.register.registerOneActivity
-import java.util.HashMap
-import androidx.core.app.ComponentActivity.ExtraData
-import androidx.core.content.ContextCompat.getSystemService
-import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import android.text.Html
-import android.text.SpannableString
-import sa.ksu.gpa.saleem.Admin.Admin
 import sa.ksu.gpa.saleem.Admin.AdminActivity
 
 

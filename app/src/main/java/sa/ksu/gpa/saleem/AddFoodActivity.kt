@@ -119,7 +119,7 @@ class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String
         val arrayAdapter = ArrayAdapter(this.context, android.R.layout.simple_spinner_item, list)
         spWeight.adapter = arrayAdapter
     }
-
+        //اضافة مكونات الوجبات
         private fun initNutritionalValueList() {
         //رز أبيض
         var risw: NutritionalValue = NutritionalValue()

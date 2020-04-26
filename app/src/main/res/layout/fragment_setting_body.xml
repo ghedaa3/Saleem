@@ -23,6 +23,7 @@
             android:layout_height="wrap_content"
             android:text="الإعدادات"
             android:textStyle="bold"
+            android:gravity="right"
             android:textSize="40dp"
 
             >
@@ -54,20 +55,15 @@
 
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="الاشعارات"
+                android:text="الإشعارات"
                 android:textColor="@color/material_blue_grey_80"
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/ic_notifications_black_24dp" />
 
 
         </LinearLayout>
@@ -92,8 +88,8 @@
 
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="ملفي الشخصي"
@@ -101,11 +97,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/person" />
+
 
 
         </LinearLayout>
@@ -129,8 +121,8 @@
 
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="وجباتي"
@@ -138,11 +130,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/ic_dish" />
 
 
         </LinearLayout>
@@ -165,8 +152,8 @@
 
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="نصائحي"
@@ -174,11 +161,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/ic_idea" />
+
 
 
         </LinearLayout>
@@ -202,8 +185,8 @@
 
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="تماريني"
@@ -211,11 +194,7 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/ic_fitness_center_black_24dp" />
+
 
 
         </LinearLayout>
@@ -239,8 +218,8 @@
 
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="وصفاتي"
@@ -248,11 +227,6 @@
                 android:textSize="18sp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="8dp"
-                android:src="@drawable/ic_dish" />
 
 
         </LinearLayout>

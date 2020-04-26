@@ -70,7 +70,6 @@ class registerFourActivity : AppCompatActivity() ,View.OnClickListener {
 
        auth = FirebaseAuth.getInstance()
 
-        db.collection("Users")
 
         val btn=findViewById<View>(R.id.startBtn) as Button?
         val one=findViewById<View>(R.id.goalOneBtn) as Button?
@@ -246,7 +245,6 @@ else return true
         }
 
 
-        db.collection("Users").document("user")
 
         if(neededCalories!=0.0)
 
@@ -319,7 +317,6 @@ else return true
 
         val db = FirebaseFirestore.getInstance()
         val userUid = FirebaseAuth.getInstance().currentUser!!.uid
-        val docRef = db.collection("Users").document(userIId)
 
         Log.d(registerFourActivity.TAG, "createAccountcolloection:$userIId")
 

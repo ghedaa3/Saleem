@@ -12,25 +12,20 @@ import sa.ksu.gpa.saleem.R
 class AdminAdapter (private val list: List<MyAdmin>, var onActionClick: OnActionClick): RecyclerView.Adapter<AdminAdapter.MyViewHolder>(){
 
     class MyViewHolder(inflater: LayoutInflater, parent: ViewGroup) :
-        RecyclerView.ViewHolder(inflater.inflate(R.layout.item_my_food, parent, false)) {
+        RecyclerView.ViewHolder(inflater.inflate(R.layout.admin_card, parent, false)) {
         private var title: TextView? = null
         private var delete: ImageView? = null
-        private var edit: ImageView? = null
 
 
         init {
             title = itemView.findViewById(R.id.title)
             delete = itemView.findViewById(R.id.delete)
-            edit = itemView.findViewById(R.id.edit)
         }
 
         fun bind(MyAdmin: MyAdmin, onActionClick: OnActionClick) {
             title?.text = MyAdmin.title
             delete?.setOnClickListener(View.OnClickListener {
                 onActionClick.onDelete(MyAdmin,adapterPosition)
-            })
-            edit?.setOnClickListener(View.OnClickListener {
-                onActionClick.onEdit(MyAdmin,adapterPosition)
             })
 
         }
@@ -53,7 +48,6 @@ class AdminAdapter (private val list: List<MyAdmin>, var onActionClick: OnAction
 
     interface OnActionClick{
         fun onClick(item: MyAdmin, position:Int)
-        fun onEdit(item: MyAdmin, position:Int)
         fun onDelete(item: MyAdmin, position:Int)
     }
 }
