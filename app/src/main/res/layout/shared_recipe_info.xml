@@ -16,21 +16,24 @@
         android:scaleType="centerCrop"
         android:layout_height="240dp">
     </ImageView>
+
         <ImageView
-        android:id="@+id/back_button"
-        android:layout_width="50dp"
-        android:layout_marginRight="380dp"
-        android:src="@drawable/ic_chevron_left_black_24dp"
-        android:layout_height="50dp"
-            >
-    </ImageView>
+            android:id="@+id/back_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="380dp"
+            android:layout_marginTop="10dp"
+
+            android:tint="@color/gray_btn_bg_pressed_color"
+
+            android:src="@drawable/kk"></ImageView>
         <ImageView
             android:layout_marginTop="20dp"
             android:id="@+id/reporton"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:layout_marginRight="20dp"
-            android:gravity="left"
+            android:layout_marginRight="380dp"
+            android:gravity="right"
             android:onClick="showPopup"
             android:src="@drawable/ic_more_vert_black_24dp"></ImageView>
 
@@ -178,7 +181,7 @@ android:layout_marginTop="190dp"
     <TextView
         android:id="@+id/recipe_info_dirctions"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="wrap_content"
         android:layout_weight="1"
         android:padding="15dp"
         android:textSize="15dp"
