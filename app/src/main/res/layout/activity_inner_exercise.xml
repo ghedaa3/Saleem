@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_below="@+id/durationT"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="10dp"
         android:layout_centerInParent="true"
         android:backgroundTint="#69F0AE"
         android:background="@drawable/border"

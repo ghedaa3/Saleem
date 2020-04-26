@@ -251,17 +251,30 @@ class registerTwoActivity : AppCompatActivity(),View.OnClickListener {
         var id: Int = radio_group.checkedRadioButtonId
 
 
-        if (wight == "") {
+        if (wight == ""||wight=="0") {
             showDialogWithOkButton("الرجاء إدخال الوزن")
             return false
-        } else if (height == "") {
+        } else if (height == ""||height=="0") {
 
             showDialogWithOkButton("الرجاء إدخال الطول")
             return false
 
 
-        } else if (id == -1) {
+        } else if (height.toDouble()<=107.9) {
 
+            showDialogWithOkButton("الرجاء إدخال الطول الصحيح" +
+                    "\nالطول الأدنى 107.9 سم ")
+            return false
+
+
+        } else if (wight.toDouble()<=17.9) {
+
+            showDialogWithOkButton("الرجاء إدخال الوزن الصحيح" +
+                    "\nالوزن الأدنى 17.9 كلجم ")
+            return false
+
+
+        } else if (id == -1) {
 
             showDialogWithOkButton("الرجاء إختيار الجنس")
             return false

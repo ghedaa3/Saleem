@@ -107,7 +107,7 @@ class loginn : AppCompatActivity() {
         dialogBuilder.setView(dialogView)
         dialogBuilder.show()
     }
-
+/*
     private fun showDial(){
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Androidly Alert")
@@ -125,18 +125,18 @@ class loginn : AppCompatActivity() {
         }
 
         builder.show()
-    }
+    }*/
 
     private fun forgetPassword(email: String) {
         auth.sendPasswordResetEmail(email).addOnCompleteListener(OnCompleteListener<Void> { task ->
             if (task.isSuccessful) {
                 Toast.makeText(
-                    this, "password is sent",
+                    this, "تم ارسال كلمة المرور",
                     Toast.LENGTH_SHORT
                 ).show()
             } else {
                 Toast.makeText(
-                    this, "password is NOT sent",
+                    this, "لم يتم ارسال كلمة المرور يوجد خطأ",
                     Toast.LENGTH_SHORT
                 ).show()
             }
@@ -155,7 +155,7 @@ class loginn : AppCompatActivity() {
         val builder = AlertDialog.Builder(this)
         builder.setMessage(msg)
             .setCancelable(false)
-            .setPositiveButton("OK") { dialog, id ->
+            .setPositiveButton("حسناً") { dialog, id ->
                 //do things
             }
         val alert = builder.create()
@@ -176,9 +176,6 @@ class loginn : AppCompatActivity() {
             //show a popup for result
             showDialogWithOkButton("الرجاء ادخال البريد الالكتروني وكلمة المرور")
 
-        } else if(entered_email == "ghedaa.aj@gmail.com") {
-
-            startActivity(Intent(this, AdminActivity::class.java))
         }
         else if (entered_email == "") {
             //show a popup for result
@@ -190,9 +187,7 @@ class loginn : AppCompatActivity() {
             showDialogWithOkButton("الرجاء ادخال كلمة المرور")
 
 
-        }
-
-        if (entered_email != "" && entered_password != "") {
+        }else if (entered_email != "" && entered_password != "" && entered_email!="ghedaa.aj@gmail.com") {
 
             auth.signInWithEmailAndPassword(entered_email, entered_password)
                 .addOnCompleteListener(this) { task ->
@@ -221,10 +216,7 @@ class loginn : AppCompatActivity() {
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(
-                            this, "Authentication failed google.",
-                            Toast.LENGTH_SHORT
-                        ).show()
+
                         showDialogWithOkButton("البريد الإلكتروني غير صالح")
 
 
@@ -233,9 +225,25 @@ class loginn : AppCompatActivity() {
 
 
                 }
+        }else if(entered_email == "ghedaa.aj@gmail.com") {
+            auth.signInWithEmailAndPassword(entered_email, entered_password)
+                .addOnCompleteListener(this) { task ->
+                    if (task.isSuccessful) {
+
+                        startActivity(Intent(this, AdminActivity::class.java))
+
+                        } else {
+
+                            showDialogWithOkButton("البريد الإلكتروني غير صالح")
+
+
+                        }
+
+                    }
+                }
         }
     }
-}
+
 
 
 
