@@ -178,7 +178,7 @@ class registerThreeActivity : AppCompatActivity() ,View.OnClickListener {
         val builder = AlertDialog.Builder(this)
         builder.setMessage(msg)
             .setCancelable(false)
-            .setPositiveButton("OK") { dialog, id ->
+            .setPositiveButton("حسناً") { dialog, id ->
                 //do things
             }
         val alert = builder.create()

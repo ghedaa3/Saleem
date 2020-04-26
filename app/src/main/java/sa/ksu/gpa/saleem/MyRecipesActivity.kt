@@ -11,6 +11,8 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.android.synthetic.main.activity_my_recipes.*
+import kotlinx.android.synthetic.main.activity_notification.*
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -35,6 +37,7 @@ class MyRecipesActivity : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.recyclerViewRes)
         Log.d("RECIPE","Cureent"+currentuser)
+        my_exe_back_button.setOnClickListener { onBackPressed() }
         getExcerciseData()
     }
 

@@ -108,6 +108,8 @@
                     android:gravity="center"
                     android:hint="   الوزن    "
                     android:background="@drawable/border"
+
+                    android:maxLength="3"
                     android:inputType="number"
                     android:textSize="20dp" />
 
@@ -130,6 +132,7 @@
                     android:gravity="center"
                     android:hint="   الطول   "
                     android:background="@drawable/border"
+                    android:maxLength="3"
                     android:inputType="number"
                     android:textSize="20dp" />
 
@@ -208,6 +211,11 @@
                     android:layout_height="60dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginTop="10dp"
+
+                    android:editable="false"
+                    android:focusable="false"
+                    android:clickable="false"
+
                     android:layout_marginEnd="20dp"
                     android:background="@drawable/border"
                     android:ems="10"

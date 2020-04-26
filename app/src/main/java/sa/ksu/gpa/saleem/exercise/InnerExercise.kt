@@ -20,11 +20,16 @@ import kotlin.properties.Delegates
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
+import android.os.Build
 import android.util.Log
 import android.widget.Toast
 import com.google.firebase.firestore.FieldValue
 import kotlinx.android.synthetic.main.home_fragment.*
 import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 
 class InnerExercise : AppCompatActivity(),View.OnClickListener {
@@ -49,7 +54,6 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
 
         val userUid = FirebaseAuth.getInstance().currentUser!!.uid
         val db = FirebaseFirestore.getInstance()
-        var time = findViewById<View>(sa.ksu.gpa.saleem.R.id.timer) as TextView
 
         var btn= findViewById(R.id.start) as Button
 
@@ -61,7 +65,7 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
 
         var Exercisetitle = findViewById<View>(sa.ksu.gpa.saleem.R.id.title) as TextView
 
-        var calT = findViewById<View>(sa.ksu.gpa.saleem.R.id.cal) as TextView
+        var descrip = findViewById<View>(sa.ksu.gpa.saleem.R.id.description) as TextView
 
 
         var backImg = findViewById<View>(sa.ksu.gpa.saleem.R.id.back_button)
@@ -74,13 +78,14 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
         btn.setOnClickListener{
             var calories = getIntent().getStringExtra("ExerciseCal")
             var title = getIntent().getStringExtra("ExerciseTitle")
+
             var  cal= calories.toString().toDouble()
             val userUid = FirebaseAuth.getInstance().currentUser!!.uid
             val db = FirebaseFirestore.getInstance()
 
 
 
-
+            var date = getCurrentDate()
 
             val burntCalories = db.collection("users").document(userUid)
 
@@ -89,7 +94,8 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
             val docData = hashMapOf(
                 "exerciseName" to title,
                 "exerciseCalories" to cal,
-                "exerciseType" to "FromExercise"
+                "exerciseType" to "FromExercise",
+                "date" to getCurrentDate()
 
             )
             db.collection("users").document(userUid).collection("Exercises").document().set(docData)
@@ -117,29 +123,20 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
         var calories = getIntent().getStringExtra("ExerciseCal")
         var title = getIntent().getStringExtra("ExerciseTitle")
         var duration = getIntent().getStringExtra("ExerciseDuration")
+        var description=getIntent().getStringExtra("ExerciseDesc")
 
+        descrip.setText(description)
         //   val num = duration.filter { it.isDigit() }
         //   val num1 = parseLong(num)
-        Log.d("main1","not Added to collectionhhhhhhh"+duration)
+        Log.d("main1","not Added to collection"+duration)
         Exercisetitle.setText(title)
-        time.setText(duration)
 
-        calT.setText(calories+" سعرة محروقة ")
+/*
+        calT.setText(calories+" سعرة محروقة ")*/
         //cal.setText(calories)
 
-        if (id == "Watch") {
+        if (id == "exercise1") {
 
-
-            //giff.setBytes(bitmapData);
-
-            Glide.with(this)
-                .load(sa.ksu.gpa.saleem.R.drawable.set_up)
-                .into(giff);
-
-
-
-        }
-        if (id == "Phone") {
 
             Glide.with(this)
                 .load(sa.ksu.gpa.saleem.R.drawable.push_up)
@@ -148,9 +145,18 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
 
 
         }
+        if (id == "exercise2") {
+
+            Glide.with(this)
+                .load(sa.ksu.gpa.saleem.R.drawable.set_up)
+                .into(giff);
 
 
-        if (id == "1") {
+
+        }
+
+
+        if (id == "exercise3") {
 
 
             Glide.with(this)
@@ -161,7 +167,7 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
 
 
         }
-        if (id == "2") {
+        if (id == "exercise4") {
 
             Glide.with(this)
                 .load(sa.ksu.gpa.saleem.R.drawable.man_liftting_dumbells)
@@ -170,7 +176,7 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
 
 
         }
-        if (id == "3") {
+/*        if (id == "exercise5") {
 
             Glide.with(this)
                 .load(sa.ksu.gpa.saleem.R.drawable.man_jogging)
@@ -179,7 +185,7 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
 
 
 
-        }
+        }*/
 
         var gif = findViewById<View>(sa.ksu.gpa.saleem.R.id.recipe_image)
     }
@@ -213,6 +219,18 @@ class InnerExercise : AppCompatActivity(),View.OnClickListener {
                 burnt_calories_textview?.text="0"
 
         }
+    }
+
+    fun getCurrentDate():String {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH)
+            val formatted = current.format(formatter)
+            return formatted
+        }
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val currentDate = sdf.format(Date())
+        return "$currentDate"
     }
 }
 

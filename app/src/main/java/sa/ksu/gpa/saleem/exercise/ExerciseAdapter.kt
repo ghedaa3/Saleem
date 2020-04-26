@@ -59,6 +59,7 @@ class ExerciseAdapter(var context:Context, var arrayList:ArrayList<ExerciseModel
                intent.putExtra("ExerciseTitle",holder.exerciseTitle2.text.toString())
                intent.putExtra("pic",holder.exerciseImage1.toString())
                intent.putExtra("ExerciseDuration",holder.exerciseDuration1.text.toString())
+               intent.putExtra("ExerciseDesc",exercise.exerciseDescription.toString())
 
                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
 

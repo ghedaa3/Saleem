@@ -278,7 +278,7 @@ else return true
         val builder = AlertDialog.Builder(this)
         builder.setMessage(msg)
             .setCancelable(false)
-            .setPositiveButton("OK") { dialog, id ->
+            .setPositiveButton("حسناً") { dialog, id ->
                 //do things
             }
         val alert = builder.create()
@@ -313,7 +313,7 @@ else return true
         if (gender == "female")
             neededCal = calcualteCaloriesWomen(3.0, weight!!, length!!, goal!!)
 
-        user.put("needed cal",neededCal)
+        user.put("   السعرات الحرارية:   ",neededCal)
 
 
 

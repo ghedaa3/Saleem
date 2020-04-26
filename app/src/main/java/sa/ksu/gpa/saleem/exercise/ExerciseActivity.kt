@@ -125,166 +125,195 @@ class ExerciseActivity : AppCompatActivity() ,View.OnClickListener {
 
     private fun getExcercise() {
 
-       var pagetitle=intent.getStringExtra("title")
+        var pagetitle=intent.getStringExtra("title")
 
 
-                 //   var recipeId= document.id
-                   // val dataList = ArrayList<ExerciseModel>()
-                    if(pagetitle=="مستوى مبتدى") {
-                        exerciseList.add(
-                            ExerciseModel(
-                                "Phone",
-                                "تمرين الضغط",
-                                R.drawable.push_up,
-                                "4.75",
-                                "التكرار: 10 "
-                            )
-                        )
-                        exerciseList.add(
-                            ExerciseModel(
-                                "Watch",
-                                "تمارين معدة",
-                                R.drawable.set_up,
-                                "2 ",
-                                "التكرار: 10 "
-                            )
-                        )
-                        exerciseList.add(
-                            ExerciseModel(
-                                "1",
-                                "تمرين استقامة",
-                                R.drawable.warm_up,
-                                "1 ",
-                                "التكرار: 10 "
-                            )
-                        )
-                        exerciseList.add(
-                            ExerciseModel(
-                                "2",
-                                "رفع الاثقال",
-                                R.drawable.man_liftting_dumbells,
-                                "2 ",
-                                "التكرار: 10 "
-                            )
-                        )
-                        exerciseList.add(
-                            ExerciseModel(
-                                "3",
-                                "تمرين هرولة",
-                                R.drawable.man_jogging,
-                                "2.33 ",
-                                "20.0 ثانية"
-                            )
-                        )
+        //   var recipeId= document.id
+        // val dataList = ArrayList<ExerciseModel>()
+        if(pagetitle=="مستوى مبتدى") {
+            exerciseList.add(
+                ExerciseModel(
+                    "exercise1",
+                    "ضغط",
+                    R.drawable.push_up,
+                    "4.75",
+                    "10 مرات ",
+                    "يتم تطبيقه بالتمدد على الأرض والوجه إلى أسفل ثم رفع الجسم بدفع اليدين عن طريق ضغط الأرض. يركز تمرين الضغط على تطوير العضلة الصدرية الكبيرة والعضلة ثلاثية الرؤوس العضدية، و على تنمية وتطوير بعض العضلات الدالية، العضلة المنشارية الأمامية، والعضلة الغرابية العضدية."
+                )
+            )
+            exerciseList.add(
+                ExerciseModel(
+                    "exercise2",
+                    " معدة",
+                    R.drawable.set_up,
+                    "2 ",
+                    "10 مرات ",
+                    "الخطوة 1\n" +
+                            "نستلقي على الظهر مع وضع الركبتين بزاوية مقدارها ٩٠ درجة ووضع القدمين مسطحتين على الأرض. نحافظ على مد الذراعين على الجانبين وتوجيه راحتي اليدين للأسفل مع أرجحة الجسم قليلاً فوق الأرض. \nالخطوة 2 \n" +
+                            "نشد عضلات البطن ونرفع الجذع حتى وضع الجلوس بزاوية مقدارها ٤٥ درجة مع التوقف للحظة قبل العودة إلى الأرض."
+                //https://www.msn.com/ar-ae/health/exercise/strength/%D8%AA%D9%85%D8%B1%D9%8A%D9%86-%D8%A7%D9%84%D8%AC%D9%84%D9%88%D8%B3-%D8%A7%D9%84%D9%85%D8%B9%D8%AF%D9%8E%D9%84/ss-BBtSgB8
+                )
+            )
+            exerciseList.add(
+                ExerciseModel(
+                    "exercise3",
+                    " استقامة",
+                    R.drawable.warm_up,
+                    "1 ",
+                    "10 مرات ",
+                    ""
+                )
+            )
+            exerciseList.add(
+                ExerciseModel(
+                    "exercise4",
+                    "رفع الاثقال",
+                    R.drawable.man_liftting_dumbells,
+                    "2 ",
+                    "10 مرات ",
+                    "الخطوة 1\n" +
+                            "نمسك دمبل في يد واحدة ونرفعه إلى ارتفاع الكتف والكف مواجه ناحية الصدر والذراع مثني. نقف بثبات، نبقي عضلات الجذع مشدودة، ونفتح القدمين بعرض الكتف.\n" +
+                            "الخطوة 2 \n نعكس الاتجاه مع العودة إلى وضع البداية ونكرر الحركة على الجانب الآخر."
+                )
+            )
+       /*     exerciseList.add(
+                ExerciseModel(
+                    "exercise5",
+                    "تمرين هرولة",
+                    R.drawable.man_jogging,
+                    "2.33 ",
+                    "20.0 ثانية",
+                    ""
+                )
+            )*/
 
 
-                    exerciseAdapter.notifyDataSetChanged()
-                        }
+            exerciseAdapter.notifyDataSetChanged()
+        }
 
-                    if(pagetitle=="مستوى متوسط") {
+        if(pagetitle=="مستوى متوسط") {
 
-                        exerciseList.add(
-                            ExerciseModel(
-                                "Phone",
-                                "تمرين الضغط",
-                                R.drawable.push_up,
-                                "9.5 ",
-                                "التكرار: 20 "
-                            )
-                        )
-                        exerciseList.add(
-                            ExerciseModel(
-                                "Watch",
-                                "تمارين معدة",
-                                R.drawable.set_up,
-                                "4 ",
-                                "التكرار: 20 "
-                            )
-                        )
-                        exerciseList.add(
-                            ExerciseModel(
-                                "1",
-                                "تمرين استقامة",
-                                R.drawable.warm_up,
-                                "2 ",
-                                "التكرار: 20 "
-                            )
-                        )
-                        exerciseList.add(
-                            ExerciseModel(
-                                "2",
-                                "رفع الاثقال",
-                                R.drawable.man_liftting_dumbells,
-                                "4 ",
-                                "التكرار: 20 "
-                            )
-                        )
-                        exerciseList.add(
-                            ExerciseModel(
-                                "3",
-                                "تمرين هرولة",
-                                R.drawable.man_jogging,
-                                "3.33 ",
-                                "30.0 ثانية"
-                            )
-                        )
+            exerciseList.add(
+                ExerciseModel(
+                    "exercise1",
+                    "ضغط",
+                    R.drawable.push_up,
+                    "9.5 ",
+                    "20 مرات ",
+                    "يتم تطبيقه بالتمدد على الأرض والوجه إلى أسفل ثم رفع الجسم بدفع اليدين عن طريق ضغط الأرض. يركز تمرين الضغط على تطوير العضلة الصدرية الكبيرة والعضلة ثلاثية الرؤوس العضدية، و على تنمية وتطوير بعض العضلات الدالية، العضلة المنشارية الأمامية، والعضلة الغرابية العضدية."
+                )
+            )
+            exerciseList.add(
+                ExerciseModel(
+                    "exercise2",
+                    " معدة",
+                    R.drawable.set_up,
+                    "4 ",
+                    "20 مرات  ",
+                    "الخطوة 1\n" +
+                            "نستلقي على الظهر مع وضع الركبتين بزاوية مقدارها ٩٠ درجة ووضع القدمين مسطحتين على الأرض. نحافظ على مد الذراعين على الجانبين وتوجيه راحتي اليدين للأسفل مع أرجحة الجسم قليلاً فوق الأرض. \nالخطوة 2 \n" +
+                            "نشد عضلات البطن ونرفع الجذع حتى وضع الجلوس بزاوية مقدارها ٤٥ درجة مع التوقف للحظة قبل العودة إلى الأرض."
+                )
+            )
+            exerciseList.add(
+                ExerciseModel(
+                    "exercise3",
+                    " استقامة",
+                    R.drawable.warm_up,
+                    "2 ",
+                    "20 مرات ",
+                    ""
+                )
+            )
+            exerciseList.add(
+                ExerciseModel(
+                    "exercise4",
+                    "رفع الاثقال",
+                    R.drawable.man_liftting_dumbells,
+                    "4 ",
+                    "20 مرات ",
+                    "الخطوة 1\n" +
+                            "نمسك دمبل في يد واحدة ونرفعه إلى ارتفاع الكتف والكف مواجه ناحية الصدر والذراع مثني. نقف بثبات، نبقي عضلات الجذع مشدودة، ونفتح القدمين بعرض الكتف.\n" +
+                            "الخطوة 2 \n نعكس الاتجاه مع العودة إلى وضع البداية ونكرر الحركة على الجانب الآخر."
+                )
+            )
+   /*         exerciseList.add(
+                ExerciseModel(
+                    "exercise5",
+                    "تمرين هرولة",
+                    R.drawable.man_jogging,
+                    "3.33 ",
+                    "30.0 ثانية",
+                    ""
+                )
+            )*/
 
-                        exerciseAdapter.notifyDataSetChanged()
-                        }
+            exerciseAdapter.notifyDataSetChanged()
+        }
 
-                    if(pagetitle=="مستوى متقدم") {
+        if(pagetitle=="مستوى متقدم") {
 
-                        exerciseList.add(
-                            ExerciseModel(
-                                "Phone",
-                                "تمرين الضغط",
-                                R.drawable.push_up,
-                                "14.16",
-                                "التكرار: 30 "
-                            )
-                        )
-                        exerciseList.add(
-                            ExerciseModel(
-                                "Watch",
-                                "تمارين معدة",
-                                R.drawable.set_up,
-                                "6 ",
-                                "التكرار: 30 "
-                            )
-                        )
-                        exerciseList.add(
-                            ExerciseModel(
-                                "1",
-                                "تمرين استقامة",
-                                R.drawable.warm_up,
-                                "3 ",
-                                "التكرار: 30 "
-                            )
-                        )
-                        exerciseList.add(
-                            ExerciseModel(
-                                "2",
-                                "رفع الاثقال",
-                                R.drawable.man_liftting_dumbells,
-                                "6 ",
-                                "التكرار: 30"
-                            )
-                        )
-                        exerciseList.add(
-                            ExerciseModel(
-                                "3",
-                                "تمرين هرولة",
-                                R.drawable.man_jogging,
-                                "4.33 ",
-                                "40 ثانية"
-                            )
-                        )
+            exerciseList.add(
+                ExerciseModel(
+                    "exercise1",
+                    " ضغط",
+                    R.drawable.push_up,
+                    "14.16",
+                    "30 مرات",
+                    "يتم تطبيقه بالتمدد على الأرض والوجه إلى أسفل ثم رفع الجسم بدفع اليدين عن طريق ضغط الأرض. يركز تمرين الضغط على تطوير العضلة الصدرية الكبيرة والعضلة ثلاثية الرؤوس العضدية، و على تنمية وتطوير بعض العضلات الدالية، العضلة المنشارية الأمامية، والعضلة الغرابية العضدية."
+                )
+            )
+            exerciseList.add(
+                ExerciseModel(
+                    "exercise2",
+                    " معدة",
+                    R.drawable.set_up,
+                    "6 ",
+                    "30 مرات",
+                    "الخطوة 1\n" +
+                            "نستلقي على الظهر مع وضع الركبتين بزاوية مقدارها ٩٠ درجة ووضع القدمين مسطحتين على الأرض. نحافظ على مد الذراعين على الجانبين وتوجيه راحتي اليدين للأسفل مع أرجحة الجسم قليلاً فوق الأرض. \nالخطوة 2 \n" +
+                            "نشد عضلات البطن ونرفع الجذع حتى وضع الجلوس بزاوية مقدارها ٤٥ درجة مع التوقف للحظة قبل العودة إلى الأرض."
+                )
+            )
+            exerciseList.add(
+                ExerciseModel(
+                    "exercise3",
+                    " استقامة",
+                    R.drawable.warm_up,
+                    "3 ",
+                    "30 مرات",
+                    ""
+                )
+            )
+            exerciseList.add(
+                ExerciseModel(
+                    "exercise4",
+                    "رفع الاثقال",
+                    R.drawable.man_liftting_dumbells,
+                    "6 ",
+                    "30 مرات",
+                    "الخطوة 1\n" +
+                            "نمسك دمبل في يد واحدة ونرفعه إلى ارتفاع الكتف والكف مواجه ناحية الصدر والذراع مثني. نقف بثبات، نبقي عضلات الجذع مشدودة، ونفتح القدمين بعرض الكتف.\n" +
+                            "الخطوة 2 \n نعكس الاتجاه مع العودة إلى وضع البداية ونكرر الحركة على الجانب الآخر."
+                )
+            )
+       /*     exerciseList.add(
+                ExerciseModel(
+                    "exercise5",
+                    "تمرين هرولة",
+                    R.drawable.man_jogging,
+                    "4.33 ",
+                    "40 ثانية",
+                    ""
+                )
+            )*/
 
-                        exerciseAdapter.notifyDataSetChanged()
-                    }
+            exerciseAdapter.notifyDataSetChanged()
+        }
 
 
-                }
+
+    }
 
 
     override fun onClick(v: View?) {
