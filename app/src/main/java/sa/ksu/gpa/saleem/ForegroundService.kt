@@ -110,7 +110,12 @@ class ForegroundService : Service() {
         if (a == Calendar.PM) {
             hour+=12
         }
-        if (calender.get(Calendar.HOUR) in 9..20) {
+
+        if (hour in 9..20) {
+            if ( hour == 14 || hour == 20 ){
+
+            }
+            Log.e("service TAG","وقت شرب الماء")
             getNotification("وقت شرب الماء")?.let {
                 scheduleNotification(
                     it,
@@ -118,7 +123,8 @@ class ForegroundService : Service() {
                 )
             }
         }
-        if (hour == 12) {
+        if (hour == 14) {
+            Log.e("service TAG","حان وقت الغداء")
             db.collection("Foods")
                 .whereEqualTo("user_id", currentUser)
                 .whereEqualTo("type_of_food", "lunch")
@@ -136,6 +142,7 @@ class ForegroundService : Service() {
 
         }
         if (hour == 7) {
+            Log.e("service TAG","حان وقت الفطور")
             db.collection("Foods")
                 .whereEqualTo("user_id", currentUser)
                 .whereEqualTo("type_of_food", "breakfast")
@@ -153,6 +160,7 @@ class ForegroundService : Service() {
 
         }
         if (hour == 20) {
+            Log.e("service TAG","حان وقت العشاء")
             db.collection("Foods")
                 .whereEqualTo("user_id", currentUser)
                 .whereEqualTo("type_of_food", "dinner")
