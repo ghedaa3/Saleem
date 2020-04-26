@@ -6,6 +6,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_timer_settings.*
 import sa.ksu.gpa.saleem.R
 
 class TimerSettings : AppCompatActivity() {
@@ -27,6 +28,10 @@ class TimerSettings : AppCompatActivity() {
         restRound=findViewById(R.id.timer_rest_round)
         repeat=findViewById(R.id.timer_repeat)
         startButton=findViewById(R.id.timer_start_timer_button)
+
+        timer_back_button.setOnClickListener{
+            onBackPressed()
+        }
 
         //clicklistener
         startButton.setOnClickListener {

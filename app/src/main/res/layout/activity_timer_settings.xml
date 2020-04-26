@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-     android:layout_height="match_parent"
-    android:layout_width="match_parent">
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -11,18 +11,46 @@
     android:layout_height="match_parent"
     tools:context=".Timer.TimerSettings"
     android:orientation="vertical">
-    <TextView
-        android:layout_marginTop="30dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="إعدادات المؤقت"
-        android:textStyle="bold"
-        android:textSize="40dp"
-        android:textColor="#4F329A"
-        >
+<!--    <TextView-->
+<!--        android:layout_marginTop="30dp"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:gravity="center"-->
+<!--        android:text="إعدادات المؤقت"-->
+<!--        android:textStyle="bold"-->
+<!--        android:textSize="40dp"-->
+<!--        android:textColor="#4F329A"-->
+<!--        >-->
 
-    </TextView>
+<!--    </TextView>-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="إعدادات المؤقت "
+            android:layout_gravity="center"
+            android:textColor="#4F329A"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_anchor="@+id/appbar"
+            app:layout_anchorGravity="center" />
+
+        <ImageView
+            android:id="@+id/timer_back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:tint="@color/gray_btn_bg_pressed_color"
+            android:layout_marginLeft="340dp"
+            android:src="@drawable/kk">
+        </ImageView>
+    </RelativeLayout>
+
     <LinearLayout
         android:paddingTop="40dp"
         android:layout_width="match_parent"
