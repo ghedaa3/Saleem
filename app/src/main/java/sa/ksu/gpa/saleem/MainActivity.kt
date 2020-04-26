@@ -354,7 +354,9 @@ class MainActivity : AppCompatActivity() {
                 val docData = hashMapOf(
                         "exerciseName" to workoutName,
                         "exerciseCalories" to burntcal,
-                        "date"  to  getCurrentDate()
+                        "date"  to  getCurrentDate(),
+                        "exerciseType" to "normal"
+
                 )
                 db.collection("users").document(currentuser!!).collection("Exercises").document().set(docData)
                     .addOnSuccessListener {
