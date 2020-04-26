@@ -59,9 +59,6 @@ class Admin : AppCompatActivity() {
                         showDescItem(item,position)
                     }
 
-                    override fun onEdit(item: MyAdmin, position: Int) {
-                        showEditItem(item,position)
-                    }
 
 
                     override fun onDelete(item: MyAdmin, position: Int) {
