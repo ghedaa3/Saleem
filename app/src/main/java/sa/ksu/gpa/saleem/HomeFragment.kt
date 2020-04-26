@@ -195,24 +195,24 @@ class HomeFragment : Fragment() {
             }
     }
 
-    private fun showAddAdvice() {
-        var advicesList:ArrayList<String> = ArrayList()
-        val rand = Random()
-//        db.collection("Advices").whereEqualTo("date",getCurrentDate())
-//            .get().addOnSuccessListener {documents ->
-        db.collection("Advices").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
-                for (documents in it){
-                    advicesList.add(documents.get("text").toString())
-                }
-                if(advicesList!=null){
-            val index = rand.nextInt(advicesList.size - 1)
-                    advicesTV.text = (advicesList[index])
-                }
-                else
-                    showLastAdv()
-            }
-    }
-          private fun showLastAdv() {
+//    private fun showAddAdvice() {
+//        var advicesList:ArrayList<String> = ArrayList()
+//        val rand = Random()
+////        db.collection("Advices").whereEqualTo("date",getCurrentDate())
+////            .get().addOnSuccessListener {documents ->
+//        db.collection("Advices").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
+//                for (documents in it){
+//                    advicesList.add(documents.get("text").toString())
+//                }
+//                if(advicesList!=null){
+//            val index = rand.nextInt(advicesList.size - 1)
+//                    advicesTV.text = (advicesList[index])
+//                }
+//                else
+//                    showLastAdv()
+//            }
+//    }
+          private fun showAddAdvice() {
         db.collection("Advices").get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
