@@ -8,10 +8,7 @@
     android:background="#CBCFC9"
     tools:context=".MainActivity"
     >
-    <com.leinardi.android.speeddial.SpeedDialOverlayLayout
-        android:id="@+id/overlay"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+
 
     <!--    <include layout="@layout/home_fragment" />-->
     <FrameLayout
@@ -39,17 +36,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom='true' />
-    <com.leinardi.android.speeddial.SpeedDialView
-        android:id="@+id/speedDial"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="80dp"
 
-        app:sdOverlayLayout="@id/overlay"
-        app:sdMainFabOpenedBackgroundColor="#4F329A"
-        app:sdMainFabOpenedIconColor="@color/white"
-        app:sdMainFabClosedSrc="@drawable/ic_add_black_24dp"
-        app:sdMainFabClosedBackgroundColor="#4F329A"
-        android:layout_alignParentRight="true" />
 </RelativeLayout>

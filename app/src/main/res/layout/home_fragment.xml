@@ -1,13 +1,13 @@
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:backgroundTint="@color/white"
+    android:background="#CBCFC9"
 
-    android:orientation="vertical">
-
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <com.google.android.material.appbar.AppBarLayout
+        android:id="@id/appbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
@@ -281,11 +281,29 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@id/appbar"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <include layout="@layout/fragment_home_body"/>
+        <include layout="@layout/fragment_home_body" />
     </androidx.core.widget.NestedScrollView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <com.leinardi.android.speeddial.SpeedDialOverlayLayout
+        android:id="@+id/overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <com.leinardi.android.speeddial.SpeedDialView
+        android:id="@+id/speedDial"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:sdMainFabClosedBackgroundColor="#4F329A"
+        app:sdMainFabClosedSrc="@drawable/ic_add_black_24dp"
+        app:sdMainFabOpenedBackgroundColor="#4F329A"
+        app:sdMainFabOpenedIconColor="@color/white"
+        app:sdOverlayLayout="@id/overlay" />
+</RelativeLayout>

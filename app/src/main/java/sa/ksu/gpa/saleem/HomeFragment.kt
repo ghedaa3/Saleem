@@ -1,10 +1,12 @@
 package sa.ksu.gpa.saleem
 
 
+import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Build
@@ -17,9 +19,15 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.leinardi.android.speeddial.SpeedDialActionItem
+import com.leinardi.android.speeddial.SpeedDialView
+import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcercise
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcerciseburentCal
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.cancelExcercise
@@ -29,6 +37,8 @@ import kotlinx.android.synthetic.main.advice_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
 import sa.ksu.gpa.saleem.AddFoodActivity.OnSave
+import sa.ksu.gpa.saleem.Timer.TimerSettings
+import sa.ksu.gpa.saleem.recipe.ShareRecipeFirst
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -39,6 +49,7 @@ import kotlin.collections.ArrayList
  * A simple [Fragment] subclass.
  */
 class HomeFragment : Fragment() {
+    private val CAMERA_REQUEST_CODE=123;
 
     private lateinit var db: FirebaseFirestore
     var totalcal  = 0.0
@@ -46,6 +57,8 @@ class HomeFragment : Fragment() {
     var remainderCal = 0.0
     var previousDaysCount = 0
     var history_Id = ""
+    lateinit var speedDialView:SpeedDialView
+
     var currentuser = ""
     private var waterCount=0
     private lateinit var adviceID:String
@@ -59,6 +72,8 @@ class HomeFragment : Fragment() {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.home_fragment, container, false)
     }
+
+
 
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -93,13 +108,14 @@ class HomeFragment : Fragment() {
         view.findViewById<LinearLayout>(R.id.add_dinner).setOnClickListener { addFood("dinner") }
         view.findViewById<ImageView>(R.id.adviceFlag).setOnClickListener { onFlagClicked() }
         view.findViewById<LinearLayout>(R.id.add_water).setOnClickListener { addWater() }
-
-
         view.findViewById<LinearLayout>(R.id.add_snack).setOnClickListener { addFood("snack") }
+
         db= FirebaseFirestore.getInstance()
         currentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
         ubdateBurntCaloris()
         updateWater()
+        initSpeedDialView()
+
 
 
 
@@ -131,6 +147,217 @@ class HomeFragment : Fragment() {
                     tv_main_number.setText("${(totalcal-remainderCal).toInt()}")
                 }
             }
+    }
+    @SuppressLint("ResourceType")
+    private fun initSpeedDialView() {
+        speedDialView = view!!.findViewById<SpeedDialView>(R.id.speedDial)
+        speedDialView.addActionItem(
+            SpeedDialActionItem.Builder(10009, R.drawable.ic_scan)
+                .setFabBackgroundColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.purble,
+                        getContext()!!.getTheme()
+
+                    )
+                )
+                .setFabImageTintColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.white,
+                        getContext()!!.getTheme()
+                    )
+                )
+                .setLabel("مسح المنتج")
+                .create()
+        )
+        speedDialView.addActionItem(
+            SpeedDialActionItem.Builder(10011, R.drawable.ic_dumbbell)
+                .setFabBackgroundColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.colorBlue,
+                        getContext()!!.getTheme()
+                    )
+                )
+                .setFabImageTintColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.white,
+                        getContext()!!.getTheme()
+                    )
+                )
+                .setLabel("تمرين")
+
+                .create()
+        )
+        speedDialView.addActionItem(
+            SpeedDialActionItem.Builder(10012, R.drawable.ic_timer_black_24dp)
+                .setFabBackgroundColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.green,
+                        getContext()!!.getTheme()
+                    )
+                )
+                .setFabImageTintColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.white,
+                        getContext()!!.getTheme()
+                    )
+                )
+                .setLabel("مؤقت")
+
+                .create()
+        )
+        speedDialView.addActionItem(
+            SpeedDialActionItem.Builder(10013, R.drawable.ic_white_dish)
+                .setFabBackgroundColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.orange,
+                        getContext()!!.getTheme()
+                    )
+                )
+                .setFabImageTintColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.white,
+                        getContext()!!.getTheme()
+                    )
+                )
+                .setLabel("وصفة")
+
+                .create()
+        )
+        speedDialView.addActionItem(
+            SpeedDialActionItem.Builder(10014, R.drawable.ic_idea)
+                .setFabBackgroundColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.yellow,
+                        getContext()!!.getTheme()
+                    )
+                )
+                .setFabImageTintColor(
+                    ResourcesCompat.getColor(
+                        getResources(),
+                        R.color.white,
+                        getContext()!!.getTheme()
+                    )
+                )
+                .setLabel("نصيحة")
+
+                .create()
+        )
+        speedDialView.setOnActionSelectedListener(SpeedDialView.OnActionSelectedListener { actionItem ->
+
+            when (actionItem.id) {
+                10009 -> {
+                    //select scan barcode
+                    val permisison =
+                        ContextCompat.checkSelfPermission(context!!, Manifest.permission.CAMERA)
+
+                    val intent = Intent(context, ScanActivity::class.java)
+                    if (permisison != PackageManager.PERMISSION_GRANTED) {
+                        makeRequest()
+                    } else startActivity(intent)
+                    speedDialView.close() // To close the Speed Dial with animation
+                    return@OnActionSelectedListener true // false will close it without animation
+                }
+                10011 -> {
+                    Log.d("main1", " clicked")
+
+                    addExcercizeeDialog()
+
+                }
+                10014 -> {
+                    addAdviceDialog()
+                }
+                10013 -> {
+                    val intent = Intent(context, ShareRecipeFirst::class.java)
+                    startActivity(intent)
+
+                }
+                10012 -> {
+                    val intent = Intent(context, TimerSettings::class.java)
+                    startActivity(intent)
+
+                }
+            }
+            false
+        })
+
+
+        speedDialView.setOnChangeListener(object : SpeedDialView.OnChangeListener {
+            override fun onMainActionSelected(): Boolean {
+                return false // True to keep the Speed Dial open
+            }
+
+            override fun onToggleChanged(isOpen: Boolean) {
+                Log.d("MAIN", "Speed dial toggle state changed. Open = $isOpen")
+            }
+        })
+    }
+
+    private fun addExcercizeeDialog() {
+        val mDialogView = LayoutInflater.from(context).inflate(R.layout.add_excercise_dialog, null)
+        val mBuilder = AlertDialog.Builder(context!!)
+            .setView(mDialogView)
+
+        val  mAlertDialog = mBuilder.show()
+        mAlertDialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+
+
+        mDialogView.addExcercise.setOnClickListener{
+            var burnt = mDialogView.addExcerciseburentCal!!.text
+            var workoutName = mDialogView.addExcerciseWorkoutnameee!!.text.toString()
+
+            if (burnt.isEmpty()){
+                Log.d("main1"," empty burnt")
+                Toast.makeText(context, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
+            }
+            else if (workoutName.isEmpty()){
+                Log.d("main1"," empty workoutName")
+                Toast.makeText(context, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
+            }
+            else{
+                var  burnt1 = burnt.toString()
+                var burntcal=burnt1.toDouble()
+                Log.d("main1","not empty")
+
+                // adding a list of excercises
+                val docData = hashMapOf(
+                    "exerciseName" to workoutName,
+                    "exerciseCalories" to burntcal,
+                    "date"  to  getCurrentDate(),
+                    "exerciseType" to "normal"
+
+                )
+                db.collection("users").document(currentuser!!).collection("Exercises").document().set(docData)
+                    .addOnSuccessListener {
+                        Log.d("main1","Added to collection")
+                        Toast.makeText(context, "تمت إضافة التمرين", Toast.LENGTH_LONG).show()
+
+                    }.addOnFailureListener {
+                        Log.d("main1","not Added to collection"+it)
+                        Toast.makeText(context, "حصل خطأ", Toast.LENGTH_LONG).show()
+
+
+                    }
+                mAlertDialog.dismiss()
+
+                ubdateBurntCaloris()
+
+
+            }
+            // extra detail add a success shape
+        }
+        mDialogView.cancelExcercise.setOnClickListener{
+            mAlertDialog.dismiss()
+
+        }
     }
     private fun addWater(){
         val mDialogView = LayoutInflater.from(context).inflate(R.layout.add_water, null)
@@ -198,32 +425,18 @@ class HomeFragment : Fragment() {
     private fun showAddAdvice() {
         var advicesList:ArrayList<String> = ArrayList()
         val rand = Random()
-//        db.collection("Advices").whereEqualTo("date",getCurrentDate())
-//            .get().addOnSuccessListener {documents ->
-        db.collection("Advices").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
-                for (documents in it){
-                    advicesList.add(documents.get("text").toString())
-                }
-                if(advicesList!=null){
-            val index = rand.nextInt(advicesList.size - 1)
-                    advicesTV.text = (advicesList[index])
-                }
-                else
-                    showLastAdv()
-            }
-    }
-          private fun showLastAdv() {
         db.collection("Advices").get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
                     adviceID = document.id
-                    var title = document.get("text").toString()
-                    advicesTV.text = title
+                    advicesList.add(document.get("text").toString())
+                    val index = rand.nextInt(advicesList.size)
+                    advicesTV.text = (advicesList[index])
                 }
             }
-                    .addOnFailureListener { exception ->
-                        Log.w("error", "Error getting documents.", exception)
-                    }
+            .addOnFailureListener { exception ->
+                Log.w("error", "Error getting documents.", exception)
+            }
     }
 
 
@@ -240,7 +453,6 @@ class HomeFragment : Fragment() {
                 Log.d("flag", "onFlagClicked inside else")
             }
     }
-
     private fun reportAdviceDialog(){
         val mDialogView = LayoutInflater.from(context).inflate(R.layout.advice_dialog, null)
         val mBuilder = activity?.let {
@@ -290,6 +502,7 @@ class HomeFragment : Fragment() {
             mAlertDialog?.dismiss()
         }
     }
+
 
 
     private fun ubdateBurntCaloris() {
@@ -352,10 +565,6 @@ class HomeFragment : Fragment() {
 
     private fun startAddFoodActivity( type_of_food:String) {
 
-//        var intent = Intent(activity,AddFoodActivity::class.java).apply{
-//
-//        }
-//        startActivityForResult(intent,1000)
         var onsave  = object : OnSave {
             override fun onSaveSuccess(sum: Double) {
                 var d:Int = 0
@@ -457,7 +666,7 @@ class HomeFragment : Fragment() {
     private fun showLoadingDialog() {
         dialog = ProgressDialog.show(
             context, "",
-            "Loading. Please wait...", true
+            "الرجاء الانتظار", true
         )
     }
 
@@ -507,4 +716,52 @@ class HomeFragment : Fragment() {
         tvDate.text = getSelectedDate(previousDaysCount)
         advicesTV.text = showAddAdvice().toString()
     }
+    private fun makeRequest() {
+        ActivityCompat.requestPermissions((context as Activity?)!!, arrayOf(Manifest.permission.CAMERA),CAMERA_REQUEST_CODE)
+    }
+    private fun addAdviceDialog(){
+        val mDialogView = LayoutInflater.from(context).inflate(R.layout.advice_dialog, null)
+        val mBuilder = AlertDialog.Builder(context!!)
+            .setView(mDialogView)
+
+        val  mAlertDialog = mBuilder.show()
+        var body = mDialogView.dialogAdviceET!!.editText!!.text
+
+        mAlertDialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+
+        mDialogView.dialogShareBtn.setOnClickListener{
+            if (body.length > 140){
+                Toast.makeText(context, "لا يمكن نشر نصيحة أطول من ١٤٠ حرف", Toast.LENGTH_LONG).show()
+            }
+            else if (body.isEmpty()){
+                Toast.makeText(context, "لا يمكن ترك هذه الخانة فارغة ", Toast.LENGTH_LONG).show()
+            }
+
+            else {
+                var body1=body.toString()
+                val docData = hashMapOf(
+                    "UID" to currentuser!!.toString(),
+                    "text" to body1,
+                    "date" to getCurrentDate()
+                )
+                db.collection("Advices").document().set(docData)
+                    .addOnSuccessListener {
+                        Log.d("main1","Added to collection")
+                        Toast.makeText(context, "تمت  إضافة النصيحة", Toast.LENGTH_LONG).show()
+
+                    }.addOnFailureListener {
+                        Log.d("main1","not Added to collection"+it)
+                        Toast.makeText(context, "حصل خطأ", Toast.LENGTH_LONG).show()
+                    }
+                mAlertDialog.dismiss()
+            }
+
+        }
+        mDialogView.dialogCancelBtn.setOnClickListener{
+            mAlertDialog.dismiss()
+
+        }
+
+    }
+
 }
