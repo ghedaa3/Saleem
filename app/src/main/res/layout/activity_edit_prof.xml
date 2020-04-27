@@ -66,7 +66,7 @@
             android:text="اسم المستخدم :"
             android:textColor="#474749"
             android:textSize="18dp"
-            android:textStyle="bold" />
+         />
 
         <EditText
             android:id="@+id/nameSignUpHin"
@@ -101,7 +101,7 @@
             android:text="الايميل: "
             android:textColor="#474749"
             android:textSize="18dp"
-            android:textStyle="bold" />
+        />
 
         <EditText
             android:id="@+id/emailSignUpHin"
@@ -129,7 +129,7 @@
             android:text="الوزن:   "
             android:textColor="#474749"
             android:textSize="18dp"
-            android:textStyle="bold" />
+           />
 
 
         <EditText
@@ -159,7 +159,7 @@
             android:text="الطول:   "
             android:textColor="#474749"
             android:textSize="18dp"
-            android:textStyle="bold" />
+             />
 
 
         <EditText
@@ -195,7 +195,7 @@
             android:text=" الهدف:  "
             android:textColor="#474749"
             android:textSize="18dp"
-            android:textStyle="bold" />
+          />
 
 
 
@@ -217,7 +217,7 @@
             android:text=" المستوى:  "
             android:textColor="#474749"
             android:textSize="18dp"
-            android:textStyle="bold" />
+             />
 
         <Spinner
 
@@ -234,10 +234,10 @@
             android:layout_below="@+id/planets_spinner"
             android:layout_marginTop="120dp"
             android:layout_centerInParent="true"
-            android:backgroundTint="#69F0AE"
+            android:backgroundTint="#59E7A2"
             android:background="@drawable/border"
             android:text="حفظ التعديلات"
-            android:textColor="#C6020000" />
+            android:textColor="#F7FFFFFF" />
 
 
     </RelativeLayout>

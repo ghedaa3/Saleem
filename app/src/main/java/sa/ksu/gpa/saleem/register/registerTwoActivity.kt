@@ -192,8 +192,8 @@ class registerTwoActivity : AppCompatActivity(),View.OnClickListener {
 
 
 
-                    getIntent().putExtra("age",userAge)
-                    intent.putExtra("age",userAge)
+                    getIntent().putExtra("userAge",userAge)
+                    intent.putExtra("userAge",userAge)
 
 
 

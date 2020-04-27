@@ -38,6 +38,7 @@ class registerFourActivity : AppCompatActivity() ,View.OnClickListener {
 
    private var goal =0
 
+
     private var weight:Double = 0.0
     private var level:Int = 0
     private lateinit var name :String
@@ -148,8 +149,8 @@ class registerFourActivity : AppCompatActivity() ,View.OnClickListener {
         var weight=getIntent().getDoubleExtra("wight",0.0)
         var gender = getIntent().getStringExtra("gender")
         var bmi = getIntent().getDoubleExtra("bmi",0.0)
-        var level = getIntent().getIntExtra("level",0)
-        var userAge= getIntent().getStringExtra("uaserAge")
+        level = getIntent().getIntExtra("level",0)
+        var userAge= getIntent().getStringExtra("userAge")
 
 
         var name = getIntent().getStringExtra("name")
@@ -186,12 +187,12 @@ class registerFourActivity : AppCompatActivity() ,View.OnClickListener {
         var neededCal=-1.0
 
         if (gender == "male")
-         neededCal = calcualteCaloriesMen(3.0, weight!!, length!!, goal!!)
+         neededCal = calcualteCaloriesMen(level.toDouble(), weight!!, length!!, goal!!)
 
 
 
         if (gender == "female")
-           neededCal = calcualteCaloriesWomen(3.0, weight!!, length!!, goal!!)
+           neededCal = calcualteCaloriesWomen(level.toDouble(), weight!!, length!!, goal!!)
 
 
 
@@ -248,7 +249,9 @@ else return true
 
         if(neededCalories!=0.0)
 
-        showDialogWithOkButton("needed calories"+neededCalories)
+        showDialogWithOkButton("السعرات الحرارية" +
+                "\n"+neededCalories)
+
         return neededCalories
 
 
@@ -267,7 +270,9 @@ else return true
         }
 
         if(neededCalories!=0.0)
-        showDialogWithOkButton("needed calories"+neededCalories)
+        showDialogWithOkButton("السعرات الحرارية" +
+                "\n"+neededCalories)
+
         return neededCalories
 
     }
@@ -303,15 +308,16 @@ else return true
         var neededCal = 0.0
 
 
+
         if (gender == "male")
-            neededCal = calcualteCaloriesMen(3.0, weight!!, length!!, goal!!)
+            neededCal = calcualteCaloriesMen(level.toDouble(), weight!!, length!!, goal!!)
 
 
 
         if (gender == "female")
-            neededCal = calcualteCaloriesWomen(3.0, weight!!, length!!, goal!!)
+            neededCal = calcualteCaloriesWomen(level.toDouble(), weight!!, length!!, goal!!)
 
-        user.put("   السعرات الحرارية:   ",neededCal)
+        user.put("needed cal",neededCal)
 
 
 
@@ -352,16 +358,16 @@ else return true
         var weight=getIntent().getDoubleExtra("wight",0.0)
         var gender = getIntent().getStringExtra("gender")
         var bmi = getIntent().getDoubleExtra("bmi",0.0)
-        var level = getIntent().getIntExtra("level",0)
-        var userAge= getIntent().getStringExtra("uaserAge")
+        level = getIntent().getIntExtra("level",0)
+        var userAge= getIntent().getStringExtra("userAge")
 
 
         var name = getIntent().getStringExtra("name")
         var pass = getIntent().getStringExtra("password")
         var email = getIntent().getStringExtra("email")
 
-        var agee= getIntent().getIntExtra("agee",0)
-
+       // var agee= getIntent().getIntExtra("agee",0)
+        var agee=userAge.toString().toInt()
         if (email != "" && pass != "") {
 
             auth.createUserWithEmailAndPassword(email, pass)

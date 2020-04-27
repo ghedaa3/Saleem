@@ -41,6 +41,12 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
     private val TAG = "DocSnippets"
     private lateinit var auth: FirebaseAuth
     private lateinit var neededCall:String
+    private lateinit var wight:String
+    private lateinit var hight:String
+    private lateinit var goalll:String
+    private lateinit var levelll:String
+    var neededCal: Double = 0.0
+
 
 
 
@@ -73,8 +79,8 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
 
                 val name = document.get("name").toString()
                 val email = document.get("email").toString()
-                val wight = document.get("weight").toString()
-                val hight = document.get("height").toString()
+                wight = document.get("weight").toString()
+                hight = document.get("height").toString()
                 //neededCall = document.get("needed cal").toString().toDouble().toString()
                 val gender = document.get("gender").toString()
                 val age = document.get("age").toString()
@@ -84,8 +90,8 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
                 val weight=wight!!.toDouble()
                 val length=hight.toString().toDouble()
 
-                val goalll = document.get("goal").toString()
-                val levelll = document.get("level").toString()
+                 goalll = document.get("goal").toString()
+                 levelll = document.get("level").toString()
                 val goal=goalll.toString().toInt()
                 var level=levelll.toString().toInt()
 
@@ -94,7 +100,7 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
                 var bmi = (weight) / (length / 100 * length / 100)
 
                 if (gender=="female") {
-                    var neededCal: Double = 0.0
+
                     var Mifflin = ((10 * weight) + (6.25 * length) - (5 * level) - 161)
                     var Revised =
                             ((9.247 * weight) + (3.098 * length) - (4.330 * level) + 447.593)
@@ -106,10 +112,12 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
                         2 -> neededCal = Calories + 500
                         3 -> neededCal = Calories
                     }
-                    neededCall=roundOffDecimal(neededCal).toString()
+                  //  neededCall=roundOffDecimal(neededCal).toString()
+                    editCal()
+
 
                 } else if (gender=="male"){
-                    var neededCal:Double=0.0
+                  /*  neededCal:Double=0.0*/
                     var Mifflin =((10*weight)+ (6.25*length)-(5*level )+5)
                     var Revised =((13.397*weight) +(4.799*length) - (5.677*level) + 88.362)
 
@@ -120,7 +128,9 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
                         2->  neededCal= Calories+500
                         3 -> neededCal= Calories
                     }
-                   neededCall=roundOffDecimal(neededCal).toString()
+                  // neededCall=roundOffDecimal(neededCal).toString()
+                    editCal()
+
 
                 }
 
@@ -159,7 +169,8 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
                 val heightTxt:TextView=findViewById(sa.ksu.gpa.saleem.R.id.heighHin)
                 heightTxt.setText(hight)
                 val calTxt: TextView = findViewById(sa.ksu.gpa.saleem.R.id.neededCalHin)
-                calTxt.setText(neededCall)
+                neededCall= roundOffDecimal(neededCal).toString()
+                calTxt.setText(neededCal.toString())
                 val genderTxt:TextView=findViewById(sa.ksu.gpa.saleem.R.id.genderHin)
                 genderTxt.setText(genderr)
                 val bmiTxt:TextView=findViewById(sa.ksu.gpa.saleem.R.id.bmiHin)
@@ -240,6 +251,17 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
     }
 
 
+    private fun editCal() {
+        val firebaseFirestore = FirebaseFirestore.getInstance()
+        var userUid = FirebaseAuth.getInstance().currentUser!!.uid
+        val washingtonRef = firebaseFirestore.collection("users").document(userUid)
+        washingtonRef
+            .update("needed cal", neededCal)
+            .addOnSuccessListener { Log.d("TAG", "تم تعديل cal") }
+            .addOnFailureListener { e -> Log.w("TAG", "Error updating document", e) }
+    }
+
+
 
 
     fun roundOffDecimal(number: Double): String? {
@@ -248,6 +270,7 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
         val df = DecimalFormat("#.##")
         df.roundingMode = RoundingMode.CEILING
         val num=df.format(number)
+
         return num
     }
 }

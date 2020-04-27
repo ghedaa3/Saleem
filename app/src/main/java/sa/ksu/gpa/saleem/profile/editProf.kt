@@ -20,8 +20,7 @@ import android.widget.AdapterView
 import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
-
-
+import androidx.appcompat.app.AlertDialog
 
 
 class editProf : AppCompatActivity() ,View.OnClickListener {
@@ -102,7 +101,7 @@ class editProf : AppCompatActivity() ,View.OnClickListener {
                     goall=2
                 else if (goal=="زيادة الوزن")
                     goall=3
-               Log.d("TAG", "تم تعديل الهدف"+goall+"hhhhhhhhhhhhhhhhhhhhhhh"+goal)
+               Log.d("TAG", "تم تعديل الهدف"+goall+"testy"+goal)
 
                 val firebaseFirestore = FirebaseFirestore.getInstance()
                 var userUid = FirebaseAuth.getInstance().currentUser!!.uid
@@ -158,15 +157,25 @@ class editProf : AppCompatActivity() ,View.OnClickListener {
 
         saveEdit!!.setOnClickListener(View.OnClickListener {
             // save changes
+
             val n = edname!!.getText().toString()
             val w = edwight!!.getText().toString()
             val h = edheight!!.getText().toString()
-          //  val g=planets_spinner.getItemAtPosition(pos).toString()
-            editName(n)
-            editWight(w)
-            editHight(h)
 
-            startActivity(Intent(this,Profile::class.java))
+            if (n!=""&&w!=""&&h!=""){
+
+                editName(n)
+                editWight(w)
+                editHight(h)
+
+                startActivity(Intent(this,Profile::class.java))
+
+            }
+            else{
+                showDialogWithOkButton("الرجاء إدخال البيانات")
+            }
+          //  val g=planets_spinner.getItemAtPosition(pos).toString()
+
         })
 
         retriveUserData()
@@ -238,6 +247,17 @@ class editProf : AppCompatActivity() ,View.OnClickListener {
 
     }
 
+    private fun showDialogWithOkButton(msg: String) {
+        val builder = AlertDialog.Builder(this)
+        builder.setMessage(msg)
+            .setCancelable(false)
+            .setPositiveButton("حسناً") { dialog, id ->
+                //do things
+            }
+        val alert = builder.create()
+        alert.show()
+    }
+
     override fun onBackPressed() {
         super.onBackPressed()
 
@@ -253,7 +273,7 @@ class editProf : AppCompatActivity() ,View.OnClickListener {
 
             var goal = parent.getItemAtPosition(pos)
 
-            Log.d("TAG", "تم تعديل الطول"+goall+"hhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh"+goal)
+            Log.d("TAG", "تم تعديل الهدف"+goall+""+goal)
 
 
             val firebaseFirestore = FirebaseFirestore.getInstance()
@@ -261,7 +281,7 @@ class editProf : AppCompatActivity() ,View.OnClickListener {
             val washingtonRef = firebaseFirestore.collection("users").document(userUid)
             washingtonRef
                 .update("goal", goall + "")
-                .addOnSuccessListener { Log.d("TAG", "تم تعديل الطول") }
+                .addOnSuccessListener { Log.d("TAG", "تم تعديل الهدف") }
                 .addOnFailureListener { e -> Log.w("TAG", "Error updating document", e) }
 
 
@@ -270,7 +290,7 @@ class editProf : AppCompatActivity() ,View.OnClickListener {
         override fun onNothingSelected(parent: AdapterView<*>) {
             // Another interface callback
 
-            Log.d("TAG", "تم تعديل الطولkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk"+goal)
+            Log.d("TAG", "تم تعديل الهدف"+goal)
 
         }
     }

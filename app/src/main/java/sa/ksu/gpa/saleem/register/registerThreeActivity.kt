@@ -120,8 +120,8 @@ class registerThreeActivity : AppCompatActivity() ,View.OnClickListener {
                 var weight = getIntent().getDoubleExtra("wight", 0.0)
                 var gender = getIntent().getStringExtra("gender")
                 var bmii = getIntent().getDoubleExtra("bmi", 0.0)
-                var age = getIntent().getIntExtra("age", 0)
-                var userAge = getIntent().getStringExtra("uaserAge")
+               // var age = getIntent().getIntExtra("age", 0)
+                var userAge = getIntent().getStringExtra("userAge")
                 var agee = getIntent().getIntExtra("agee", 0)
                 intent.putExtra("agee", agee)
 
