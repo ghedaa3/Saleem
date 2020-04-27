@@ -30,6 +30,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import cn.pedant.SweetAlert.SweetAlertDialog
 import sa.ksu.gpa.saleem.loginn
 import sa.ksu.gpa.saleem.register.registerOneActivity
 import java.math.RoundingMode
@@ -41,6 +42,12 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
     private val TAG = "DocSnippets"
     private lateinit var auth: FirebaseAuth
     private lateinit var neededCall:String
+    private lateinit var wight:String
+    private lateinit var hight:String
+    private lateinit var goalll:String
+    private lateinit var levelll:String
+    var neededCal: Double = 0.0
+
 
 
 
@@ -73,8 +80,8 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
 
                 val name = document.get("name").toString()
                 val email = document.get("email").toString()
-                val wight = document.get("weight").toString()
-                val hight = document.get("height").toString()
+                wight = document.get("weight").toString()
+                hight = document.get("height").toString()
                 //neededCall = document.get("needed cal").toString().toDouble().toString()
                 val gender = document.get("gender").toString()
                 val age = document.get("age").toString()
@@ -84,8 +91,8 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
                 val weight=wight!!.toDouble()
                 val length=hight.toString().toDouble()
 
-                val goalll = document.get("goal").toString()
-                val levelll = document.get("level").toString()
+                 goalll = document.get("goal").toString()
+                 levelll = document.get("level").toString()
                 val goal=goalll.toString().toInt()
                 var level=levelll.toString().toInt()
 
@@ -94,7 +101,7 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
                 var bmi = (weight) / (length / 100 * length / 100)
 
                 if (gender=="female") {
-                    var neededCal: Double = 0.0
+
                     var Mifflin = ((10 * weight) + (6.25 * length) - (5 * level) - 161)
                     var Revised =
                             ((9.247 * weight) + (3.098 * length) - (4.330 * level) + 447.593)
@@ -106,10 +113,12 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
                         2 -> neededCal = Calories + 500
                         3 -> neededCal = Calories
                     }
-                    neededCall=roundOffDecimal(neededCal).toString()
+                  //  neededCall=roundOffDecimal(neededCal).toString()
+                    editCal()
+
 
                 } else if (gender=="male"){
-                    var neededCal:Double=0.0
+                  /*  neededCal:Double=0.0*/
                     var Mifflin =((10*weight)+ (6.25*length)-(5*level )+5)
                     var Revised =((13.397*weight) +(4.799*length) - (5.677*level) + 88.362)
 
@@ -120,7 +129,9 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
                         2->  neededCal= Calories+500
                         3 -> neededCal= Calories
                     }
-                   neededCall=roundOffDecimal(neededCal).toString()
+                  // neededCall=roundOffDecimal(neededCal).toString()
+                    editCal()
+
 
                 }
 
@@ -159,7 +170,8 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
                 val heightTxt:TextView=findViewById(sa.ksu.gpa.saleem.R.id.heighHin)
                 heightTxt.setText(hight)
                 val calTxt: TextView = findViewById(sa.ksu.gpa.saleem.R.id.neededCalHin)
-                calTxt.setText(neededCall)
+                neededCall= roundOffDecimal(neededCal).toString()
+                calTxt.setText(neededCal.toString())
                 val genderTxt:TextView=findViewById(sa.ksu.gpa.saleem.R.id.genderHin)
                 genderTxt.setText(genderr)
                 val bmiTxt:TextView=findViewById(sa.ksu.gpa.saleem.R.id.bmiHin)
@@ -187,36 +199,51 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
         var btn=findViewById<View>(sa.ksu.gpa.saleem.R.id.edit_profile)
         var rebtn=findViewById<View>(sa.ksu.gpa.saleem.R.id.reedit_profile)
 
+
+
+
         btn.setOnClickListener() {
 
-            val builder = AlertDialog.Builder(this)
+/*            val builder = AlertDialog.Builder(this)
             //set title for alert dialog
-            builder.setTitle("تسجيل الخروج")
+            builder.setTitle("تسجيل الخروج")*/
             //set message for alert dialog
-            builder.setMessage("هل متاكد من تسجيل الخروج ؟ ")
+          //  builder.setMessage("هل متاكد من تسجيل الخروج ؟ ")
 
 
+            SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("هل متاكد من تسجيل الخروج ؟")
+                .setConfirmButton("نعم") { sDialog -> sDialog.dismissWithAnimation()
+
+                    FirebaseAuth.getInstance().signOut();
+                    val intent = Intent(this, loginn::class.java)
+                    startActivity(intent)
+
+
+                }.setCancelButton("إلغاء"){
+                    it.dismissWithAnimation()
+
+                }
+                .show()
             //performing positive action
-            builder.setPositiveButton("نعم"){dialogInterface, which ->
+           // builder.setPositiveButton("نعم"){dialogInterface, which ->
 
-                FirebaseAuth.getInstance().signOut();
-                val intent = Intent(this, loginn::class.java)
-                startActivity(intent)
+
             }
             //performing cancel action
          /*   builder.setNeutralButton("Cancel"){dialogInterface , which ->
 
             }*/
             //performing negative action
-            builder.setNegativeButton("لا"){dialogInterface, which ->
-            }
+           /* builder.setNegativeButton("لا"){dialogInterface, which ->
+            }*/
             // Create the AlertDialog
-            val alertDialog: AlertDialog = builder.create()
+   /*         val alertDialog: AlertDialog = builder.create()
             // Set other dialog properties
             alertDialog.setCancelable(false)
-            alertDialog.show()
+            alertDialog.show()*/
 
-        }
+        //}
 
         rebtn.setOnClickListener {
             val intent= Intent(this, editProf::class.java)
@@ -240,6 +267,17 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
     }
 
 
+    private fun editCal() {
+        val firebaseFirestore = FirebaseFirestore.getInstance()
+        var userUid = FirebaseAuth.getInstance().currentUser!!.uid
+        val washingtonRef = firebaseFirestore.collection("users").document(userUid)
+        washingtonRef
+            .update("needed cal", neededCal)
+            .addOnSuccessListener { Log.d("TAG", "تم تعديل cal") }
+            .addOnFailureListener { e -> Log.w("TAG", "Error updating document", e) }
+    }
+
+
 
 
     fun roundOffDecimal(number: Double): String? {
@@ -248,6 +286,7 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
         val df = DecimalFormat("#.##")
         df.roundingMode = RoundingMode.CEILING
         val num=df.format(number)
+
         return num
     }
 }

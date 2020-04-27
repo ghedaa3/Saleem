@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.android.gms.common.internal.Constants
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
@@ -37,6 +38,7 @@ class registerFourActivity : AppCompatActivity() ,View.OnClickListener {
    // private var length by Delegates.notNull<Double>()
 
    private var goal =0
+
 
     private var weight:Double = 0.0
     private var level:Int = 0
@@ -148,8 +150,8 @@ class registerFourActivity : AppCompatActivity() ,View.OnClickListener {
         var weight=getIntent().getDoubleExtra("wight",0.0)
         var gender = getIntent().getStringExtra("gender")
         var bmi = getIntent().getDoubleExtra("bmi",0.0)
-        var level = getIntent().getIntExtra("level",0)
-        var userAge= getIntent().getStringExtra("uaserAge")
+        level = getIntent().getIntExtra("level",0)
+        var userAge= getIntent().getStringExtra("userAge")
 
 
         var name = getIntent().getStringExtra("name")
@@ -186,12 +188,12 @@ class registerFourActivity : AppCompatActivity() ,View.OnClickListener {
         var neededCal=-1.0
 
         if (gender == "male")
-         neededCal = calcualteCaloriesMen(3.0, weight!!, length!!, goal!!)
+         neededCal = calcualteCaloriesMen(level.toDouble(), weight!!, length!!, goal!!)
 
 
 
         if (gender == "female")
-           neededCal = calcualteCaloriesWomen(3.0, weight!!, length!!, goal!!)
+           neededCal = calcualteCaloriesWomen(level.toDouble(), weight!!, length!!, goal!!)
 
 
 
@@ -246,9 +248,10 @@ else return true
 
 
 
-        if(neededCalories!=0.0)
+       // if(neededCalories!=0.0)
 
-        showDialogWithOkButton("needed calories"+neededCalories)
+
+
         return neededCalories
 
 
@@ -266,13 +269,15 @@ else return true
             3 -> neededCalories= Calories
         }
 
-        if(neededCalories!=0.0)
-        showDialogWithOkButton("needed calories"+neededCalories)
+    /*    if(neededCalories!=0.0)
+        showDialogWithOkButton4("السعرات الحرارية" +
+                "\n"+neededCalories)*/
+
         return neededCalories
 
     }
 
-    private fun showDialogWithOkButton(msg: String) {
+ /*   private fun showDialogWithOkButton(msg: String) {
         val builder = AlertDialog.Builder(this)
         builder.setMessage(msg)
             .setCancelable(false)
@@ -281,10 +286,33 @@ else return true
             }
         val alert = builder.create()
         alert.show()
+    }*/
+
+    private fun showDialogWithOkButton(msg: String) {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText(msg)
+            .setConfirmButton("حسناً") { sDialog ->
+                sDialog.dismissWithAnimation()
+
+
+            }
+            .show()
+    }
+
+    private fun showDialogWithOkButton4(msg: String) {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText(msg)
+            .setConfirmButton("حسناً") { sDialog ->
+                startActivity(Intent(this, loginn::class.java))
+
+
+
+            }
+            .show()
     }
 
     private fun createUserCollection(weight:Double,length:Double,level:Int,goal:Int,gender:String,name:String,email:String,neededCal:Double,
-                                     userAge:Int,userIId:String) {
+                                     userAge:Int,userIId:String):Double {
         val user = HashMap<String, Any>()
 
 
@@ -303,15 +331,16 @@ else return true
         var neededCal = 0.0
 
 
+
         if (gender == "male")
-            neededCal = calcualteCaloriesMen(3.0, weight!!, length!!, goal!!)
+            neededCal = calcualteCaloriesMen(level.toDouble(), weight!!, length!!, goal!!)
 
 
 
         if (gender == "female")
-            neededCal = calcualteCaloriesWomen(3.0, weight!!, length!!, goal!!)
+            neededCal = calcualteCaloriesWomen(level.toDouble(), weight!!, length!!, goal!!)
 
-        user.put("   السعرات الحرارية:   ",neededCal)
+        user.put("needed cal",neededCal)
 
 
 
@@ -329,6 +358,7 @@ else return true
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
             }
+        return neededCal
     }
 
     val actionCodeSettings = ActionCodeSettings.newBuilder()
@@ -352,16 +382,16 @@ else return true
         var weight=getIntent().getDoubleExtra("wight",0.0)
         var gender = getIntent().getStringExtra("gender")
         var bmi = getIntent().getDoubleExtra("bmi",0.0)
-        var level = getIntent().getIntExtra("level",0)
-        var userAge= getIntent().getStringExtra("uaserAge")
+        level = getIntent().getIntExtra("level",0)
+        var userAge= getIntent().getStringExtra("userAge")
 
 
         var name = getIntent().getStringExtra("name")
         var pass = getIntent().getStringExtra("password")
         var email = getIntent().getStringExtra("email")
 
-        var agee= getIntent().getIntExtra("agee",0)
-
+       // var agee= getIntent().getIntExtra("agee",0)
+        var agee=userAge.toString().toInt()
         if (email != "" && pass != "") {
 
             auth.createUserWithEmailAndPassword(email, pass)
@@ -372,7 +402,7 @@ else return true
                         FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
                         Log.d(registerFourActivity.TAG, "createAccountsend:$email"+userIId)
 
-                        createUserCollection(
+                       var calNeeded= createUserCollection(
                             weight,
                             length,
                             level,
@@ -384,7 +414,11 @@ else return true
                             agee,
                             userIId
                         )
-                        startActivity(Intent(this, loginn::class.java))
+                       // startActivity(Intent(this, loginn::class.java))
+
+                        showDialogWithOkButton4("السعرات الحرارية" +
+                                "\n"+calNeeded)
+
 
                   /*      if (auth.getCurrentUser()!!.isEmailVerified()) {
                             // FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
@@ -400,19 +434,19 @@ else return true
                         //val user = auth.currentUser
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success")
-                        Toast.makeText(
+                  /*      Toast.makeText(
                             this, "Authentication succeeded",
                             Toast.LENGTH_SHORT
-                        ).show()
+                        ).show()*/
 
 
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(
+                    /*    Toast.makeText(
                             this, "Authentication failed google.",
                             Toast.LENGTH_SHORT
-                        ).show()
+                        ).show()*/
                         showDialogWithOkButton("البريد الإلكتروني غير صالح")
 
 

@@ -423,7 +423,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun showAddAdvice() {
-        var advicesList:ArrayList<String> = ArrayList()
+    var advicesList:ArrayList<String> = ArrayList()
         val rand = Random()
         db.collection("Advices").get()
             .addOnSuccessListener { documents ->

@@ -106,7 +106,7 @@
                     android:layout_marginEnd="20dp"
                     android:ems="10"
                     android:gravity="center"
-                    android:hint="   الوزن    "
+                    android:hint="الوزن (كجم)"
                     android:background="@drawable/border"
 
                     android:maxLength="3"
@@ -114,6 +114,8 @@
                     android:textSize="20dp" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -130,7 +132,7 @@
                     android:layout_marginEnd="20dp"
                     android:ems="10"
                     android:gravity="center"
-                    android:hint="   الطول   "
+                    android:hint="الطول (سم)"
                     android:background="@drawable/border"
                     android:maxLength="3"
                     android:inputType="number"

@@ -23,7 +23,7 @@
         android:gravity="center"
         android:textSize="20dp"
         android:layout_weight="3"
-        android:text="كمية أكواب الماء ">
+        android:text="عدد أكواب الماء ">
     </TextView>
     <EditText
         android:id="@+id/addWaterAmount"

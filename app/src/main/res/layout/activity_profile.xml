@@ -425,6 +425,7 @@
                             android:layout_height="wrap_content"
                             android:fontFamily=""
                             android:hint="cal"
+                            android:inputType="number"
                             android:textSize="18sp" />
 
 
@@ -821,9 +822,9 @@
                 android:layout_below="@id/linlay10"
                 android:layout_centerInParent="true"
                 android:layout_marginTop="20dp"
-                android:backgroundTint="#69F0AE"
+                android:backgroundTint="#59E7A2"
                 android:background="@drawable/border"
-                android:textColor="#C6020000"
+                android:textColor="#F7FFFFFF"
                 android:text="تعديل الحساب"
                 />
 
@@ -837,8 +838,7 @@
                 android:layout_marginTop="20dp"
                 android:layout_below="@id/reedit_profile"
                 android:text="تسجيل الخروج"
-                android:textColor="#C6020000" />
-
+                android:textColor="#F7FFFFFF" />
 
 
 
