@@ -21,6 +21,8 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import androidx.appcompat.app.AlertDialog
+import cn.pedant.SweetAlert.SweetAlertDialog
+import sa.ksu.gpa.saleem.loginn
 
 
 class editProf : AppCompatActivity() ,View.OnClickListener {
@@ -156,6 +158,8 @@ class editProf : AppCompatActivity() ,View.OnClickListener {
         var storageRef = storage.reference
 
         saveEdit!!.setOnClickListener(View.OnClickListener {
+
+
             // save changes
 
             val n = edname!!.getText().toString()
@@ -164,16 +168,29 @@ class editProf : AppCompatActivity() ,View.OnClickListener {
 
             if (n!=""&&w!=""&&h!=""){
 
-                editName(n)
-                editWight(w)
-                editHight(h)
+                SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                    .setTitleText("هل متاكد من تغير البيانات؟")
+                    .setConfirmButton("نعم") { sDialog -> sDialog.dismissWithAnimation()
 
-                startActivity(Intent(this,Profile::class.java))
+                        editName(n)
+                        editWight(w)
+                        editHight(h)
+
+                        startActivity(Intent(this,Profile::class.java))
+
+
+                    }.setCancelButton("إلغاء"){
+                        it.dismissWithAnimation()
+
+                    }
+                    .show()
 
             }
             else{
                 showDialogWithOkButton("الرجاء إدخال البيانات")
             }
+
+
           //  val g=planets_spinner.getItemAtPosition(pos).toString()
 
         })
@@ -248,15 +265,25 @@ class editProf : AppCompatActivity() ,View.OnClickListener {
     }
 
     private fun showDialogWithOkButton(msg: String) {
-        val builder = AlertDialog.Builder(this)
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText(msg)
+            .setConfirmButton("حسناً") { sDialog ->
+                sDialog.dismissWithAnimation()
+
+
+            }
+            .show()
+    }
+
+/*        val builder = AlertDialog.Builder(this)
         builder.setMessage(msg)
             .setCancelable(false)
             .setPositiveButton("حسناً") { dialog, id ->
                 //do things
             }
         val alert = builder.create()
-        alert.show()
-    }
+        alert.show()*/
+
 
     override fun onBackPressed() {
         super.onBackPressed()

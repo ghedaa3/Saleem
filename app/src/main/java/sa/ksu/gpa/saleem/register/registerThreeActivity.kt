@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_register_two.*
 import sa.ksu.gpa.saleem.R
@@ -174,7 +175,7 @@ class registerThreeActivity : AppCompatActivity() ,View.OnClickListener {
 
     }
 
-    private fun showDialogWithOkButton(msg: String) {
+/*    private fun showDialogWithOkButton(msg: String) {
         val builder = AlertDialog.Builder(this)
         builder.setMessage(msg)
             .setCancelable(false)
@@ -183,6 +184,17 @@ class registerThreeActivity : AppCompatActivity() ,View.OnClickListener {
             }
         val alert = builder.create()
         alert.show()
+    }*/
+
+    private fun showDialogWithOkButton(msg: String) {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText(msg)
+            .setConfirmButton("حسناً") { sDialog ->
+                sDialog.dismissWithAnimation()
+
+
+            }
+            .show()
     }
 
 

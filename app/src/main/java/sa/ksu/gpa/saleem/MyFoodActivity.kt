@@ -89,7 +89,7 @@ class MyFoodActivity : AppCompatActivity() {
     private fun deleteDialog(item: MyFood, position: Int, s: String) {
         SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
             .setTitleText("هل انت متأكد من حذف الوجبة؟")
-            .setConfirmButton("حسنًا") { sDialog -> sDialog.dismissWithAnimation()
+            .setConfirmButton("نعم") { sDialog -> sDialog.dismissWithAnimation()
                 deleteItem(item,position, key_list[position])
 
 

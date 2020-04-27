@@ -11,6 +11,7 @@ import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.android.gms.common.internal.Constants
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.android.gms.tasks.OnSuccessListener
@@ -247,10 +248,9 @@ else return true
 
 
 
-        if(neededCalories!=0.0)
+       // if(neededCalories!=0.0)
 
-        showDialogWithOkButton("السعرات الحرارية" +
-                "\n"+neededCalories)
+
 
         return neededCalories
 
@@ -269,15 +269,15 @@ else return true
             3 -> neededCalories= Calories
         }
 
-        if(neededCalories!=0.0)
-        showDialogWithOkButton("السعرات الحرارية" +
-                "\n"+neededCalories)
+    /*    if(neededCalories!=0.0)
+        showDialogWithOkButton4("السعرات الحرارية" +
+                "\n"+neededCalories)*/
 
         return neededCalories
 
     }
 
-    private fun showDialogWithOkButton(msg: String) {
+ /*   private fun showDialogWithOkButton(msg: String) {
         val builder = AlertDialog.Builder(this)
         builder.setMessage(msg)
             .setCancelable(false)
@@ -286,10 +286,33 @@ else return true
             }
         val alert = builder.create()
         alert.show()
+    }*/
+
+    private fun showDialogWithOkButton(msg: String) {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText(msg)
+            .setConfirmButton("حسناً") { sDialog ->
+                sDialog.dismissWithAnimation()
+
+
+            }
+            .show()
+    }
+
+    private fun showDialogWithOkButton4(msg: String) {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText(msg)
+            .setConfirmButton("حسناً") { sDialog ->
+                startActivity(Intent(this, loginn::class.java))
+
+
+
+            }
+            .show()
     }
 
     private fun createUserCollection(weight:Double,length:Double,level:Int,goal:Int,gender:String,name:String,email:String,neededCal:Double,
-                                     userAge:Int,userIId:String) {
+                                     userAge:Int,userIId:String):Double {
         val user = HashMap<String, Any>()
 
 
@@ -335,6 +358,7 @@ else return true
             .addOnFailureListener { e ->
                 Log.w(TAG, "Error adding document", e)
             }
+        return neededCal
     }
 
     val actionCodeSettings = ActionCodeSettings.newBuilder()
@@ -378,7 +402,7 @@ else return true
                         FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
                         Log.d(registerFourActivity.TAG, "createAccountsend:$email"+userIId)
 
-                        createUserCollection(
+                       var calNeeded= createUserCollection(
                             weight,
                             length,
                             level,
@@ -390,7 +414,11 @@ else return true
                             agee,
                             userIId
                         )
-                        startActivity(Intent(this, loginn::class.java))
+                       // startActivity(Intent(this, loginn::class.java))
+
+                        showDialogWithOkButton4("السعرات الحرارية" +
+                                "\n"+calNeeded)
+
 
                   /*      if (auth.getCurrentUser()!!.isEmailVerified()) {
                             // FirebaseAuth.getInstance().currentUser!!.sendEmailVerification()
@@ -406,19 +434,19 @@ else return true
                         //val user = auth.currentUser
                         // Sign in success, update UI with the signed-in user's information
                         Log.d(TAG, "signInWithEmail:success")
-                        Toast.makeText(
+                  /*      Toast.makeText(
                             this, "Authentication succeeded",
                             Toast.LENGTH_SHORT
-                        ).show()
+                        ).show()*/
 
 
                     } else {
                         // If sign in fails, display a message to the user.
                         Log.w(TAG, "signInWithEmail:failure", task.exception)
-                        Toast.makeText(
+                    /*    Toast.makeText(
                             this, "Authentication failed google.",
                             Toast.LENGTH_SHORT
-                        ).show()
+                        ).show()*/
                         showDialogWithOkButton("البريد الإلكتروني غير صالح")
 
 

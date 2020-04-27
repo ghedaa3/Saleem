@@ -12,6 +12,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.firestore.FirebaseFirestore
@@ -88,7 +89,7 @@ class registerOneActivity : AppCompatActivity() {
 
     }
 
-    private fun showDialogWithOkButton(msg: String) {
+/*    private fun showDialogWithOkButton(msg: String) {
         val builder = AlertDialog.Builder(this)
         builder.setMessage(msg)
             .setCancelable(false)
@@ -97,6 +98,17 @@ class registerOneActivity : AppCompatActivity() {
             }
         val alert = builder.create()
         alert.show()
+    }*/
+
+    private fun showDialogWithOkButton(msg: String) {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText(msg)
+            .setConfirmButton("حسناً") { sDialog ->
+                sDialog.dismissWithAnimation()
+
+
+            }
+            .show()
     }
 
     private fun sendEmailVerification() {

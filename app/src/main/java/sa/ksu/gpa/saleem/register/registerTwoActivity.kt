@@ -29,6 +29,7 @@ import androidx.core.app.ComponentActivity.ExtraData
 import androidx.core.content.ContextCompat.getSystemService
 import android.icu.lang.UCharacter.GraphemeClusterBreak.T
 import androidx.appcompat.widget.Toolbar
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.common.base.Verify.verify
 import com.wajahatkarim3.easyvalidation.core.collection_ktx.noNumbersList
 
@@ -102,10 +103,10 @@ class registerTwoActivity : AppCompatActivity(),View.OnClickListener {
                 val radio: RadioButton = findViewById(id)
                 var gender = radio?.text.toString();
 
-                if(gender=="ذكر")
-                    genderr="male"
-                  if(gender=="انثى")
-                    genderr="female"
+                if (gender == "ذكر")
+                    genderr = "male"
+                if (gender == "انثى")
+                    genderr = "female"
 
 
 
@@ -115,32 +116,34 @@ class registerTwoActivity : AppCompatActivity(),View.OnClickListener {
                 intent.putExtra("wight", wight)
                 intent.putExtra("height", height)
 
-            }
 
 
 
 
-            intent.putExtra("name", name)
+
+                intent.putExtra("name", name)
 
 
-            intent.putExtra("password", pass)
-            intent.putExtra("email", email)
+                intent.putExtra("password", pass)
+                intent.putExtra("email", email)
 
 
-            Log.d("this2", "" + email)
-            Log.d("this2", "" + name)
-            Log.d("this2", "" + pass)
-            Log.d("this2", "" + height)
-            Log.d("this2", "" + wight)
-       /*     Log.d("this2", "" + type)
+                Log.d("this2", "" + email)
+                Log.d("this2", "" + name)
+                Log.d("this2", "" + pass)
+                Log.d("this2", "" + height)
+                Log.d("this2", "" + wight)
+                /*     Log.d("this2", "" + type)
             Log.d("this2", "" + bmi)*/
 
-            // intent.putExtra("age", age)
-            if (verify()) {
+                // intent.putExtra("age", age)
+                //   if (verify()) {
 
 
                 startActivity(intent)
-            }//------------------------------------------
+                //   }//------------------------------------------
+
+            }
 
         }
 
@@ -358,7 +361,7 @@ return level
     }
 
 
-    private fun showDialogWithOkButton(msg: String) {
+/*    private fun showDialogWithOkButton(msg: String) {
         val builder = AlertDialog.Builder(this)
         builder.setMessage(msg)
             .setCancelable(false)
@@ -367,8 +370,17 @@ return level
             }
         val alert = builder.create()
         alert.show()
-    }
+    }*/
+    private fun showDialogWithOkButton(msg: String) {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText(msg)
+            .setConfirmButton("حسناً") { sDialog ->
+                sDialog.dismissWithAnimation()
 
+
+            }
+            .show()
+    }
 
 
 

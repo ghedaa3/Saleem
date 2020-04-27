@@ -17,6 +17,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import sa.ksu.gpa.saleem.register.registerOneActivity
 import android.text.Html
+import cn.pedant.SweetAlert.SweetAlertDialog
 import sa.ksu.gpa.saleem.Admin.AdminActivity
 
 
@@ -152,14 +153,14 @@ class loginn : AppCompatActivity() {
     }
 
     private fun showDialogWithOkButton(msg: String) {
-        val builder = AlertDialog.Builder(this)
-        builder.setMessage(msg)
-            .setCancelable(false)
-            .setPositiveButton("حسناً") { dialog, id ->
-                //do things
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText(msg)
+            .setConfirmButton("حسناً") { sDialog ->
+                sDialog.dismissWithAnimation()
+
+
             }
-        val alert = builder.create()
-        alert.show()
+            .show()
     }
 
     private fun signIn() {

@@ -30,6 +30,7 @@ import android.widget.Button
 import android.widget.ImageView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.Toolbar
+import cn.pedant.SweetAlert.SweetAlertDialog
 import sa.ksu.gpa.saleem.loginn
 import sa.ksu.gpa.saleem.register.registerOneActivity
 import java.math.RoundingMode
@@ -198,36 +199,51 @@ class Profile : AppCompatActivity() ,View.OnClickListener {
         var btn=findViewById<View>(sa.ksu.gpa.saleem.R.id.edit_profile)
         var rebtn=findViewById<View>(sa.ksu.gpa.saleem.R.id.reedit_profile)
 
+
+
+
         btn.setOnClickListener() {
 
-            val builder = AlertDialog.Builder(this)
+/*            val builder = AlertDialog.Builder(this)
             //set title for alert dialog
-            builder.setTitle("تسجيل الخروج")
+            builder.setTitle("تسجيل الخروج")*/
             //set message for alert dialog
-            builder.setMessage("هل متاكد من تسجيل الخروج ؟ ")
+          //  builder.setMessage("هل متاكد من تسجيل الخروج ؟ ")
 
 
+            SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("هل متاكد من تسجيل الخروج ؟")
+                .setConfirmButton("نعم") { sDialog -> sDialog.dismissWithAnimation()
+
+                    FirebaseAuth.getInstance().signOut();
+                    val intent = Intent(this, loginn::class.java)
+                    startActivity(intent)
+
+
+                }.setCancelButton("إلغاء"){
+                    it.dismissWithAnimation()
+
+                }
+                .show()
             //performing positive action
-            builder.setPositiveButton("نعم"){dialogInterface, which ->
+           // builder.setPositiveButton("نعم"){dialogInterface, which ->
 
-                FirebaseAuth.getInstance().signOut();
-                val intent = Intent(this, loginn::class.java)
-                startActivity(intent)
+
             }
             //performing cancel action
          /*   builder.setNeutralButton("Cancel"){dialogInterface , which ->
 
             }*/
             //performing negative action
-            builder.setNegativeButton("لا"){dialogInterface, which ->
-            }
+           /* builder.setNegativeButton("لا"){dialogInterface, which ->
+            }*/
             // Create the AlertDialog
-            val alertDialog: AlertDialog = builder.create()
+   /*         val alertDialog: AlertDialog = builder.create()
             // Set other dialog properties
             alertDialog.setCancelable(false)
-            alertDialog.show()
+            alertDialog.show()*/
 
-        }
+        //}
 
         rebtn.setOnClickListener {
             val intent= Intent(this, editProf::class.java)
