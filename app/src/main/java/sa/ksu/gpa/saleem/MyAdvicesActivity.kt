@@ -87,7 +87,7 @@ import kotlin.collections.ArrayList
         private fun deleteDialog(item: MyAdvice, position: Int, s: String) {
             SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("هل انت متأكد من حذف النصيحة؟")
-                .setConfirmButton("حسنًا") { sDialog -> sDialog.dismissWithAnimation()
+                .setConfirmButton("نعم") { sDialog -> sDialog.dismissWithAnimation()
                     deleteItem(item,position, key_list[position])
 
 
@@ -98,17 +98,6 @@ import kotlin.collections.ArrayList
                 .show()
         }
 
-        fun getCurrentDate():String {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                val current = LocalDateTime.now()
-                val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd", Locale.ENGLISH)
-                val formatted = current.format(formatter)
-                return formatted
-            }
-            val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-            val currentDate = sdf.format(Date())
-            return "$currentDate"
-        }
 
         private fun showDescItem(item: MyAdvice, position: Int) {
             adapter.notifyDataSetChanged()
@@ -141,7 +130,7 @@ import kotlin.collections.ArrayList
             val  mAlertDialog = mBuilder?.show()
             mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
 
-
+            mDialogView.adviceTeXt.setText(item.Title)
             mDialogView.dialogShareBtn.text = "تعديل"
             mDialogView.dialogShareBtn.setOnClickListener{
 
@@ -158,15 +147,13 @@ import kotlin.collections.ArrayList
                     )
                     db.collection("Advices").document(key).set(advice, SetOptions.merge())
 
-//                    db.collection("users").document(currentuser).collection("Advices").document(key)
-//                        .set(advice, SetOptions.merge())
 
                     mAlertDialog?.dismiss()
                     Toast.makeText(this, "تم تعديل النصيحة", Toast.LENGTH_LONG).show()
-
+                    list.get(position).Title=adviceName
+                    adapter.notifyDataSetChanged()
                 }
-                list.get(position).Title=adviceName
-                adapter.notifyDataSetChanged()
+
 
                 // extra detail add a success shape
 

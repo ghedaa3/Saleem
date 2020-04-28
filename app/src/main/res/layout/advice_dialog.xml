@@ -28,6 +28,7 @@
         app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/adviceTeXt"
             android:layout_width="300dp"
             android:layout_height="200dp"
             android:layout_gravity="center"

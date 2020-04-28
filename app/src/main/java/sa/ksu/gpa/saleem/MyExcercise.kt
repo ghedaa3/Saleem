@@ -96,7 +96,7 @@ class MyExcercise : AppCompatActivity() {
     private fun deleteDialog(item: MyExcersie, position: Int, s: String) {
         SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
             .setTitleText("هل انت متأكد من حذف التمرين؟")
-            .setConfirmButton("حسنًا") { sDialog -> sDialog.dismissWithAnimation()
+            .setConfirmButton("نعم") { sDialog -> sDialog.dismissWithAnimation()
                 deleteItem(item,position, key_list[position])
 
 
@@ -137,7 +137,7 @@ class MyExcercise : AppCompatActivity() {
 
     private fun showEditItem(item: MyExcersie, position: Int) {
             editExcercizeDialog(item,key_list[position], position)
-        adapter.notifyDataSetChanged()
+          adapter.notifyDataSetChanged()
 
     }
     private fun  editExcercizeDialog(item: MyExcersie,key:String,position: Int) {
@@ -155,6 +155,7 @@ class MyExcercise : AppCompatActivity() {
         mDialogView.addExcercise.text = "تعديل"
         mDialogView.addExcerciseWorkoutnameee.setText(item.Title)
         mDialogView.addExcerciseburentCal.setText(item.Claories)
+
         mDialogView.addExcercise.setOnClickListener{
 
             var burnt = mDialogView.addExcerciseburentCal!!.text
@@ -166,8 +167,7 @@ class MyExcercise : AppCompatActivity() {
 
                 val data1 = hashMapOf(
                     "exerciseName" to workoutName,
-                    "exerciseCalories" to (burnt.toString().toDouble()),
-                     "date" to getCurrentDate()
+                    "exerciseCalories" to (burnt.toString().toDouble())
                 )
 
 
@@ -177,11 +177,11 @@ class MyExcercise : AppCompatActivity() {
                 mAlertDialog?.dismiss()
                 Toast.makeText(this, "تم تعديل التمرين", Toast.LENGTH_LONG).show()
 
-
+                list.get(position).Title=workoutName
+                list.get(position).Claories=burnt.toString()
+                adapter.notifyDataSetChanged()
             }
-            list.get(position).Title=workoutName
-            list.get(position).Claories=burnt.toString()
-            adapter.notifyDataSetChanged()
+
 
             // extra detail add a success shape
 

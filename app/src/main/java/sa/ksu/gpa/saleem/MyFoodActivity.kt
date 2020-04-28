@@ -117,12 +117,7 @@ class MyFoodActivity : AppCompatActivity() {
         }else if(item.type == "unDetailed"){
             addExcercizeDialog(item,key_list[position])
         }
-        /*else if(item.type == "fromRecipes"){
 
-
-        }else if(item.type == "fromScanner"){
-
-        }*/
     }
 
     private fun deleteItem(item: MyFood, position: Int, key: String) {
@@ -139,7 +134,6 @@ class MyFoodActivity : AppCompatActivity() {
         db.collection("History").document(key)
             .set(data, SetOptions.merge())
 
-        //todo delete item
     }
 
     fun getCurrentDate():String {
@@ -169,6 +163,7 @@ class MyFoodActivity : AppCompatActivity() {
         mDialogView.addExcercise.text = "تعديل"
         mDialogView.addExcerciseWorkoutname.setText(item.food_name)
         mDialogView.addExcerciseburentCal.setText(item.cal_of_food.toString())
+
         mDialogView.addExcercise.setOnClickListener{
             if (burnt.isEmpty()||workoutName.isEmpty()){
                 Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()

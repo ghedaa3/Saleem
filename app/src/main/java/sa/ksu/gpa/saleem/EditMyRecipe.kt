@@ -485,8 +485,7 @@ class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
                 "name" to name,
                 "prepration" to prepration,
                 "Type" to arrayListOf(type,type1,type2,type3,type4,type5),
-                "calories" to TotalCalories,
-                "date"    to  getCurrentDate()
+                "calories" to TotalCalories
 
             )
 
@@ -509,17 +508,6 @@ class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
 
 
         }
-    fun getCurrentDate():String {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            val current = LocalDateTime.now()
-            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
-            val formatted = current.format(formatter)
-            return formatted
-        }
-        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
-        val currentDate = sdf.format(Date())
-        return "$currentDate"
-    }
     private fun getTotalCalories(sd:Int): Int {
         var i = main.childCount
         Log.d("TotalCalories","i: "+i)
