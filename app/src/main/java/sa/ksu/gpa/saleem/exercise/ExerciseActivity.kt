@@ -177,9 +177,9 @@ class ExerciseActivity : AppCompatActivity() ,View.OnClickListener {
                     "exercise4",
                     "رفع الاثقال",
                     R.drawable.man_liftting_dumbells,
-                    "2",//11.1
+                    "11.1",//11.1
                     "x10",
-                    exercise4+"\n 1 كغم"
+                    exercise4+"\n [1 كغم]"
                 )
             //https://www.msn.com/ar-ae/health/exercise/strength/%d8%aa%d9%85%d8%b1%d9%8a%d9%86-%d8%b6%d8%ba%d8%b7-%d8%a7%d9%84%d9%83%d8%aa%d9%81%d9%8a%d9%86-%d8%a8%d8%a7%d8%b3%d8%aa%d8%ae%d8%af%d8%a7%d9%85-%d8%af%d9%85%d8%a8%d9%84-%d9%81%d9%8a-%d8%b0%d8%b1%d8%a7%d8%b9-%d9%88%d8%a7%d8%ad%d8%af%d8%a9/ss-BBtSsGb
             )
@@ -220,9 +220,9 @@ class ExerciseActivity : AppCompatActivity() ,View.OnClickListener {
                     "exercise4",
                     "رفع الاثقال",
                     R.drawable.man_liftting_dumbells,
-                    "4 ",
+                    "22.2",
                     "x20",
-                    exercise4+"\n 1 كغم")
+                    exercise4+"\n [1 كغم] ")
             )
             exerciseAdapter.notifyDataSetChanged()
         }
@@ -261,9 +261,9 @@ class ExerciseActivity : AppCompatActivity() ,View.OnClickListener {
                     "exercise4",
                     "رفع الاثقال",
                     R.drawable.man_liftting_dumbells,
-                    "6",
+                    "40",
                     "x30",
-              exercise4+"\n 2 كغم" )
+              exercise4+"\n[2 كغم] " )
             )
               exerciseAdapter.notifyDataSetChanged()
         }
