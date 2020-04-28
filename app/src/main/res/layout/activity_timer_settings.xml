@@ -11,18 +11,7 @@
     android:layout_height="match_parent"
     tools:context=".Timer.TimerSettings"
     android:orientation="vertical">
-<!--    <TextView-->
-<!--        android:layout_marginTop="30dp"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:gravity="center"-->
-<!--        android:text="إعدادات المؤقت"-->
-<!--        android:textStyle="bold"-->
-<!--        android:textSize="40dp"-->
-<!--        android:textColor="#4F329A"-->
-<!--        >-->
 
-<!--    </TextView>-->
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_marginTop="20dp"
@@ -65,7 +54,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:text="الإستعداد"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:layout_marginRight="50dp"
             android:textStyle="bold"></TextView>
 
@@ -113,7 +102,7 @@
 
     </View>
     <LinearLayout
-        android:paddingTop="50dp"
+        android:paddingTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -170,7 +159,7 @@
 
     </View>
     <LinearLayout
-        android:paddingTop="50dp"
+        android:paddingTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -183,7 +172,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:text="الراحة"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:layout_marginRight="50dp"
             android:textStyle="bold"></TextView>
 
@@ -227,7 +216,7 @@
 
     </View>
     <LinearLayout
-        android:paddingTop="50dp"
+        android:paddingTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -240,7 +229,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:text="التكرار"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:layout_marginRight="50dp"
             android:textStyle="bold"></TextView>
 
@@ -271,8 +260,9 @@
         android:layout_gravity="center"
         android:background="#99C3C4BC">
 
-    </View>    <LinearLayout
-        android:paddingTop="50dp"
+    </View>   
+    <LinearLayout
+        android:paddingTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -285,7 +275,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:text="الدورات"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:layout_marginRight="50dp"
             android:textStyle="bold"></TextView>
 
@@ -318,7 +308,7 @@
 
     </View>
     <LinearLayout
-        android:paddingTop="50dp"
+        android:paddingTop="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -331,7 +321,7 @@
             android:layout_weight="1"
             android:gravity="right"
             android:text="الراحة بين الدورات"
-            android:textSize="20dp"
+            android:textSize="18sp"
             android:layout_marginRight="50dp"
             android:textStyle="bold"></TextView>
 
@@ -375,13 +365,12 @@
         android:layout_gravity="center"
         android:layout_marginTop="25dp"
         android:layout_marginBottom="5dp"
-        android:alpha="0.5"
         android:background="@drawable/border"
         android:backgroundTint="#59E7A2"
         android:gravity="center"
         android:text="ابدأ"
         android:textColor="#F8F8F8"
-        android:textSize="20dp"
+        android:textSize="20sp"
         android:textStyle="bold" />
 </LinearLayout>
 </ScrollView>

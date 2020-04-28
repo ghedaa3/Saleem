@@ -73,7 +73,7 @@ class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
         quanArray= resources.getStringArray(R.array.Quantities)
         recipeName= findViewById(R.id.Recipename)
         recipeImage= findViewById(R.id.sharedrecipeimageReal)
-        backButton= findViewById(R.id.back_button)
+        backButton= findViewById(R.id.my_adv_back_button)
         recipeDescription= findViewById(R.id.prepration)
         recipeIngLayout= findViewById(R.id.main)
         db = FirebaseFirestore.getInstance()
@@ -94,6 +94,10 @@ class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
         addIngrediant.setOnClickListener(this)
         publishRecipe.setOnClickListener(this)
         backButton.setOnClickListener(this)
+        recipeTitleChange.setText("تعديل الوصفة")
+        publishRecipe.setText("تعديل")
+
+
         getRecipeData()
         getcheckBox()
     }
