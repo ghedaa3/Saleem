@@ -85,10 +85,9 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
         IngredientNames= findViewById(R.id.IngredientNames)
         unit= findViewById(R.id.unit)
         main=findViewById(R.id.main) //to add ings dirctly
-        backButton= findViewById(R.id.back_button)
+        backButton= findViewById(R.id.my_adv_back_button)
         IngArray = resources.getStringArray(R.array.Ingredients)
         quanArray= resources.getStringArray(R.array.Quantities)
-
 
 
         image.setOnClickListener(this)
@@ -111,7 +110,7 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
             R.id.publishRecipe->{
                 addRecipe()
             }
-   R.id.back_button->{
+   R.id.my_adv_back_button->{
                 finish()
             }
 
