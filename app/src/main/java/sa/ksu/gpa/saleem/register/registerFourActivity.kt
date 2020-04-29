@@ -289,7 +289,7 @@ else return true
     }*/
 
     private fun showDialogWithOkButton(msg: String) {
-        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+        SweetAlertDialog(this, SweetAlertDialog.ERROR_TYPE)
             .setTitleText(msg)
             .setConfirmButton("حسناً") { sDialog ->
                 sDialog.dismissWithAnimation()
@@ -300,7 +300,7 @@ else return true
     }
 
     private fun showDialogWithOkButton4(msg: String) {
-        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+        SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
             .setTitleText(msg)
             .setConfirmButton("حسناً") { sDialog ->
                 startActivity(Intent(this, loginn::class.java))
@@ -416,7 +416,8 @@ else return true
                         )
                        // startActivity(Intent(this, loginn::class.java))
 
-                        showDialogWithOkButton4("السعرات الحرارية" +
+                        showDialogWithOkButton4(" " +
+                                "تم انشاء الحساب بنجاح  \n السعرات الحرارية" +
                                 "\n"+calNeeded)
 
 
