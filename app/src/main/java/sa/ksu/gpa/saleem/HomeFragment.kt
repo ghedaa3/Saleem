@@ -324,7 +324,7 @@ class HomeFragment : Fragment() {
             }
             else{
                 var  burnt1 = burnt.toString()
-                var burntcal=burnt1.toDouble()
+                var burntcal=burnt1.toInt()
                 Log.d("main1","not empty")
 
                 // adding a list of excercises
@@ -506,10 +506,10 @@ class HomeFragment : Fragment() {
 
 
     private fun ubdateBurntCaloris() {
-        var totalBurntCalories:Double=0.0
+        var totalBurntCalories:Int=0
         db.collection("users").document(currentuser!!).collection("Exercises").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
             for (documents in it){
-                totalBurntCalories+=documents.get("exerciseCalories").toString().toDouble()
+                totalBurntCalories+=documents.get("exerciseCalories").toString().toDouble().toInt()
 
             }
             if(totalBurntCalories!=null)

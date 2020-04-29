@@ -44,6 +44,7 @@ class AdminAdapter (private val list: List<MyAdmin>, var onActionClick: OnAction
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
         holder.bind(list.get(position),onActionClick)
+
     }
 
     interface OnActionClick{

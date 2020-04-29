@@ -85,7 +85,7 @@ class sharedRecipeInformaion : AppCompatActivity(), PopupMenu.OnMenuItemClickLis
             show()
         }
     }
-    private fun isReporting() {
+    public fun isReporting(): Boolean {
         db.collection("ReportedRecipes").whereEqualTo("UIDrporter",currentuser).whereEqualTo("recipeID",recipeID)
             .get().addOnSuccessListener { documents ->
                         if (documents.isEmpty()){
@@ -99,8 +99,7 @@ class sharedRecipeInformaion : AppCompatActivity(), PopupMenu.OnMenuItemClickLis
                 Log.d("flag1", "isReporting is inside else =")
 
             }
-
-
+        return false
 
     }
 

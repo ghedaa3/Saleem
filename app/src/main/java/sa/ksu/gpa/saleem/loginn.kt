@@ -108,25 +108,7 @@ class loginn : AppCompatActivity() {
         dialogBuilder.setView(dialogView)
         dialogBuilder.show()
     }
-/*
-    private fun showDial(){
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle("Androidly Alert")
-        builder.setMessage("We have a message")
-        //builder.setPositiveButton("OK", DialogInterface.OnClickListener(function = x))
 
-        builder.setPositiveButton(android.R.string.yes) { dialog, which ->
-            Toast.makeText(applicationContext,
-                android.R.string.yes, Toast.LENGTH_SHORT).show()
-        }
-
-        builder.setNegativeButton(android.R.string.no) { dialog, which ->
-            Toast.makeText(applicationContext,
-                android.R.string.no, Toast.LENGTH_SHORT).show()
-        }
-
-        builder.show()
-    }*/
 
     private fun forgetPassword(email: String) {
         auth.sendPasswordResetEmail(email).addOnCompleteListener(OnCompleteListener<Void> { task ->

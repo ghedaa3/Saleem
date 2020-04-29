@@ -19,4 +19,15 @@ class ExampleUnitTest {
         var excpected=56
         assertEquals(excpected, actual)
     }
+    @Test
+    fun isrporting() {
+        var Ingredient="حليب"
+        var Measurment="مل"
+        var Quantity="100"
+        var actual=CaloriCalculater.calculateCalories(Ingredient,Measurment,Quantity)
+        var excpected=56
+        assertEquals(excpected, actual)
+    }
+
+
 }

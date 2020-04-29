@@ -1,5 +1,6 @@
 package sa.ksu.gpa.saleem.Admin
 
+import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_admin_recipes.*
 import sa.ksu.gpa.saleem.R
+import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity
+import sa.ksu.gpa.saleem.recipe.sharedRecipeInformaion
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -86,12 +89,16 @@ class AdminRecipes : AppCompatActivity() {
     }
 
     private fun deleteItem(item: ReportedRecipes, position: Int, key: String) {
-        list.removeAt(position)
+   /*     list.removeAt(position)
         key_list.removeAt(position)
         adapter.notifyDataSetChanged()
         db.collection("Recipes").document(key).delete()
             .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully deleted!") }
-            .addOnFailureListener { e -> Log.w("TAG", "Error deleting document", e) }
+            .addOnFailureListener { e -> Log.w("TAG", "Error deleting document", e) }*/
+        val intent = Intent(this, sharedRecipeInformaion::class.java)
+        intent.putExtra("RecipeId",key)
+
+        startActivity(intent)
 
 
     }

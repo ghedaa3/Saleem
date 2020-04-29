@@ -1,6 +1,7 @@
 package sa.ksu.gpa.saleem.Admin
 
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +11,7 @@ import android.widget.TextView
 
 import androidx.recyclerview.widget.RecyclerView
 import sa.ksu.gpa.saleem.R
-
+import sa.ksu.gpa.saleem.recipe.sharedRecipeInformaion
 
 
 class ReportedRecipesAdapter (private val list: List<ReportedRecipes>, var onActionClick: OnActionClick ,var context: Context): RecyclerView.Adapter<ReportedRecipesAdapter.MyViewHolder>(){
@@ -60,20 +61,14 @@ class ReportedRecipesAdapter (private val list: List<ReportedRecipes>, var onAct
         Log.d("flag1", "isReporting is ="+recipeId)
 
         holder.getAdapterPosition();
+           holder.itemView.setOnClickListener {
 
-        /*    holder.itemView.setOnClickListener {
-
-    //
-                var intent = Intent(context, InnerReportedRecipe::class.java)
-
-                intent.putExtra("Id",recipeId.toString())
-
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)//
-
-             //   context.startActivity(intent)
+                var intent = Intent(context, sharedRecipeInformaion::class.java)
+               intent.putExtra("RecipeId",recipeId)
+                context.startActivity(intent)
 
 
-            }*/
+            }
     }
 
     interface OnActionClick{
