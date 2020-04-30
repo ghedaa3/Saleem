@@ -406,7 +406,7 @@ class HomeFragment : Fragment() {
             mAlertDialog?.dismiss()
         }
     }
-
+//useless comment
     private fun  updateWater(){
         var totalWaterAmount = 0
         db.collection("users").document(currentuser!!)
