@@ -16,7 +16,6 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import kotlinx.android.synthetic.main.activity_my_food.*
-import kotlinx.android.synthetic.main.add_excercise_dialog.view.*
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcercise
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcerciseburentCal
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.cancelExcercise
@@ -114,8 +113,11 @@ class MyFoodActivity : AppCompatActivity() {
 
             })
             dialog?.show()
+            adapter.notifyDataSetChanged()
+
         }else if(item.type == "unDetailed"){
-            addExcercizeDialog(item,key_list[position])
+            addExcercizeDialog(item,key_list[position],position)
+
         }
 
     }
@@ -148,7 +150,11 @@ class MyFoodActivity : AppCompatActivity() {
         return "$currentDate"
     }
 
-    private fun addExcercizeDialog(item: MyFood,key:String) {
+    private fun addExcercizeDialog(
+        item: MyFood,
+        key: String,
+        position: Int
+    ) {
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.add_fast_food, null)
 
         val mBuilder =  AlertDialog.Builder(this)
@@ -157,14 +163,13 @@ class MyFoodActivity : AppCompatActivity() {
 
         val  mAlertDialog = mBuilder?.show()
         mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        var burnt = mDialogView.addExcerciseburentCal!!.text
-        val workoutName = mDialogView.addExcerciseWorkoutname!!.text
-        Log.d("this",""+burnt+workoutName)
         mDialogView.addExcercise.text = "تعديل"
         mDialogView.addExcerciseWorkoutname.setText(item.food_name)
         mDialogView.addExcerciseburentCal.setText(item.cal_of_food.toString())
 
         mDialogView.addExcercise.setOnClickListener{
+            var burnt = mDialogView.addExcerciseburentCal!!.text
+            val workoutName = mDialogView.addExcerciseWorkoutname!!.text
             if (burnt.isEmpty()||workoutName.isEmpty()){
                 Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
             }
@@ -176,13 +181,17 @@ class MyFoodActivity : AppCompatActivity() {
                 )
 
 
-                db.collection("Food").document(key)
+                db.collection("Foods").document(key)
                     .set(data1, SetOptions.merge())
 
                 mAlertDialog?.dismiss()
-
             }
             // extra detail add a success shape
+            Toast.makeText(this, "تم تعديل الوجبة", Toast.LENGTH_LONG).show()
+
+            list.get(position).food_name=workoutName.toString()
+            list.get(position).cal_of_food=burnt.toString().toDouble()
+            adapter.notifyDataSetChanged()
         }
         mDialogView.cancelExcercise.setOnClickListener{
             mAlertDialog?.dismiss()

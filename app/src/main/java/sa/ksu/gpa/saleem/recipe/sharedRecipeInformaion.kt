@@ -241,7 +241,7 @@ class sharedRecipeInformaion : AppCompatActivity(), PopupMenu.OnMenuItemClickLis
                 )
 
 
-              db.collection("ReportedRecipes").document(recipeID).set(docData).addOnSuccessListener {
+              db.collection("ReportedRecipes").document().set(docData).addOnSuccessListener {
                   Log.d("sharedRecipeInformaion", "added rports:" )
 
 

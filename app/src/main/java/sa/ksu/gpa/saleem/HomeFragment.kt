@@ -65,7 +65,7 @@ class HomeFragment : Fragment() {
 
     var currentuser = ""
     private var waterCount=0
-    private lateinit var adviceID:String
+    private  lateinit var adviceID:String
     private lateinit var pagerAdapter: PagerAdapter
     private lateinit var date: String
 
@@ -392,15 +392,19 @@ class HomeFragment : Fragment() {
 
     private fun showAddAdvice() {
     var advicesList:ArrayList<String> = ArrayList()
+    var IdList:ArrayList<String> = ArrayList()
         val rand = Random()
         db.collection("Advices").get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    adviceID = document.id
+                    IdList.add(document.id)
                     advicesList.add(document.get("text").toString())
-                    val index = rand.nextInt(advicesList.size)
-                    advicesTV.text = (advicesList[index])
+
                 }
+                val index = rand.nextInt(advicesList.size)
+                advicesTV.text = (advicesList[index])
+                adviceID = IdList[index]
+
             }
             .addOnFailureListener { exception ->
                 Log.w("error", "Error getting documents.", exception)
@@ -453,7 +457,7 @@ class HomeFragment : Fragment() {
                         "date" to getCurrentDate()
                     )
 
-                    db.collection("ReportedAdvices").document(adviceID).set(docData).addOnSuccessListener {
+                    db.collection("ReportedAdvices").document().set(docData).addOnSuccessListener {
                         Log.d("advice", "added reports:" )
 
                     }.addOnFailureListener {

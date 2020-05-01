@@ -22,7 +22,7 @@ object CaloriCalculater {
 
     //fruit + figitables
     var fruit=arrayOf<String>("موز","تفاح","بطاطس","بادنجان")
-    var fruitMeasureing=arrayOf<String>("كأس","جم","حبة")
+    var fruitMeasureing=arrayOf<String>("كأس","جم","العدد")
     var fruitGmCaloris= arrayOf(88,52,76,24)
 
     fun calculateCalories(Ingredient:String,Measurment:String,Quantity:String): Int {
