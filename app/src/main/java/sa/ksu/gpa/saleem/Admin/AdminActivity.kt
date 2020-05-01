@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import kotlinx.android.synthetic.main.activity_admin2.*
 import sa.ksu.gpa.saleem.R
@@ -22,28 +23,27 @@ class AdminActivity : AppCompatActivity() {
         var img=findViewById<View>(R.id.logout)
 
         img.setOnClickListener {
-            val builder = AlertDialog.Builder(this)
 
-            builder.setTitle("تسجيل الخروج")
-            //set message for alert dialog
-            builder.setMessage("هل متاكد من تسجيل الخروج ؟ ")
+            SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+                .setTitleText("هل متاكد من تسجيل الخروج ؟")
+                .setConfirmButton("نعم") { sDialog -> sDialog.dismissWithAnimation()
+
+                    FirebaseAuth.getInstance().signOut();
+                    val intent = Intent(this, loginn::class.java)
+                    startActivity(intent)
 
 
-            builder.setPositiveButton("نعم"){ dialogInterface, which ->
+                }.setCancelButton("إلغاء"){
+                    it.dismissWithAnimation()
 
-                FirebaseAuth.getInstance().signOut();
-                val intent = Intent(this, loginn::class.java)
-                startActivity(intent)
-            }
+                }
+                .show()
+            //performing positive action
+            // builder.setPositiveButton("نعم"){dialogInterface, which ->
 
-            builder.setNegativeButton("لا"){dialogInterface, which ->
-            }
-            // Create the AlertDialog
-            val alertDialog: AlertDialog = builder.create()
-            // Set other dialog properties
-            alertDialog.setCancelable(false)
-            alertDialog.show()
+
         }
+
 
         user_list.setOnClickListener {
             var intent = Intent(this, Admin::class.java)

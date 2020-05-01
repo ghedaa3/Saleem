@@ -3,9 +3,12 @@ package sa.ksu.gpa.saleem.Admin
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.user_list.*
@@ -31,6 +34,11 @@ class Admin : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.user_list)
+
+        var title =findViewById<View>(R.id.title) as TextView
+        var tit=intent.getStringExtra("pageTitle")
+        title.setText(tit)
+
 
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.recyclerViewUsers)
@@ -90,6 +98,9 @@ class Admin : AppCompatActivity() {
 
     }
     private fun deleteItem(item: MyAdmin, position: Int, key: String) {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText("هل متاكد من حذف المستخدم؟")
+            .setConfirmButton("نعم") { sDialog -> sDialog.dismissWithAnimation()
         list.removeAt(position)
         key_list.removeAt(position)
         adapter.notifyDataSetChanged()
@@ -97,6 +108,11 @@ class Admin : AppCompatActivity() {
             .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully deleted!") }
             .addOnFailureListener { e -> Log.w("TAG", "Error deleting document", e) }
 
+            }.setCancelButton("إلغاء"){
+                it.dismissWithAnimation()
+
+            }
+            .show()
 
     }
 

@@ -60,7 +60,7 @@
                 android:id="@+id/users"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="المستخدمين"
+                android:text="المستخدمون"
                 android:textColor="@color/material_blue_grey_80"
                 android:textSize="18sp"
                 android:textStyle="bold" />

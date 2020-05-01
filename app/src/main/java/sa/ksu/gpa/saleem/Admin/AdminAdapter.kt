@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import sa.ksu.gpa.saleem.MyRecipe
 import sa.ksu.gpa.saleem.R
 
 
@@ -15,18 +16,26 @@ class AdminAdapter (private val list: List<MyAdmin>, var onActionClick: OnAction
         RecyclerView.ViewHolder(inflater.inflate(R.layout.admin_card, parent, false)) {
         private var title: TextView? = null
         private var delete: ImageView? = null
+        private var edit: ImageView? = null
+        private var date: TextView? = null
 
 
         init {
             title = itemView.findViewById(R.id.title)
             delete = itemView.findViewById(R.id.delete)
+            date = itemView.findViewById(R.id.date)
+            edit = itemView.findViewById(R.id.edit)
         }
 
         fun bind(MyAdmin: MyAdmin, onActionClick: OnActionClick) {
             title?.text = MyAdmin.title
+           // date?.text = myRecipe.Date
             delete?.setOnClickListener(View.OnClickListener {
                 onActionClick.onDelete(MyAdmin,adapterPosition)
             })
+        /*    edit?.setOnClickListener(View.OnClickListener {
+                onActionClick.onEdit(MyAdmin,adapterPosition)
+            })*/
 
         }
 
@@ -49,6 +58,7 @@ class AdminAdapter (private val list: List<MyAdmin>, var onActionClick: OnAction
 
     interface OnActionClick{
         fun onClick(item: MyAdmin, position:Int)
+
         fun onDelete(item: MyAdmin, position:Int)
     }
 }
