@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/recipe_info_image"
+            android:layout_width="match_parent"
+            android:src="@drawable/workoutpic"
+            android:scaleType="centerCrop"
+            android:layout_height="240dp">
+        </ImageView>
+
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="380dp"
+            android:layout_marginTop="10dp"
+
+            android:tint="@color/gray_btn_bg_pressed_color"
+
+            android:src="@drawable/kk"></ImageView>
+
+
+        <LinearLayout
+            android:layout_marginTop="190dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:background="@drawable/recipe_info_rectangluer"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/recipe_info_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="بيتزا"
+                android:textStyle="bold"
+                android:textSize="35dp"
+                android:textColor="#4F329A"
+                >
+
+            </TextView>
+
+
+            <LinearLayout
+                android:layout_width="300dp"
+                android:orientation="horizontal"
+                android:layout_height="90dp"
+                android:background="@drawable/recipe_info_rectangluer"
+                android:backgroundTint="#E8E7E1"
+                android:weightSum="2"
+                android:layout_marginTop="35dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center
+"
+                android:layout_marginBottom="35dp"
+
+                >
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:weightSum="2"
+                    android:orientation="vertical"
+                    >
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="السعرات:"
+                        android:textColor="#85111111"
+                        android:textSize="15dp"
+                        >
+
+                    </TextView>
+
+                    <TextView
+                        android:id="@+id/recipe_info_calories"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:text="1230"
+                        android:textColor="#85111111"
+                        android:textSize="15dp"
+                        >
+
+                    </TextView>
+                </LinearLayout>
+
+
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:layout_weight="0.01"
+                    android:background="#C3C4BC ">
+
+                </View>
+
+                <TextView
+
+                    android:id="@+id/recipe_info_types"
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="  #نباتي
+                                   #قليل العسرات
+                                   #قليل العسرات
+                                   #قليل العسرات
+                                   #قليل العسرات
+                                   #قليل العسرات"
+                    android:textColor="#85111111"
+                    android:gravity="center"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="0dp"
+                    android:textSize="12dp">
+
+                </TextView>
+            </LinearLayout>
+
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="المكونات"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:gravity="right"
+                android:textColor="#4F329A"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                ></TextView>
+            <LinearLayout
+                android:id="@+id/recipe_info_ings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="15dp"
+                android:padding="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
+                android:background="@drawable/ingredints_directoins_shape"
+                >
+            </LinearLayout>
+            <TextView
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="الطريقة"
+                android:textSize="25dp"
+                android:textStyle="bold"
+                android:gravity="right"
+                android:textColor="#4F329A"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="10dp"
+                ></TextView>
+            <TextView
+                android:id="@+id/recipe_info_dirctions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:padding="15dp"
+                android:textSize="15dp"
+                android:layout_margin="15dp"
+                android:background="@drawable/ingredints_directoins_shape"
+                >
+            </TextView>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</ScrollView>
