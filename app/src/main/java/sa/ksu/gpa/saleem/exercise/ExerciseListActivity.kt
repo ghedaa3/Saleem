@@ -2,6 +2,7 @@ package sa.ksu.gpa.saleem.exercise
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -9,32 +10,39 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_exercise_list.*
 import kotlinx.android.synthetic.main.activity_viewsharedrecipe.bottomNavigation
+import kotlinx.android.synthetic.main.fragment_home_body.*
+import kotlinx.android.synthetic.main.home_fragment.*
 import sa.ksu.gpa.saleem.HomeFragment
 import sa.ksu.gpa.saleem.R
 import sa.ksu.gpa.saleem.SettingFragment
 import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class ExerciseListActivity : AppCompatActivity() {
 
+    private  var  currentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
+    private lateinit var db: FirebaseFirestore
 
     @SuppressLint("ResourceType")
     override fun onCreate(savedInstanceState: Bundle?) {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_exercise_list)
+        db = FirebaseFirestore.getInstance()
 
         var pageTitle = findViewById<View>(R.id.titleb) as TextView
         var pageTitle1 = findViewById<View>(R.id.title1) as TextView
         var pageTitle2 = findViewById<View>(R.id.title2) as TextView
 
-        /* pageTitle.setOnClickListener(this)
-        pageTitle1.setOnClickListener(this)
-        pageTitle2.setOnClickListener(this)*/
 
-
-        /*    var title=pageTitle.toString()*/
 
         Log.d("exerActList1", "" + pageTitle.text.toString())
 
@@ -127,42 +135,37 @@ class ExerciseListActivity : AppCompatActivity() {
         transaction.commit()
     }
 
-
-    /*   override fun onClick(v: View?) {
-        when (v?.id) {
-            R.id.beginner -> {
-
-
-                val intent = Intent(this, ExerciseActivity::class.java)
+    fun onDeleteWater(view: View) {
+        add_water.removeView(view.getParent() as View)
+        db.collection("users").document(currentuser!!).collection("Water").document(getCurrentDate()).update("amountOfWater", FieldValue.increment(-1))
+        updateWater()
 
 
-                intent.putExtra("title",titleb.text)
+    }
+    private fun  updateWater(){
+        var totalWaterAmount = 0
+        db.collection("users").document(currentuser!!)
+            .collection("Water").document(getCurrentDate()).get().addOnSuccessListener {
+                if (it.exists()){
+                    totalWaterAmount=it.get("amountOfWater").toString().toInt()
 
+                }
+                if(totalWaterAmount!=null)
+                    waterAmountTV.text= totalWaterAmount.toString()
+                else
+                    waterAmountTV.text="0"
             }
-            R.id.intermediate -> {
-
-
-                val intent = Intent(this, ExerciseActivity::class.java)
-
-
-                intent.putExtra("title",title1.text)
-
-
-            }
-            R.id.advance->{
-
-                val intent = Intent(this, ExerciseActivity::class.java)
-
-
-                intent.putExtra("title",title2.text)
-
-            }
-
-            else -> {
-
-            }
+    }
+    fun getCurrentDate():String {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val current = LocalDateTime.now()
+            val formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd")
+            val formatted = current.format(formatter)
+            return formatted
         }
-    }*/
+        val sdf = SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH)
+        val currentDate = sdf.format(Date())
+        return "$currentDate"}
 
 
 }

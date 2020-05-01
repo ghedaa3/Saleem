@@ -11,38 +11,38 @@
 
 
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="70dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="70dp">
 
-            <ImageView
-                android:id="@+id/back_button"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="32dp"
-                android:clickable="true"
-                android:focusable="true"
-                android:foreground="?attr/selectableItemBackground"
-                android:src="@drawable/kk"
-                >
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="32dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:foreground="?attr/selectableItemBackground"
+            android:src="@drawable/kk"
+            >
 
-            </ImageView>
+        </ImageView>
 
-            <TextView
-                android:id="@+id/userName"
-                android:layout_width="wrap_content"
-                android:layout_height="70dp"
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="الإشعارات"
-                android:textColor="#4F329A"
-                android:textSize="30dp"
-                android:textStyle="bold"
-                app:layout_anchorGravity="center" />
-        </RelativeLayout>
+        <TextView
+            android:id="@+id/userName"
+            android:layout_width="wrap_content"
+            android:layout_height="70dp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="الإشعارات"
+            android:textColor="#4F329A"
+            android:textSize="30dp"
+            android:textStyle="bold"
+            app:layout_anchorGravity="center" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -68,6 +68,9 @@
             android:text="حالة الاشعارات"
             android:textSize="16dp" />
 
+
+
+
         <Switch
             android:id="@+id/switchw"
             android:layout_width="wrap_content"
@@ -76,35 +79,23 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp" />
     </LinearLayout>
+
     <LinearLayout
-        android:visibility="gone"
-        android:layout_width="match_parent"
+        android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="330dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
             android:layout_marginEnd="16dp"
             android:layout_weight="1"
-            android:text="وقت التنبيه"
-            android:textSize="16dp" />
+            android:text="سوف تصلك اشعارات لتذكيرك بالوجبات و شرب المياه و اشعار عن مستواك خلال الاسبوع"
+            android:textSize="12dp" />
 
-        <TextView
-            android:padding="4dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:id="@+id/tv_time"
-            android:text="00:00"
-            android:textSize="20sp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp" />
+
     </LinearLayout>
 
     <LinearLayout
