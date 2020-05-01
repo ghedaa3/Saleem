@@ -11,37 +11,67 @@
 
 
 
+<!--    <RelativeLayout-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="70dp">-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/back_button"-->
+<!--            android:layout_width="20dp"-->
+<!--            android:layout_height="20dp"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginRight="32dp"-->
+<!--            android:clickable="true"-->
+<!--            android:focusable="true"-->
+<!--            android:foreground="?attr/selectableItemBackground"-->
+<!--            android:src="@drawable/kk"-->
+<!--            >-->
+
+<!--        </ImageView>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/userName"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="70dp"-->
+<!--            android:layout_centerInParent="true"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:gravity="center"-->
+<!--            android:text="الإشعارات"-->
+<!--            android:textColor="#4F329A"-->
+<!--            android:textSize="30dp"-->
+<!--            android:textStyle="bold"-->
+<!--            app:layout_anchorGravity="center" />-->
+<!--    </RelativeLayout>-->
+
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp">
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content">
 
-        <ImageView
-            android:id="@+id/back_button"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="32dp"
-            android:clickable="true"
-            android:focusable="true"
-            android:foreground="?attr/selectableItemBackground"
-            android:src="@drawable/kk"
-            >
-
-        </ImageView>
 
         <TextView
             android:id="@+id/userName"
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_centerInParent="true"
-            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="الإشعارات"
+            android:text="الإشعارات "
+            android:layout_gravity="center"
             android:textColor="#4F329A"
             android:textSize="30dp"
             android:textStyle="bold"
+            app:layout_anchor="@+id/appbar"
             app:layout_anchorGravity="center" />
+
+        <ImageView
+            android:id="@+id/back_button"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:layout_marginTop="10dp"
+            android:tint="@color/gray_btn_bg_pressed_color"
+            android:layout_marginLeft="340dp"
+            android:src="@drawable/kk">
+        </ImageView>
     </RelativeLayout>
 
     <LinearLayout
