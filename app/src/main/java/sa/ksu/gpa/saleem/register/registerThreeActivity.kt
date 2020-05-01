@@ -120,13 +120,13 @@ class registerThreeActivity : AppCompatActivity() ,View.OnClickListener {
                 val length = getIntent().getDoubleExtra("height", 0.0)
                 var weight = getIntent().getDoubleExtra("wight", 0.0)
                 var gender = getIntent().getStringExtra("gender")
-                var bmii = getIntent().getDoubleExtra("bmi", 0.0)
+                var bmi = getIntent().getDoubleExtra("BMI", 0.0)
                // var age = getIntent().getIntExtra("age", 0)
                 var userAge = getIntent().getStringExtra("userAge")
                 var agee = getIntent().getIntExtra("agee", 0)
                 intent.putExtra("agee", agee)
 
-                var bmi = (weight) / (length / 100 * length / 100)
+              //  var bmi = (weight) / (length / 100 * length / 100)
 
 
                 var name = getIntent().getStringExtra("name")
