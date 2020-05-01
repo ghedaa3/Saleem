@@ -29,6 +29,7 @@ class ReportedRecipesAdapter (private val list: List<ReportedRecipes>, var onAct
 
             delete = itemView.findViewById(R.id.delete)
 
+
         }
 
         fun bind(ReportedRecipes: ReportedRecipes, onActionClick: OnActionClick) {
@@ -37,6 +38,10 @@ class ReportedRecipesAdapter (private val list: List<ReportedRecipes>, var onAct
             delete?.setOnClickListener(View.OnClickListener {
                 onActionClick.onDelete(ReportedRecipes,adapterPosition)
             })
+            /*
+            edit?.setOnClickListener(View.OnClickListener {
+                onActionClick.onEdit(ReportedRecipes,adapterPosition)
+            })*/
 
 
         }
@@ -74,5 +79,6 @@ class ReportedRecipesAdapter (private val list: List<ReportedRecipes>, var onAct
     interface OnActionClick{
         fun onClick(item: ReportedRecipes, position:Int)
         fun onDelete(item: ReportedRecipes, position:Int)
+
     }
 }

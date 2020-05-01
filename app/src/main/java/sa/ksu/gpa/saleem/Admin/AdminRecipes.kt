@@ -4,13 +4,19 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.bumptech.glide.annotation.GlideModule
+import com.bumptech.glide.module.AppGlideModule
 import android.util.Log
+import android.view.View
+import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_admin_recipes.*
 import sa.ksu.gpa.saleem.R
 import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity
+import sa.ksu.gpa.saleem.recipe.ViewRecipe
 import sa.ksu.gpa.saleem.recipe.sharedRecipeInformaion
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -31,6 +37,11 @@ class AdminRecipes : AppCompatActivity() {
         setContentView(R.layout.activity_admin_recipes)
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.recyclerViewRepRec)
+
+  /*      var title =findViewById<View>(R.id.title) as TextView
+        var tit=intent.getStringExtra("pageTitle")
+        title.setText(tit)*/
+
         rep_rep_back_button.setOnClickListener {
             onBackPressed()
         }
@@ -56,6 +67,7 @@ class AdminRecipes : AppCompatActivity() {
 
                         override fun onClick(item: ReportedRecipes, position: Int) {
                             showDescItem(item, position)
+
                             // editExcercizeDialog(item,key_list[position], position)
                         }
 
@@ -84,21 +96,33 @@ class AdminRecipes : AppCompatActivity() {
     }
 
     private fun showDescItem(item: ReportedRecipes, position: Int) {
+
+        val intent = Intent(this, ViewRecipe::class.java)
+        intent.putExtra("RecipeId",recipeID)
         adapter.notifyDataSetChanged()
 
     }
 
     private fun deleteItem(item: ReportedRecipes, position: Int, key: String) {
-   /*     list.removeAt(position)
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText("هل متاكد من حذف الوصفة؟")
+            .setConfirmButton("نعم") { sDialog -> sDialog.dismissWithAnimation()
+        list.removeAt(position)
         key_list.removeAt(position)
         adapter.notifyDataSetChanged()
         db.collection("Recipes").document(key).delete()
             .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully deleted!") }
-            .addOnFailureListener { e -> Log.w("TAG", "Error deleting document", e) }*/
-        val intent = Intent(this, sharedRecipeInformaion::class.java)
-        intent.putExtra("RecipeId",key)
+            .addOnFailureListener { e -> Log.w("TAG", "Error deleting document", e) }
+            }.setCancelButton("إلغاء"){
+                it.dismissWithAnimation()
 
-        startActivity(intent)
+            }
+            .show()
+
+        /*    val intent = Intent(this, sharedRecipeInformaion::class.java)
+            intent.putExtra("RecipeId",key)
+
+            startActivity(intent)*/
 
 
     }

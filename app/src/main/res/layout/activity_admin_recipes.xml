@@ -43,7 +43,7 @@ tools:context=".Admin.AdminRecipes">
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/recyclerViewRepRec"
-        tools:listitem="@layout/item_my_food"
+        tools:listitem="@layout/admin_card"
         />
 </ScrollView>
 
