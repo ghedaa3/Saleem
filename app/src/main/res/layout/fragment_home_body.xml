@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+<ScrollView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -193,40 +195,43 @@
         </LinearLayout>
 
 
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
         <LinearLayout
+            android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_margin="8dp"
+            android:layout_margin="4dp"
             android:background="@drawable/bg_radus_white"
             android:clickable="true"
             android:elevation="4dp"
             android:focusable="true"
             android:foreground="?attr/selectableItemBackground"
-            android:gravity="center"
             android:orientation="horizontal"
             android:id="@+id/add_water">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:text="@string/add_water"
-                android:textColor="@color/material_blue_grey_80"
-                android:textSize="18sp"
-                android:textStyle="bold" />
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_margin="8dp"
+                android:id="@+id/addGlass"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_margin="4dp"
+                android:layout_gravity="center"
                 android:src="@drawable/add_glass"
                 android:alpha="0.5"/>
         </LinearLayout>
+</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:orientation="vertical">
 
+        </LinearLayout>
     </LinearLayout>
 
 
+</ScrollView>
 </LinearLayout>

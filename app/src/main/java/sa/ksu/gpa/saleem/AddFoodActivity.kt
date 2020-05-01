@@ -228,13 +228,7 @@ class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String
                 list.removeAt(position)
                 notifyDataSetChanged()
             }
-//            holder.amount.text = list[position].amount
-//            holder.weight.text = list[position].weight
-//  var addIngredientcomp: LinearLayout? = null
-//        var spFood: Spinner? = null
-//        var spWeight: Spinner? = null
-//        var etNumber: EditText? = null
-//        var deleteButton: Button? = null
+
         }
 
 
@@ -318,7 +312,6 @@ class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String
 
             onSave.onSaveSuccess(sum)
             dismiss()
-//                intent.putExtra("object",Gson().toJson(listdata))
 
         }.addOnFailureListener {
             dialog.dismiss()

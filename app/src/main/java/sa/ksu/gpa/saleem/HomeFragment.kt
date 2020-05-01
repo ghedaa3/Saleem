@@ -5,6 +5,7 @@ import android.Manifest
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.ProgressDialog
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Color
@@ -24,6 +25,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.leinardi.android.speeddial.SpeedDialActionItem
 import com.leinardi.android.speeddial.SpeedDialView
@@ -32,10 +34,11 @@ import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcercise
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.addExcerciseburentCal
 import kotlinx.android.synthetic.main.add_excercise_dialog.view.cancelExcercise
 import kotlinx.android.synthetic.main.add_fast_food.view.*
-import kotlinx.android.synthetic.main.add_water.view.*
 import kotlinx.android.synthetic.main.advice_dialog.view.*
 import kotlinx.android.synthetic.main.fragment_home_body.*
 import kotlinx.android.synthetic.main.home_fragment.*
+import kotlinx.android.synthetic.main.water_field.*
+import kotlinx.android.synthetic.main.water_field.view.*
 import sa.ksu.gpa.saleem.AddFoodActivity.OnSave
 import sa.ksu.gpa.saleem.Timer.TimerSettings
 import sa.ksu.gpa.saleem.recipe.ShareRecipeFirst
@@ -58,18 +61,22 @@ class HomeFragment : Fragment() {
     var previousDaysCount = 0
     var history_Id = ""
     lateinit var speedDialView:SpeedDialView
+     var counter:Int=0
 
     var currentuser = ""
     private var waterCount=0
     private lateinit var adviceID:String
     private lateinit var pagerAdapter: PagerAdapter
     private lateinit var date: String
+
     lateinit var dialog:ProgressDialog
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
+
     ): View? {
         // Inflate the layout for this fragment
+
         return inflater.inflate(R.layout.home_fragment, container, false)
     }
 
@@ -78,6 +85,7 @@ class HomeFragment : Fragment() {
     @SuppressLint("ResourceType")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         date = getCurrentDate()
         tvDate.text = date
         pagerAdapter = activity?.supportFragmentManager?.let { PagerAdapter(it,date) }!!
@@ -102,18 +110,22 @@ class HomeFragment : Fragment() {
             }
 
         }
+
+
 //        view.findViewById<ImageView>(R.id.ivAddView).setOnClickListener { addFood() }
         view.findViewById<LinearLayout>(R.id.add_breakfast).setOnClickListener { addFood("breakfast") }
         view.findViewById<LinearLayout>(R.id.add_lunch).setOnClickListener { addFood("lunch") }
         view.findViewById<LinearLayout>(R.id.add_dinner).setOnClickListener { addFood("dinner") }
         view.findViewById<ImageView>(R.id.adviceFlag).setOnClickListener { onFlagClicked() }
-        view.findViewById<LinearLayout>(R.id.add_water).setOnClickListener { addWater() }
+        view.findViewById<ImageView>(R.id.addGlass).setOnClickListener { addWater() }
+
         view.findViewById<LinearLayout>(R.id.add_snack).setOnClickListener { addFood("snack") }
 
         db= FirebaseFirestore.getInstance()
         currentuser = FirebaseAuth.getInstance().currentUser?.uid.toString()
         ubdateBurntCaloris()
         updateWater()
+        retriveWater()
         initSpeedDialView()
 
 
@@ -148,6 +160,9 @@ class HomeFragment : Fragment() {
                 }
             }
     }
+
+
+
     @SuppressLint("ResourceType")
     private fun initSpeedDialView() {
         speedDialView = view!!.findViewById<SpeedDialView>(R.id.speedDial)
@@ -359,60 +374,13 @@ class HomeFragment : Fragment() {
 
         }
     }
-    private fun addWater(){
-        val mDialogView = LayoutInflater.from(context).inflate(R.layout.add_water, null)
-        val mBuilder = activity?.let {
-            AlertDialog.Builder(it)
-                .setView(mDialogView)
-        }
 
-        val  mAlertDialog = mBuilder?.show()
-        mAlertDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
-        var water = mDialogView.addWaterAmount!!.text
-        Log.d("this",""+water)
-
-        mDialogView.addWaterBtn.setOnClickListener{
-
-            if (water.isEmpty()){
-                Toast.makeText(context, "لا يمكن ترك هذه الخانة فارغة", Toast.LENGTH_LONG).show()
-            }
-            else{
-                var waterStringData = water.toString()
-                var data =  waterStringData.toInt()
-                waterCount += data
-
-                if(data>15 || waterCount>15){
-                    waterCount -= data
-                    Toast.makeText(context,"هذه الكمية أكثر من الاحتياج اليومي للماء",Toast.LENGTH_SHORT).show() }
-
-                else{
-                    val docData = hashMapOf(
-                        "date" to getCurrentDate(),
-                        "user_id" to currentuser,
-                        "amountOfWater" to waterStringData.toInt() )
-                    db.collection("users").document(currentuser!!).collection("Water")
-                        .document().set(docData)
-                        .addOnSuccessListener {
-                            Toast.makeText(context,"تمت إضافة كمية الماء",Toast.LENGTH_SHORT).show()
-                        }.addOnFailureListener {
-                            Toast.makeText(context,"حصل خطأ في عملية الإضافة",Toast.LENGTH_SHORT).show();
-                        }
-                    mAlertDialog?.dismiss()
-                    updateWater()
-                }
-            }
-        }
-        mDialogView.cancelWaterBtn.setOnClickListener{
-            mAlertDialog?.dismiss()
-        }
-    }
-//useless comment
     private fun  updateWater(){
         var totalWaterAmount = 0
         db.collection("users").document(currentuser!!)
-            .collection("Water").whereEqualTo("date",getCurrentDate()).get().addOnSuccessListener {
-                for (documents in it){
-                    totalWaterAmount+=documents.get("amountOfWater").toString().toInt()
+            .collection("Water").document(getCurrentDate()).get().addOnSuccessListener {
+                if (it.exists()){
+                    totalWaterAmount=it.get("amountOfWater").toString().toInt()
 
                 }
                 if(totalWaterAmount!=null)
@@ -523,24 +491,63 @@ class HomeFragment : Fragment() {
 
     }
 
-//    private fun addWater() {
-//        if (counter < 8) {
-//            val inflater = activity
-//                ?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-//            val rowView = inflater.inflate(R.layout.water_field, null)
-//            waterInnerLL.addView(rowView, waterInnerLL.childCount - 1)
-//            counter++
-//            waterAmountTV.text = "$counter"
-//            rowView.setOnClickListener { myOnClick(rowView) }
-//        }
-//    }
-//    fun myOnClick(v: View) {
-//        if (counter > 0) {
-//            waterInnerLL.removeView(v.parent as View)
-//            counter--
-//            waterAmountTV.text = "$counter"
-//        }
-//    }
+    private fun addWater() {
+        val inflater = context
+            ?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val rowView = inflater.inflate(R.layout.water_field, null)
+       if(add_water.childCount!=9) {
+           val docData = hashMapOf(
+               // "UID" to currentUser!!.toString(),
+               "amountOfWater" to 1
+
+           )
+           add_water.addView(rowView, add_water.childCount - 1)
+           db.collection("users").document(currentuser).collection("Water")
+               .document(getCurrentDate()).get().addOnSuccessListener {
+               if (!it.exists()) {
+                   db.collection("users").document(currentuser).collection("Water")
+                       .document(getCurrentDate()).set(docData)
+                   updateWater()
+               } else {
+                   db.collection("users").document(currentuser).collection("Water")
+                       .document(getCurrentDate()).update("amountOfWater", FieldValue.increment(1))
+                   updateWater()
+               }
+           }
+
+
+       }
+    }
+
+    private fun retriveWater() {
+          db.collection("users").document(currentuser).collection("Water").document(getCurrentDate()).get().addOnSuccessListener {
+             counter= it.get("amountOfWater").toString().toInt()
+              Log.e("inside if success","counter"+counter)
+              if (counter!=null||counter!=0){
+                  Log.e("inside if counter","counter"+counter)
+
+                  retriveViews()
+              }
+
+          }
+
+    }
+
+    private fun retriveViews() {
+       var i = counter
+        Log.e("counter","counter"+counter)
+
+        while (i!=0){
+                val inflater = context
+                    ?.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+                val rowView = inflater.inflate(R.layout.water_field, null)
+                add_water.addView(rowView, add_water.childCount - 1)
+                i--
+            }
+
+
+
+    }
 
 
     fun showAddFood(data: ArrayList<String>,type_of_food:String) {
