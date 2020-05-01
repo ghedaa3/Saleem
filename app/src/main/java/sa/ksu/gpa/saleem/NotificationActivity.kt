@@ -47,10 +47,10 @@ class NotificationActivity : AppCompatActivity() {
                     ForegroundService.stopService(this)
                 }
             }
-        }
+       // }
 
-        tv_time.setOnClickListener{
-            showTime()
+//        tv_time.setOnClickListener{
+//            showTime()
         }
     }
 
@@ -92,7 +92,7 @@ class NotificationActivity : AppCompatActivity() {
         val mTimePicker: TimePickerDialog
         mTimePicker = TimePickerDialog(this@NotificationActivity,
             OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
-                tv_time.setText("$selectedHour:$selectedMinute")
+//                tv_time.setText("$selectedHour:$selectedMinute")
                 cal = Calendar.getInstance()
                 cal.set(Calendar.HOUR, selectedHour)
                 cal.set(Calendar.MINUTE, selectedMinute)

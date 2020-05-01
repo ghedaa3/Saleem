@@ -521,12 +521,16 @@ class HomeFragment : Fragment() {
 
     private fun retriveWater() {
           db.collection("users").document(currentuser).collection("Water").document(getCurrentDate()).get().addOnSuccessListener {
+              if(it.exists()){
+
+
              counter= it.get("amountOfWater").toString().toInt()
               Log.e("inside if success","counter"+counter)
               if (counter!=null||counter!=0){
                   Log.e("inside if counter","counter"+counter)
 
                   retriveViews()
+              }
               }
 
           }
