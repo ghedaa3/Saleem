@@ -117,6 +117,10 @@ class registerTwoActivity : AppCompatActivity(),View.OnClickListener {
                 intent.putExtra("height", height)
 
 
+                var bmi = (wight)/(height/100*height/100)
+                intent.putExtra("BMI",bmi)
+
+
 
 
 

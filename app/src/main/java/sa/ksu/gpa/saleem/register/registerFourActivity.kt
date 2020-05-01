@@ -23,6 +23,8 @@ import kotlinx.android.synthetic.main.activity_fragment_one.*
 import kotlinx.android.synthetic.main.activity_register_one.*
 import kotlinx.android.synthetic.main.activity_register_two.*
 import sa.ksu.gpa.saleem.*
+import java.math.RoundingMode
+import java.text.DecimalFormat
 import java.util.*
 import java.util.logging.Level
 import kotlin.properties.Delegates
@@ -62,7 +64,6 @@ class registerFourActivity : AppCompatActivity() ,View.OnClickListener {
         setContentView(R.layout.activity_register_four)
        // val intent = Intent(this, MainActivity::class.java)
 
-
         val intent = Intent(this, loginn::class.java)
 
         val toolbar = findViewById<View>(R.id.toolbar)
@@ -72,6 +73,8 @@ class registerFourActivity : AppCompatActivity() ,View.OnClickListener {
 
        auth = FirebaseAuth.getInstance()
 
+        var bmi = getIntent().getDoubleExtra("BMI",0.0)
+        Log.d("this4", "" + bmi)
 
         val btn=findViewById<View>(R.id.startBtn) as Button?
         val one=findViewById<View>(R.id.goalOneBtn) as Button?
@@ -101,17 +104,27 @@ class registerFourActivity : AppCompatActivity() ,View.OnClickListener {
                 one.setBackgroundResource(R.drawable.unclick);
                 button_background=1;
             } else if(button_background==1){
+
+               if(bmi<18.5){
+                   one.setBackgroundResource(R.drawable.unclick);
+                   two?.setBackgroundResource(R.drawable.unclick)
+                   three?.setBackgroundResource(R.drawable.unclick)
+                   showDialogWithOkButton1("لا يمكن اختيار الهدف لان كتلة الجسم نحيف جداً")
+
+               }else
+
                 one.setBackgroundResource(R.drawable.register_btn);
                 two?.setBackgroundResource(R.drawable.unclick)
                 three?.setBackgroundResource(R.drawable.unclick)
                 button_background=2;
+                goal = 1
+                clicked=true;
             }
          //   user.put("level","beginner")
-            goal = 1
-           clicked=true;
+
         }
         two?.setOnClickListener{
-            if(button_background==2){
+           if(button_background==2){
                 two?.setBackgroundResource(R.drawable.unclick);
                 button_background=1;
             } else if(button_background==1){
@@ -132,15 +145,23 @@ class registerFourActivity : AppCompatActivity() ,View.OnClickListener {
                 three?.setBackgroundResource(R.drawable.unclick);
                 button_background=1;
             } else if(button_background==1){
+                if(bmi>25){
+                    one?.setBackgroundResource(R.drawable.unclick);
+                    two?.setBackgroundResource(R.drawable.unclick)
+                    three?.setBackgroundResource(R.drawable.unclick)
+                    showDialogWithOkButton1("لا يمكن اختيار الهدف لان كتلة الجسم وزن زائد ")
+
+                }else
                 three?.setBackgroundResource(R.drawable.register_btn);
                 two?.setBackgroundResource(R.drawable.unclick)
                 one?.setBackgroundResource(R.drawable.unclick)
                 button_background=2;
+                goal = 3
+                clicked=true;
             }
 
            // user.put("level","advance")
-           goal = 3
-          clicked=true;
+
         }
 
 
@@ -149,7 +170,7 @@ class registerFourActivity : AppCompatActivity() ,View.OnClickListener {
         var length = getIntent().getDoubleExtra("height",0.0)
         var weight=getIntent().getDoubleExtra("wight",0.0)
         var gender = getIntent().getStringExtra("gender")
-        var bmi = getIntent().getDoubleExtra("bmi",0.0)
+
         level = getIntent().getIntExtra("level",0)
         var userAge= getIntent().getStringExtra("userAge")
 
@@ -299,6 +320,18 @@ else return true
             .show()
     }
 
+    private fun showDialogWithOkButton1(msg: String) {
+        SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
+            .setTitleText(msg)
+            .setConfirmButton("حسناً") { sDialog ->
+                sDialog.dismissWithAnimation()
+
+
+            }
+            .show()
+    }
+
+
     private fun showDialogWithOkButton4(msg: String) {
         SweetAlertDialog(this, SweetAlertDialog.SUCCESS_TYPE)
             .setTitleText(msg)
@@ -416,9 +449,10 @@ else return true
                         )
                        // startActivity(Intent(this, loginn::class.java))
 
+                        var num =roundOffDecimal(calNeeded)
                         showDialogWithOkButton4(" " +
                                 "تم انشاء الحساب بنجاح  \n السعرات الحرارية" +
-                                "\n"+calNeeded)
+                                "\n"+num)
 
 
                   /*      if (auth.getCurrentUser()!!.isEmailVerified()) {
@@ -534,6 +568,16 @@ else return true
         }
 
 
+    }
+
+    fun roundOffDecimal(number: Double): String? {
+
+
+        val df = DecimalFormat("#.##")
+        df.roundingMode = RoundingMode.CEILING
+        val num=df.format(number)
+
+        return num
     }
 
 }
