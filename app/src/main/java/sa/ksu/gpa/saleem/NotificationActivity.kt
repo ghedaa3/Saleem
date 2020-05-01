@@ -49,9 +49,9 @@ class NotificationActivity : AppCompatActivity() {
             }
         }
 
-        tv_time.setOnClickListener{
+       /* tv_time.setOnClickListener{
             showTime()
-        }
+        }*/
     }
 
     fun addCounterToPref(counter:Int){
@@ -92,7 +92,7 @@ class NotificationActivity : AppCompatActivity() {
         val mTimePicker: TimePickerDialog
         mTimePicker = TimePickerDialog(this@NotificationActivity,
             OnTimeSetListener { timePicker, selectedHour, selectedMinute ->
-                tv_time.setText("$selectedHour:$selectedMinute")
+                //tv_time.setText("$selectedHour:$selectedMinute")
                 cal = Calendar.getInstance()
                 cal.set(Calendar.HOUR, selectedHour)
                 cal.set(Calendar.MINUTE, selectedMinute)
