@@ -439,6 +439,7 @@ class HomeFragment : Fragment() {
 
         mDialogView.dialogShareBtn.setOnClickListener{
             var body = mDialogView.dialogAdviceET!!.editText!!.text
+            var advice = advicesTV.text.toString()
 
             when {
                 body.length > 140 -> {
@@ -454,7 +455,8 @@ class HomeFragment : Fragment() {
                         "text" to body1,
                         "reporterUID" to currentuser,
                         "adviceID" to adviceID,
-                        "date" to getCurrentDate()
+                        "date" to getCurrentDate(),
+                        "advice" to advice
                     )
 
                     db.collection("ReportedAdvices").document().set(docData).addOnSuccessListener {
@@ -730,7 +732,7 @@ class HomeFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         tvDate.text = getSelectedDate(previousDaysCount)
-        advicesTV.text = showAddAdvice().toString()
+        showAddAdvice()
     }
     private fun makeRequest() {
         ActivityCompat.requestPermissions((context as Activity?)!!, arrayOf(Manifest.permission.CAMERA),CAMERA_REQUEST_CODE)
