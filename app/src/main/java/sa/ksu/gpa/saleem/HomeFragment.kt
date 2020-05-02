@@ -596,6 +596,7 @@ class HomeFragment : Fragment() {
             }
         }
         var dialog: AddFoodActivity? = context?.let { AddFoodActivity(it,null,type_of_food,null,onsave) }
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
 
         dialog?.show()
 
