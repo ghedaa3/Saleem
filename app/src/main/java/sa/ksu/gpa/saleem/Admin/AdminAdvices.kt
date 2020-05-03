@@ -32,6 +32,7 @@ class AdminAdvices : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     lateinit var recyclerView: RecyclerView
     lateinit var adviceID: String
+    lateinit var advice: String
     lateinit var title: String
     var cal: Double = 0.0
     var key_list: ArrayList<String> = ArrayList()
@@ -55,8 +56,9 @@ class AdminAdvices : AppCompatActivity() {
                     key_list.add(document.id)
                     var userID = document.get("reporterUID").toString()
                     adviceID = document.get("adviceID").toString()
+                    advice = document.get("advice").toString()
                     var report = document.get("text").toString()
-                    var reportedAdv = ReportedAdvices(userID, adviceID, report)
+                    var reportedAdv = ReportedAdvices(userID, adviceID, report, advice)
                     list.add(reportedAdv)
                     Log.d("ADMIN", "List : " + list)
 
@@ -92,7 +94,7 @@ class AdminAdvices : AppCompatActivity() {
     }
 
     private fun showDescItem(item: ReportedAdvices, position: Int) {
-        editAdviceDialog(item, key_list[position], position)
+        showAdviceDialog(item, key_list[position], position)
         adapter.notifyDataSetChanged()
 
     }
@@ -106,7 +108,7 @@ class AdminAdvices : AppCompatActivity() {
                 list.removeAt(position)
                 key_list.removeAt(position)
                 adapter.notifyDataSetChanged()
-                db.collection("Advices").document(key).delete()
+                db.collection("ReportedAdvices").document(key).delete()
                     .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully deleted!") }
                     .addOnFailureListener { e ->
                         Log.w("TAG", "Error deleting document", e)
@@ -123,22 +125,16 @@ class AdminAdvices : AppCompatActivity() {
         adapter.notifyDataSetChanged()
     }
 
-    private fun editAdviceDialog(item: ReportedAdvices, key: String, position: Int) {
+    private fun showAdviceDialog(item: ReportedAdvices, key: String, position: Int) {
 
-        db.collection("Advices").whereEqualTo("UID", adviceID).get()
+        db.collection("ReportedAdvices").whereEqualTo("advice", advice).get()
             .addOnSuccessListener { documents ->
                 for (document in documents) {
-                    key_list.add(document.id)
-                    title = document.get("text").toString()
-                    /*   var adviceID = document.get("adviceID").toString()
-                    var report = document.get("text").toString()*/
-
+                    advice = document.get("advice").toString()
                     Log.d("ADMIN", "List : " + list)
-
                 }
-
-                showDialogWithOkButton(title)
-
+                var text = list[position].advice
+                showDialogWithOkButton(text)
             }
     }
 

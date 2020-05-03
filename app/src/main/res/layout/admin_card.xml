@@ -12,6 +12,7 @@
     android:background="@drawable/bg_radus_white"
     android:orientation="horizontal">
     <LinearLayout
+        android:id="@+id/adminLL"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginRight="5dp"
