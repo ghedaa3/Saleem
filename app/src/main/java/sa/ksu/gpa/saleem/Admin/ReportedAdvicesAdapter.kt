@@ -4,7 +4,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import sa.ksu.gpa.saleem.R
 
@@ -15,12 +17,14 @@ class ReportedAdvicesAdapter (private val list: List<ReportedAdvices>, var onAct
         RecyclerView.ViewHolder(inflater.inflate(R.layout.admin_card, parent, false)) {
         private var title: TextView? = null
         private var delete: ImageView? = null
+        var linearLayout : LinearLayout? = null
 
 
         init {
             title = itemView.findViewById(R.id.title)
 
             delete = itemView.findViewById(R.id.delete)
+            linearLayout = itemView.findViewById(R.id.adminLL)
         }
 
         fun bind(ReportedAdvices: ReportedAdvices, onActionClick: OnActionClick) {
@@ -28,6 +32,9 @@ class ReportedAdvicesAdapter (private val list: List<ReportedAdvices>, var onAct
 
             delete?.setOnClickListener(View.OnClickListener {
                 onActionClick.onDelete(ReportedAdvices,adapterPosition)
+            })
+            linearLayout?.setOnClickListener(View.OnClickListener {
+                onActionClick.onClick(ReportedAdvices,adapterPosition)
             })
         }
 
