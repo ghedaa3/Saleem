@@ -33,7 +33,7 @@ class MyFoodActivity : AppCompatActivity() {
     private lateinit var db: FirebaseFirestore
     lateinit var recyclerView: RecyclerView
     var sum : Double = 0.0
-
+    var  history_Id = ""
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_my_food)
@@ -43,7 +43,21 @@ class MyFoodActivity : AppCompatActivity() {
         my_meals_back_button.setOnClickListener{
             onBackPressed()
         }
+        val currentuser = FirebaseAuth.getInstance().currentUser?.uid
+        db.collection("History")
+            .whereEqualTo("date", getCurrentDate())
+            .whereEqualTo("user_id", currentuser)
+            .get().addOnSuccessListener { documents ->
+
+                for (document in documents) {
+                    Log.d("hhh", "${document.id} => ${document.data}")
+                    history_Id = document.id
+
+                }
+            }
         getMyFoodsData()
+
+
 
     }
     var list:ArrayList<MyFood> = ArrayList()
@@ -89,7 +103,7 @@ class MyFoodActivity : AppCompatActivity() {
         SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
             .setTitleText("هل انت متأكد من حذف الوجبة؟")
             .setConfirmButton("نعم") { sDialog -> sDialog.dismissWithAnimation()
-                deleteItem(item,position, key_list[position])
+                deleteItem(item,position,history_Id)
 
 
             }.setCancelButton("إلغاء"){
@@ -134,7 +148,10 @@ class MyFoodActivity : AppCompatActivity() {
         val data = hashMapOf("cal" to cal)
 
         db.collection("History").document(key)
-            .set(data, SetOptions.merge())
+            .set(data, SetOptions.merge()).addOnSuccessListener {
+                Toast.makeText(this, "تم الحذف بنجاح", Toast.LENGTH_LONG).show()
+
+            }
 
     }
 

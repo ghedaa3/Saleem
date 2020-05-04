@@ -16,8 +16,7 @@
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-
-        <include layout="@layout/fragment_setting_body"/>
+        <include layout="@layout/fragment_setting_body" />
 
     </androidx.core.widget.NestedScrollView>
 
