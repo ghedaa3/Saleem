@@ -88,7 +88,7 @@
                             android:id="@+id/nameSignUp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily=""
+
                             android:text="الاسم:"
                             android:textColor="#474749"
                             android:textSize="20dp" />
@@ -164,7 +164,7 @@
                             android:id="@+id/emailSignUp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily=""
+
                             android:text="الإيميل:"
                             android:textColor="#474749"
                             android:textSize="18sp" />
@@ -239,7 +239,7 @@
                             android:id="@+id/wight"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily=""
+
                             android:text="الوزن:"
                             android:textColor="#474749"
                             android:textSize="18sp" />
@@ -315,7 +315,7 @@
                             android:id="@+id/heigh"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily=""
+
                             android:text="الطول:"
                             android:textColor="#474749"
                             android:textSize="18sp" />
@@ -393,7 +393,7 @@
                             android:id="@+id/neededCal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily=""
+
 
                             android:text="السعرات الحرارية:"
                             android:textColor="#474749"
@@ -470,7 +470,7 @@
                             android:id="@+id/gender"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily=""
+
                             android:text="الجنس:"
                             android:textColor="#474749"
                             android:textSize="18sp" />
@@ -547,7 +547,7 @@
                             android:id="@+id/bmi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily=""
+
                             android:text="كتلة الجسم:"
                             android:textColor="#474749"
                             android:textSize="18sp" />
@@ -620,7 +620,7 @@
                             android:id="@+id/age"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily=""
+
                             android:text="العمر:"
                             android:textColor="#474749"
                             android:textSize="18sp" />
@@ -697,7 +697,7 @@
                             android:id="@+id/level"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily=""
+
                             android:text="المستوى:"
                             android:textColor="#474749"
                             android:textSize="18sp" />
@@ -770,7 +770,7 @@
                             android:id="@+id/goal"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily=""
+
                             android:text="الهدف:"
                             android:textColor="#474749"
                             android:textSize="18sp" />
