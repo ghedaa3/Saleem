@@ -498,7 +498,7 @@ class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
                     Log.d("please","added")
                     updateIngrediants(id)
 
-                    Toast.makeText(this, "تمت اضافة الوصفة", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this, "تم تعديل الوصفة", Toast.LENGTH_LONG).show()
                     finish()
 
 
