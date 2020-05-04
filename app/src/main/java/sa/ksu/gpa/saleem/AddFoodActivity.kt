@@ -437,7 +437,7 @@ class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String
     private fun showLoadingDialog() {
         dialog = ProgressDialog.show(
             context, "",
-            "Loading. Please wait...", true
+            "الرجاء الانتظار", true
         )
     }
 
