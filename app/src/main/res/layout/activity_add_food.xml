@@ -3,10 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layoutDirection="rtl"
-    android:backgroundTint="#111"
-    android:background="@drawable/border"
 
     android:orientation="vertical"
     tools:context=".AddFoodActivity">
@@ -30,7 +28,6 @@
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
             android:background="@color/white">
 
             <LinearLayout
@@ -58,15 +55,15 @@
 
                 <EditText
                     android:id="@+id/nameOfFood"
-                    android:layout_width="match_parent"
+
+                    android:layout_width="250dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="2"
                     android:layout_gravity="center"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="16dp"
+                    android:gravity="center"
+                    android:padding="5dp"
                     android:background="@drawable/border"
-                    android:gravity="center" />
+                    android:hint="مثال:سلطة"/>
 
                 <TextView
                     android:layout_width="match_parent"
@@ -128,8 +125,8 @@
                         <Button
                             android:id="@+id/delete_button"
                             android:layout_width="0dp"
-                            android:layout_height="22dp"
-                            android:layout_weight="0.5"
+                            android:layout_height="40dp"
+                            android:layout_weight="1"
                             android:background="@android:drawable/ic_input_add"
                             tools:ignore="OnClick" />
                     </LinearLayout>
@@ -152,6 +149,18 @@
                     android:gravity="center"
                     android:orientation="horizontal">
 
+
+                    <Button
+                        android:id="@+id/cancel"
+                        android:layout_width="100dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.5"
+                        android:layout_gravity="center"
+                        android:background="@drawable/border"
+                        android:backgroundTint="#341A1818"
+                        android:textSize="15dp"
+                        android:text="إلغاء"
+                        android:textColor="#F7FFFFFF" />
                     <Button
 
                         android:id="@+id/save"
@@ -164,18 +173,6 @@
                         android:text="إضافة"
                         android:textSize="15dp"
                         android:textColor="#F7FFFFFF"/>
-                    <Button
-                        android:id="@+id/cancel"
-                        android:layout_width="100dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="0.5"
-                        android:layout_gravity="center"
-                        android:background="@drawable/border"
-                        android:backgroundTint="#341A1818"
-                        android:textSize="15dp"
-                        android:text="إلغاء"
-                        android:textColor="#F7FFFFFF" />
-
 
                 </LinearLayout>
             </LinearLayout>

@@ -127,16 +127,17 @@ class HomeFragment : Fragment() {
         updateWater()
         retriveWater()
         initSpeedDialView()
-
-
-
+        
+        getHistoryData()
+    }
+    fun getHistoryData() {
 
 
         db.collection("History")
-            .whereEqualTo("date",getCurrentDate())
-            .whereEqualTo("user_id",currentuser)
+            .whereEqualTo("date", getCurrentDate())
+            .whereEqualTo("user_id", currentuser)
             .get().addOnSuccessListener { documents ->
-                if(documents.isEmpty){
+                if (documents.isEmpty) {
                     val data = hashMapOf(
                         "cal" to remainderCal,
                         "date" to getCurrentDate(),
@@ -156,12 +157,34 @@ class HomeFragment : Fragment() {
                     remainderCal = document.get("cal") as Double
                     pb_counter.progress = remainderCal.toInt()
                     remainder_cal.setText("${remainderCal.toInt()}")
-                    tv_main_number.setText("${(totalcal-remainderCal).toInt()}")
+                    tv_main_number.setText("${(totalcal - remainderCal).toInt()}")
+                }
+                addLis()
+            }
+    }
+    fun addLis() {
+        db.collection("History")
+            .whereEqualTo("date", getCurrentDate())
+            .whereEqualTo("user_id", currentuser)
+            .addSnapshotListener { snapshot, e ->
+                if (e != null) {
+                    return@addSnapshotListener
+                }
+                if (snapshot != null) {
+                    for (doc in snapshot!!) {
+                        doc.getDouble("cal")?.let {
+                            remainderCal = it as Double
+                        }
+                    }
+                    if (remainderCal != null && pb_counter != null) {
+                        pb_counter.progress = remainderCal.toInt()
+                        remainder_cal.setText("${remainderCal.toInt()}")
+                        tv_main_number.setText("${(totalcal - remainderCal).toInt()}")
+                    }
+                } else {
                 }
             }
     }
-
-
 
     @SuppressLint("ResourceType")
     private fun initSpeedDialView() {
@@ -598,9 +621,10 @@ class HomeFragment : Fragment() {
             }
         }
         var dialog: AddFoodActivity? = context?.let { AddFoodActivity(it,null,type_of_food,null,onsave) }
-        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
+       // dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
 
         dialog?.show()
+        //dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
 
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -615,6 +639,7 @@ class HomeFragment : Fragment() {
         val list = ArrayList<String>()
         list.add("اضافة بالمكونات")
         list.add("اضافة سريعة")
+
         showAddFood(list,type_of_food)
 
     }

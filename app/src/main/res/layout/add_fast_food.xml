@@ -34,6 +34,7 @@
         android:layout_gravity="center"
         android:gravity="center"
         android:padding="5dp"
+        android:hint="مثال: سلطة"
         android:background="@drawable/border"
         ></EditText>
     <TextView

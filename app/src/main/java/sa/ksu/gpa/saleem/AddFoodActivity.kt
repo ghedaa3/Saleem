@@ -15,6 +15,7 @@ import android.view.Window
 import android.widget.*
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.SetOptions
 import kotlinx.android.synthetic.main.activity_add_food.*
@@ -23,6 +24,7 @@ import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 
 class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String,key: String?, onSave: OnSave) : Dialog(context) {
@@ -106,21 +108,29 @@ class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String
 
     public fun updateAdapter( position: Int) {
         var list = ArrayList<String>()
-        if (position == 1 || position == 0) {
-            list.add("كوب")
+        if (position == 3 || position == 0
+            || position == 2 || position == 1) {
+            list.add("كأس")
             list.add("كجم")
-        } else if (position == 3 || position == 2) {
+        } else if (position == 4 || position == 11|| position == 5
+            || position == 6|| position == 7|| position == 8
+            || position == 9|| position == 10) {
             list.add("العدد")
-        } else if (position == 5 || position == 4) {
-            list.add("كوب")
+        } else if (position == 12 || position == 13
+            || position == 14) {
+            list.add("كأس")
             list.add("ملل")
+        }else if (position == 15 || position == 16) {
+            list.add("ملعقة كبيرة")
+            list.add("ملعقة صغيرة")
+
         }
 
         val arrayAdapter = ArrayAdapter(this.context, android.R.layout.simple_spinner_item, list)
         spWeight.adapter = arrayAdapter
     }
-        //اضافة مكونات الوجبات
-        private fun initNutritionalValueList() {
+    //اضافة مكونات الوجبات
+    private fun initNutritionalValueList() {
         //رز أبيض
         var risw: NutritionalValue = NutritionalValue()
         risw.array = ArrayList()
@@ -139,16 +149,17 @@ class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String
         risb.array.add(25)//spoonC
         risb.array.add(15)//spoonS
         nutritionalValueList.add(risb)
-        //موزة
+
+        //دقيق
         var banana: NutritionalValue = NutritionalValue()
         banana.array = ArrayList()
         banana.array.add(2)//mm
-        banana.array.add(2)//gram
+        banana.array.add(60)//gram
         banana.array.add(100)//cup
         banana.array.add(25)//spoonC
         banana.array.add(15)//spoonS
         nutritionalValueList.add(banana)
-        //تفاح
+        //خس
         var apple: NutritionalValue = NutritionalValue()
         apple.array = ArrayList()
         apple.array.add(2)//mm
@@ -157,7 +168,7 @@ class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String
         apple.array.add(25)//spoonC
         apple.array.add(15)//spoonS
         nutritionalValueList.add(apple)
-        //لبن
+        //بصل
         var Yogurt: NutritionalValue = NutritionalValue()
         Yogurt.array = ArrayList()
         Yogurt.array.add(2)//mm
@@ -166,7 +177,7 @@ class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String
         Yogurt.array.add(25)//spoonC
         Yogurt.array.add(15)//spoonS
         nutritionalValueList.add(Yogurt)
-//حليب
+//طماطم
         var milk: NutritionalValue = NutritionalValue()
         milk.array = ArrayList()
         milk.array.add(2)//mm
@@ -175,6 +186,107 @@ class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String
         milk.array.add(25)//spoonC
         milk.array.add(15)//spoonS
         nutritionalValueList.add(milk)
+
+        var r: NutritionalValue = NutritionalValue()
+        r.array = ArrayList()
+        r.array.add(2)//mm
+        r.array.add(2)//gram
+        r.array.add(100)//cup
+        r.array.add(25)//spoonC
+        r.array.add(15)//spoonS
+        nutritionalValueList.add(r)
+        //رز أسمر
+        var i: NutritionalValue = NutritionalValue()
+        i.array = ArrayList()
+        i.array.add(2)//mm
+        i.array.add(2)//gram
+        i.array.add(100)//cup
+        i.array.add(25)//spoonC
+        i.array.add(15)//spoonS
+        nutritionalValueList.add(i)
+
+        //دقيق
+        var b: NutritionalValue = NutritionalValue()
+        b.array = ArrayList()
+        b.array.add(2)//mm
+        b.array.add(60)//gram
+        b.array.add(100)//cup
+        b.array.add(25)//spoonC
+        b.array.add(15)//spoonS
+        nutritionalValueList.add(b)
+        //خس
+        var a: NutritionalValue = NutritionalValue()
+        a.array = ArrayList()
+        a.array.add(2)//mm
+        a.array.add(2)//gram
+        a.array.add(100)//cup
+        a.array.add(25)//spoonC
+        a.array.add(15)//spoonS
+        nutritionalValueList.add(a)
+        //بصل
+        var y: NutritionalValue = NutritionalValue()
+        y.array = ArrayList()
+        y.array.add(2)//mm
+        y.array.add(2)//gram
+        y.array.add(100)//cup
+        y.array.add(25)//spoonC
+        y.array.add(15)//spoonS
+        nutritionalValueList.add(y)
+//طماطم
+        var m: NutritionalValue = NutritionalValue()
+        m.array = ArrayList()
+        m.array.add(2)//mm
+        m.array.add(2)//gram
+        m.array.add(100)//cup
+        m.array.add(25)//spoonC
+        m.array.add(15)//spoonS
+        nutritionalValueList.add(m)
+
+        var laban: NutritionalValue = NutritionalValue()
+        laban.array = ArrayList()
+        laban.array.add(2)//mm
+        laban.array.add(2)//gram
+        laban.array.add(100)//cup
+        laban.array.add(25)//spoonC
+        laban.array.add(15)//spoonS
+        nutritionalValueList.add(laban)
+
+        var haleeb: NutritionalValue = NutritionalValue()
+        haleeb.array = ArrayList()
+        haleeb.array.add(2)//mm
+        haleeb.array.add(2)//gram
+        haleeb.array.add(100)//cup
+        haleeb.array.add(25)//spoonC
+        haleeb.array.add(15)//spoonS
+        nutritionalValueList.add(haleeb)
+
+
+        var asser: NutritionalValue = NutritionalValue()
+        asser.array = ArrayList()
+        asser.array.add(2)//mm
+        asser.array.add(2)//gram
+        asser.array.add(100)//cup
+        asser.array.add(25)//spoonC
+        asser.array.add(15)//spoonS
+        nutritionalValueList.add(asser)
+
+        var c: NutritionalValue = NutritionalValue()
+        c.array = ArrayList()
+        c.array.add(2)//mm
+        c.array.add(2)//gram
+        c.array.add(100)//cup
+        c.array.add(25)//spoonC
+        c.array.add(15)//spoonS
+        nutritionalValueList.add(c)
+
+        var j: NutritionalValue = NutritionalValue()
+        j.array = ArrayList()
+        j.array.add(2)//mm
+        j.array.add(2)//gram
+        j.array.add(100)//cup
+        j.array.add(25)//spoonC
+        j.array.add(15)//spoonS
+        nutritionalValueList.add(j)
 
     }
 
@@ -276,12 +388,15 @@ class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String
     }
 
     fun addFoodToFirestore(sum: Double,name:String){
+
+        val currentuser = FirebaseAuth.getInstance().currentUser?.uid
+
         val data = hashMapOf(
             "food_name" to name,
             "type" to "Detailed",
             "foods" to listdata,
             "date" to getCurrentDate(),
-            "user_id" to "ckS3vhq8P8dyOeSI7CE7D4RgMiv1",
+            "user_id" to currentuser,
             "cal_of_food" to sum,
             "type_of_food" to type_of_food
         )
