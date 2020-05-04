@@ -355,7 +355,7 @@ class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
 
                 updateRecipe(currenImage)
             }
-            R.id.back_button->{
+            R.id.my_adv_back_button->{
                 finish()
             }
 
