@@ -72,6 +72,7 @@ class AdminAdvices : AppCompatActivity() {
 
                         override fun onDelete(item: ReportedAdvices, position: Int) {
                             deleteItem(item, position, key_list[position])
+                            deleteAdv(list[position].adviceID)
                         }
                     })
                 recyclerView.layoutManager = LinearLayoutManager(this)
@@ -119,6 +120,18 @@ class AdminAdvices : AppCompatActivity() {
             }
             .show()
     }
+
+    private fun deleteAdv(adv: String){
+        // deleteAdv(list[position].adviceID)
+        // db.collection("Advices").document(key).delete()
+        val dRef = db.collection("Advices").document(adv)
+        dRef.delete().addOnSuccessListener { Log.d("TAG", "Document successfully deleted!") }
+            .addOnFailureListener { e ->
+                Log.w("TAG", "Error deleting document", e)
+            }
+
+    }
+
 
 
     private fun showEditItem(item: ReportedAdvices, position: Int) {
