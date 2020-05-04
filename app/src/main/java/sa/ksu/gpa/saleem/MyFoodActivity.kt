@@ -32,6 +32,8 @@ class MyFoodActivity : AppCompatActivity() {
     lateinit var adapter: MyFoodAdapter
     private lateinit var db: FirebaseFirestore
     lateinit var recyclerView: RecyclerView
+     var foods1:ArrayList<AddFoodActivity.Item> =ArrayList<AddFoodActivity.Item>()
+
     var sum : Double = 0.0
     var  history_Id = ""
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -66,12 +68,25 @@ class MyFoodActivity : AppCompatActivity() {
         val currentuser = FirebaseAuth.getInstance().currentUser?.uid
 
 
+
         db.collection("Foods")
             .whereEqualTo("user_id",currentuser)
             .get().addOnSuccessListener{ documents ->
             for(document in documents){
                 key_list.add(document.id)
-                val myFood =document.toObject(MyFood::class.java)
+                var foods=document.get("foods")
+                if (foods!=null){
+                    foods as ArrayList<AddFoodActivity.Item>
+                }else  foods=foods1
+
+                var Id =document.id
+                var foodName =document.get("food_name").toString()
+                var type =document.get("type").toString()
+                var date =document.get("date").toString()
+                var uid =document.get("user_id").toString()
+                var cal_of_food =document.get("cal_of_food").toString().toDouble()
+                var type_of_food =document.get("type_of_food").toString()
+                val myFood =MyFood(Id,foodName,type,foods,date,uid,cal_of_food,type_of_food)
 
                 list.add(myFood)
                 sum += myFood.cal_of_food
@@ -105,7 +120,7 @@ class MyFoodActivity : AppCompatActivity() {
         SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
             .setTitleText("هل انت متأكد من حذف الوجبة؟")
             .setConfirmButton("نعم") { sDialog -> sDialog.dismissWithAnimation()
-                deleteItem(item,position,history_Id)
+                deleteItem(item,position, item.Id)
 
 
             }.setCancelButton("إلغاء"){
@@ -122,7 +137,7 @@ class MyFoodActivity : AppCompatActivity() {
 
     private fun showEditItem(item: MyFood, position: Int) {
         if(item.type == "Detailed"){
-            var dialog: AddFoodActivity? = AddFoodActivity(this,item,item.type_of_food,key_list[position],object :AddFoodActivity.OnSave{
+            var dialog: AddFoodActivity? = AddFoodActivity(this,item,item.type_of_food,item.Id,object :AddFoodActivity.OnSave{
                 override fun onSaveSuccess(sum: Double) {
 
                 }
@@ -132,7 +147,7 @@ class MyFoodActivity : AppCompatActivity() {
             adapter.notifyDataSetChanged()
 
         }else if(item.type == "unDetailed"){
-            addExcercizeDialog(item,key_list[position],position)
+            addExcercizeDialog(item,item.Id,position)
 
         }
 
