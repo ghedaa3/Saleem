@@ -107,7 +107,7 @@ class AddFoodActivity(context: Context, myFood: MyFood?, var type_of_food:String
     public fun updateAdapter( position: Int) {
         var list = ArrayList<String>()
         if (position == 1 || position == 0) {
-            list.add("كوب")
+            list.add("كأس")
             list.add("كجم")
         } else if (position == 3 || position == 2) {
             list.add("العدد")

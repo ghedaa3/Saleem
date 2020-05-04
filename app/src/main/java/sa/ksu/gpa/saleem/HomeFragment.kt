@@ -601,6 +601,7 @@ class HomeFragment : Fragment() {
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
 
         dialog?.show()
+        dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT));
 
     }
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -613,8 +614,8 @@ class HomeFragment : Fragment() {
 
     fun addFood(type_of_food:String){
         val list = ArrayList<String>()
-        list.add("اضافة بالمكونات")
         list.add("اضافة سريعة")
+        list.add("اضافة بالمكونات")
         showAddFood(list,type_of_food)
 
     }

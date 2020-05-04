@@ -3,18 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layoutDirection="rtl"
-    android:backgroundTint="#111"
-    android:background="@drawable/border"
 
     android:orientation="vertical"
     tools:context=".AddFoodActivity">
     <LinearLayout
+        android:background="@drawable/border"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:background="@color/white">
+        android:orientation="vertical">
 
 
         <androidx.appcompat.widget.Toolbar
@@ -29,9 +27,7 @@
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-
-            android:background="@color/white">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -118,7 +114,7 @@
                             android:layout_height="30dp"
                             android:layout_weight="2"
                             android:background="@drawable/border"
-                            android:backgroundTint="#227A6F6F"
+                            android:backgroundTint="#ffff"
                             android:gravity="center"
                             android:inputType="number"
                             android:maxLength="5"
@@ -130,7 +126,7 @@
                             android:layout_width="0dp"
                             android:layout_height="22dp"
                             android:layout_weight="0.5"
-                            android:background="@android:drawable/ic_input_add"
+                            android:background="@drawable/ic_addmore"
                             tools:ignore="OnClick" />
                     </LinearLayout>
 
@@ -164,6 +160,7 @@
                         android:text="إضافة"
                         android:textSize="15dp"
                         android:textColor="#F7FFFFFF"/>
+
                     <Button
                         android:id="@+id/cancel"
                         android:layout_width="100dp"
@@ -175,8 +172,6 @@
                         android:textSize="15dp"
                         android:text="إلغاء"
                         android:textColor="#F7FFFFFF" />
-
-
                 </LinearLayout>
             </LinearLayout>
 

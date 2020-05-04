@@ -138,27 +138,7 @@ class MainActivity : AppCompatActivity() {
         return highScore
 
     }
-    fun onDeleteWater(view: View) {
-        add_water.removeView(view.getParent() as View)
-        db.collection("users").document(currentuser!!).collection("Water").document(getCurrentDate()).update("amountOfWater", FieldValue.increment(-1))
-        updateWater()
 
-
-    }
-    private fun  updateWater(){
-        var totalWaterAmount = 0
-        db.collection("users").document(currentuser!!)
-            .collection("Water").document(getCurrentDate()).get().addOnSuccessListener {
-                if (it.exists()){
-                    totalWaterAmount=it.get("amountOfWater").toString().toInt()
-
-                }
-                if(totalWaterAmount!=null)
-                    waterAmountTV.text= totalWaterAmount.toString()
-                else
-                    waterAmountTV.text="0"
-            }
-    }
     }
 
 
