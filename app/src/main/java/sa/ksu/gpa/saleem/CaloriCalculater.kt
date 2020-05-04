@@ -11,19 +11,19 @@ object CaloriCalculater {
     var totscalories=0
 
     //liquid
-     var liquid=arrayOf<String>("عصير ليمون","مويه","حليب","لبن")
+     var liquid=arrayOf<String>("عسل","فانيلا","زبدة","زيت زيتون","عصير ليمون","مويه","حليب","لبن")
      var liquidMeasureing=arrayOf<String>("كأس","مل")
-     var liquidMlCaloris= arrayOf(0,0,56,85)
+     var liquidMlCaloris= arrayOf(500,12,102,119,0,0,56,85)
 
     //dry
-    var Dry=arrayOf<String>("رز أبيض","رز أسمر","مكرونة")
+    var Dry=arrayOf<String>("دقيق","بيكنج باودر","سكر","ملح","شوفان","رز أبيض","رز أسمر","مكرونة")
     var DryMeasureing=arrayOf<String>("كأس","جم")
-    var DryGmCaloris= arrayOf(130,110,131)
+    var DryGmCaloris= arrayOf(581,2,48,0,307,130,110,131)
 
     //fruit + figitables
-    var fruit=arrayOf<String>("موز","تفاح","بطاطس","بادنجان")
+    var fruit=arrayOf<String>("بيض","لوز","فواكه مجففة","موز","تفاح","بقدونس","بطاطس","بادنجان","زهرة")
     var fruitMeasureing=arrayOf<String>("كأس","جم","العدد")
-    var fruitGmCaloris= arrayOf(88,52,76,24)
+    var fruitGmCaloris= arrayOf(72,7,332,88,52,3,76,24,209)
 
     fun calculateCalories(Ingredient:String,Measurment:String,Quantity:String): Int {
         //liquid
