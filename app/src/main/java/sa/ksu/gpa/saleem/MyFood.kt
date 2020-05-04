@@ -1,6 +1,7 @@
 package sa.ksu.gpa.saleem
 
 class MyFood {
+    var Id=""
     var food_name:String = ""
     var type:String = ""
     lateinit var foods:ArrayList<AddFoodActivity.Item>

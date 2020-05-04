@@ -56,15 +56,15 @@ class MyExcercise : AppCompatActivity() {
          get().addOnSuccessListener{ documents ->
             for(document in documents){
                 key_list.add(document.id)
+                var ID=document.id
                 var title =document.get("exerciseName").toString()
                 var Date =document.get("date").toString()
                 var calori =document.get("exerciseCalories").toString()
                 var type=document.get("exerciseType").toString()
-                var myExcercise=MyExcersie(title,calori,Date,type)
+                var myExcercise=MyExcersie(ID,title,calori,Date,type)
                 list.add(myExcercise)
 
-              /*  val myFood =document.toObject(MyFood::class.java)
-                list.add(myFood)*/
+
                 Log.d("EX","List : "+list)
 
 
@@ -82,7 +82,7 @@ class MyExcercise : AppCompatActivity() {
 
                 override fun onDelete(item: MyExcersie, position: Int) {
 
-                    deleteDialog(item,position, key_list[position])
+                    deleteDialog(item,position,item.Id)
 
                 }
             })
@@ -97,7 +97,7 @@ class MyExcercise : AppCompatActivity() {
         SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
             .setTitleText("هل انت متأكد من حذف التمرين؟")
             .setConfirmButton("نعم") { sDialog -> sDialog.dismissWithAnimation()
-                deleteItem(item,position, key_list[position])
+                deleteItem(item,position,item.Id)
 
 
             }.setCancelButton("إلغاء"){
@@ -136,7 +136,7 @@ class MyExcercise : AppCompatActivity() {
     }
 
     private fun showEditItem(item: MyExcersie, position: Int) {
-            editExcercizeDialog(item,key_list[position], position)
+            editExcercizeDialog(item,item.Id, position)
           adapter.notifyDataSetChanged()
 
     }

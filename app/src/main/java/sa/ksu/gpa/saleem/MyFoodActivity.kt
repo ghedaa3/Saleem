@@ -58,8 +58,10 @@ class MyFoodActivity : AppCompatActivity() {
             for(document in documents){
                 key_list.add(document.id)
                 val myFood =document.toObject(MyFood::class.java)
+
                 list.add(myFood)
                 sum += myFood.cal_of_food
+
             }
                 list.sortByDescending { it.Date }
 

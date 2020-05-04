@@ -53,9 +53,11 @@ import kotlin.collections.ArrayList
                 .addOnSuccessListener{ documents ->
                 for(document in documents){
                     key_list.add(document.id)
+
+                    var Id =document.id
                     var title =document.get("text").toString()
                     var date =document.get("date").toString()
-                    var myAdvice=MyAdvice(title,date)
+                    var myAdvice=MyAdvice(Id,title,date)
                     list.add(myAdvice)
                     Log.d("ADV","List : "+list)
 
@@ -73,7 +75,7 @@ import kotlin.collections.ArrayList
                     }
 
                     override fun onDelete(item: MyAdvice, position: Int) {
-                        deleteDialog(item,position, key_list[position])
+                        deleteDialog(item,position, item.Id)
 
                     }
                 })
@@ -88,7 +90,7 @@ import kotlin.collections.ArrayList
             SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
                 .setTitleText("هل انت متأكد من حذف النصيحة؟")
                 .setConfirmButton("نعم") { sDialog -> sDialog.dismissWithAnimation()
-                    deleteItem(item,position, key_list[position])
+                    deleteItem(item,position, item.Id)
 
 
                 }.setCancelButton("إلغاء"){
@@ -115,7 +117,7 @@ import kotlin.collections.ArrayList
         }
 
         private fun showEditItem(item: MyAdvice, position: Int) {
-            editAdviceDialog(item,key_list[position], position)
+            editAdviceDialog(item,item.Id, position)
             adapter.notifyDataSetChanged()
 
         }
