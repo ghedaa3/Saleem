@@ -18,6 +18,7 @@ import com.google.firebase.firestore.FieldValue
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
+import kotlinx.android.synthetic.main.activity_register_two.view.*
 import kotlinx.android.synthetic.main.activity_share_recipe_first.*
 import kotlinx.android.synthetic.main.field.*
 import kotlinx.android.synthetic.main.field.view.*
@@ -95,9 +96,59 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
         publishRecipe.setOnClickListener(this)
         backButton.setOnClickListener(this)
 
+        Main_IngredientNames.onItemSelectedListener= object: AdapterView.OnItemSelectedListener{
+            override fun onNothingSelected(p0: AdapterView<*>?) {
+
+            }
+
+            override fun onItemSelected(parent:AdapterView<*>, view: View, position: Int, id: Long){
+                if (CaloriCalculater.liquid.contains(Main_IngredientNames.selectedItem.toString())){
+                    lquidArray()
+
+                }
+                if (CaloriCalculater.Dry.contains(Main_IngredientNames.selectedItem.toString())){
+                    DryArray()
+
+                }
+                if (CaloriCalculater.fruit.contains(Main_IngredientNames.selectedItem.toString())){
+                    fruitArray()
+
+                }
+            }
 
 
+
+        }
     }
+
+    private fun fruitArray() {
+        val adapter = ArrayAdapter(
+            this, // Context
+            android.R.layout.simple_spinner_item, // Layout
+            CaloriCalculater.fruitMeasureing // Array
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
+        Main_unit.adapter = adapter    }
+
+    private fun DryArray() {
+        val adapter = ArrayAdapter(
+            this, // Context
+            android.R.layout.simple_spinner_item, // Layout
+            CaloriCalculater.DryMeasureing // Array
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
+        Main_unit.adapter = adapter    }
+
+    private fun lquidArray() {
+        val adapter = ArrayAdapter(
+            this, // Context
+            android.R.layout.simple_spinner_item, // Layout
+            CaloriCalculater.liquidMeasureing // Array
+        )
+        adapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line)
+        Main_unit.adapter = adapter
+    }
+
     override fun onClick(v: View?) {
         when (v?.id) {
             R.id.sharedrecipeimage -> {
@@ -110,7 +161,7 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
             R.id.publishRecipe->{
                 addRecipe()
             }
-   R.id.my_adv_back_button->{
+            R.id.my_adv_back_button->{
                 finish()
             }
 
@@ -121,9 +172,16 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun takeIngredients() {
+
         var Ing:String=Main_IngredientNames.selectedItem.toString()
+
+
         var unit:String=Main_unit.selectedItem.toString()
+
+
         var quantity=Main_quantity.text.toString()
+
+
         if (quantity.isEmpty())
             Toast.makeText(this, "لا يمكن ترك أي خانة فارغة", Toast.LENGTH_LONG).show()
         else {
@@ -273,6 +331,9 @@ class ShareRecipeFirst : AppCompatActivity(), View.OnClickListener {
 
     } else if (main.getChildCount()==0)
         Toast.makeText(this, "الرجاء اضافة المقادير", Toast.LENGTH_LONG).show()
+    else if (uri.isEmpty())
+        Toast.makeText(this, "الرجاء اضافة صورة", Toast.LENGTH_LONG).show()
+
     else{
         getTotalCalories(0)
         Log.d("TotalCalories","TotalCalories inside db: "+TotalCalories)

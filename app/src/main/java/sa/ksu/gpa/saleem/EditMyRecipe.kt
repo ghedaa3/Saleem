@@ -440,6 +440,8 @@ class EditMyRecipe : AppCompatActivity() , View.OnClickListener {
         } else if (recipeIngLayout.getChildCount()==0) {
             Toast.makeText(this, "الرجاء اضافة المقادير", Toast.LENGTH_LONG).show()
         }
+        else if (uri!!.isEmpty())
+            Toast.makeText(this, "الرجاء اضافة صورة", Toast.LENGTH_LONG).show()
 
         else{
             getTotalCalories(0)

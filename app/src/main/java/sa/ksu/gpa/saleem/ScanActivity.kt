@@ -60,7 +60,7 @@ class ScanActivity : AppCompatActivity() ,ZXingScannerView.ResultHandler{
         r=result!!.toString()
         Log.d("testing",""+r)
 
-        val docRef = db.collection("Products").document("6281022120349")
+        val docRef = db.collection("Products").document(r)
         docRef.get()
             .addOnSuccessListener { document ->
                 if (document.get("ID") == null) {
