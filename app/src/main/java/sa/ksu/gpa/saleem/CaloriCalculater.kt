@@ -80,6 +80,7 @@ object CaloriCalculater {
                 }
 
         }
+
         return 0
     }
 
