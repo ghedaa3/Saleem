@@ -37,6 +37,7 @@ class AdminAdvices : AppCompatActivity() {
     var cal: Double = 0.0
     var key_list: ArrayList<String> = ArrayList()
     var list: ArrayList<ReportedAdvices> = ArrayList()
+    var adv =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,7 +73,7 @@ class AdminAdvices : AppCompatActivity() {
 
                         override fun onDelete(item: ReportedAdvices, position: Int) {
                             deleteItem(item, position, key_list[position])
-                            deleteAdv(list[position].adviceID)
+                           adv=  list[position].adviceID
                         }
                     })
                 recyclerView.layoutManager = LinearLayoutManager(this)
@@ -110,7 +111,9 @@ class AdminAdvices : AppCompatActivity() {
                 key_list.removeAt(position)
                 adapter.notifyDataSetChanged()
                 db.collection("ReportedAdvices").document(key).delete()
-                    .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully deleted!") }
+                    .addOnSuccessListener {
+                       deleteAdv(adv)
+                        Log.d("TAG", "DocumentSnapshot successfully deleted!") }
                     .addOnFailureListener { e ->
                         Log.w("TAG", "Error deleting document", e)
                     }
@@ -122,8 +125,6 @@ class AdminAdvices : AppCompatActivity() {
     }
 
     private fun deleteAdv(adv: String){
-        // deleteAdv(list[position].adviceID)
-        // db.collection("Advices").document(key).delete()
         val dRef = db.collection("Advices").document(adv)
         dRef.delete().addOnSuccessListener { Log.d("TAG", "Document successfully deleted!") }
             .addOnFailureListener { e ->

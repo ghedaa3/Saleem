@@ -31,6 +31,7 @@ class AdminRecipes : AppCompatActivity() {
     var key_list: ArrayList<String> = ArrayList()
     var list: ArrayList<ReportedRecipes> = ArrayList()
     lateinit var recipeID: String
+    var adv =""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -73,7 +74,15 @@ class AdminRecipes : AppCompatActivity() {
 
 
                         override fun onDelete(item: ReportedRecipes, position: Int) {
-                            deleteItem(item, position, key_list[position])
+
+
+
+                                    deleteItem(item, position, key_list[position])
+                                    adv=  list[position].recipeID
+
+
+
+
                         }
                     }, this)
                 recyclerView.layoutManager = LinearLayoutManager(this)
@@ -110,8 +119,10 @@ class AdminRecipes : AppCompatActivity() {
         list.removeAt(position)
         key_list.removeAt(position)
         adapter.notifyDataSetChanged()
-        db.collection("Recipes").document(key).delete()
-            .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully deleted!") }
+        db.collection("ReportedRecipes").document(key).delete()
+            .addOnSuccessListener { Log.d("TAG", "DocumentSnapshot successfully deleted!")
+                deleteAdv(adv)
+            }
             .addOnFailureListener { e -> Log.w("TAG", "Error deleting document", e) }
             }.setCancelButton("إلغاء"){
                 it.dismissWithAnimation()
@@ -129,6 +140,18 @@ class AdminRecipes : AppCompatActivity() {
 
     private fun showEditItem(item: ReportedRecipes, position: Int) {
         adapter.notifyDataSetChanged()
+    }
+
+    private fun deleteAdv(adv: String){
+        // deleteAdv(list[position].adviceID)
+        // db.collection("Advices").document(key).delete()
+
+        val dRef = db.collection("Recipes").document(adv)
+        dRef.delete().addOnSuccessListener { Log.d("TAG", "Document successfully deleted!") }
+            .addOnFailureListener { e ->
+                Log.w("TAG", "Error deleting document", e)
+            }
+
     }
 
 }
