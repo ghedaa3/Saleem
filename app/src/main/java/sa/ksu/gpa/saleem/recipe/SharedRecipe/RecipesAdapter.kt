@@ -2,7 +2,6 @@ package sa.ksu.gpa.saleem.recipe.SharedRecipe
 
 import android.content.Context
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,10 +12,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import sa.ksu.gpa.saleem.R
-import sa.ksu.gpa.saleem.recipe.SharedRecipe.RecipeModel
 import sa.ksu.gpa.saleem.recipe.sharedRecipeInformaion
 import java.util.*
 import kotlin.collections.ArrayList
+
 
 class RecipesAdapter(var context:Context, var arrayList:ArrayList<RecipeModel>):
         RecyclerView.Adapter<RecipesAdapter.ItemHolder>(), Filterable {
@@ -49,12 +48,17 @@ class RecipesAdapter(var context:Context, var arrayList:ArrayList<RecipeModel>):
         holder.recipeId=recipe.recipeId
 
         holder.itemView.setOnClickListener {
-            var intent = Intent(context, sharedRecipeInformaion::class.java)
-            intent.putExtra("RecipeId",holder.recipeId)
+          //  var intent = Intent(this.context, sharedRecipeInformaion::class.java)
+           // this.context.startActivity(intent)
+            val i = Intent().setClass(
+                context ,
+                sharedRecipeInformaion::class.java            )
+            i.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_MULTIPLE_TASK
+            i.putExtra("RecipeId",holder.recipeId)
 
-
-
-            context.startActivity(intent)
+// Launch the new activity and add the additional flags to the intent
+            // Launch the new activity and add the additional flags to the intent
+           context.startActivity(i)
         }
     }
     class ItemHolder(itemView: View):RecyclerView.ViewHolder(itemView){

@@ -120,7 +120,7 @@ class MyFoodActivity : AppCompatActivity() {
         SweetAlertDialog(this, SweetAlertDialog.WARNING_TYPE)
             .setTitleText("هل انت متأكد من حذف الوجبة؟")
             .setConfirmButton("نعم") { sDialog -> sDialog.dismissWithAnimation()
-                deleteItem(item,position, item.Id)
+                deleteItem(item,position, item.Id,history_Id)
 
 
             }.setCancelButton("إلغاء"){
@@ -130,7 +130,28 @@ class MyFoodActivity : AppCompatActivity() {
             .show()
 
     }
+    private fun deleteItem(item: MyFood, position: Int, key: String,history: String) {
 
+        db.collection("Foods").document(key)
+            .delete()
+            .addOnSuccessListener {var cal = sum - item.cal_of_food
+                list.removeAt(position)
+                key_list.removeAt(position)
+                adapter.notifyDataSetChanged()
+                sum =cal
+                // update cal
+                val data = hashMapOf("cal" to cal)
+                Log.e("Rahaf","call = $cal" )
+
+                db.collection("History").document(history)
+                    .set(data, SetOptions.merge()).addOnSuccessListener {
+                        Toast.makeText(this, "تم الحذف بنجاح", Toast.LENGTH_LONG).show()
+
+                    } }
+            .addOnFailureListener { e -> Log.w("TAG", "Error deleting document", e) }
+
+// update cal
+    }
     private fun showDescItem(item: MyFood, position: Int) {
 
     }
@@ -153,7 +174,7 @@ class MyFoodActivity : AppCompatActivity() {
 
     }
 
-    private fun deleteItem(item: MyFood, position: Int, key: String) {
+    /*private fun deleteItem(item: MyFood, position: Int, key: String) {
         list.removeAt(position)
         key_list.removeAt(position)
         adapter.notifyDataSetChanged()
@@ -171,6 +192,8 @@ class MyFoodActivity : AppCompatActivity() {
             }
 
     }
+
+     */
 
     fun getCurrentDate():String {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
