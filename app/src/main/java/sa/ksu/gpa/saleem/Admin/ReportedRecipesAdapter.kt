@@ -11,6 +11,7 @@ import android.widget.TextView
 
 import androidx.recyclerview.widget.RecyclerView
 import sa.ksu.gpa.saleem.R
+import sa.ksu.gpa.saleem.recipe.ViewRecipe
 import sa.ksu.gpa.saleem.recipe.sharedRecipeInformaion
 
 
@@ -68,7 +69,7 @@ class ReportedRecipesAdapter (private val list: List<ReportedRecipes>, var onAct
         holder.getAdapterPosition();
            holder.itemView.setOnClickListener {
 
-                var intent = Intent(context, sharedRecipeInformaion::class.java)
+                var intent = Intent(context, ViewRecipe::class.java)
                intent.putExtra("RecipeId",recipeId)
                 context.startActivity(intent)
 

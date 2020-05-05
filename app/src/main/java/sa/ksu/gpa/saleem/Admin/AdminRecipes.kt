@@ -15,9 +15,9 @@ import cn.pedant.SweetAlert.SweetAlertDialog
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.android.synthetic.main.activity_admin_recipes.*
 import sa.ksu.gpa.saleem.R
-import sa.ksu.gpa.saleem.recipe.SharedRecipe.viewSharedRecipeActivity
 import sa.ksu.gpa.saleem.recipe.ViewRecipe
 import sa.ksu.gpa.saleem.recipe.sharedRecipeInformaion
+
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -39,9 +39,7 @@ class AdminRecipes : AppCompatActivity() {
         db = FirebaseFirestore.getInstance()
         recyclerView = findViewById(R.id.recyclerViewRepRec)
 
-  /*      var title =findViewById<View>(R.id.title) as TextView
-        var tit=intent.getStringExtra("pageTitle")
-        title.setText(tit)*/
+
 
         rep_rep_back_button.setOnClickListener {
             onBackPressed()
@@ -69,7 +67,7 @@ class AdminRecipes : AppCompatActivity() {
                         override fun onClick(item: ReportedRecipes, position: Int) {
                             showDescItem(item, position)
 
-                            // editExcercizeDialog(item,key_list[position], position)
+
                         }
 
 
@@ -130,10 +128,7 @@ class AdminRecipes : AppCompatActivity() {
             }
             .show()
 
-        /*    val intent = Intent(this, sharedRecipeInformaion::class.java)
-            intent.putExtra("RecipeId",key)
 
-            startActivity(intent)*/
 
 
     }

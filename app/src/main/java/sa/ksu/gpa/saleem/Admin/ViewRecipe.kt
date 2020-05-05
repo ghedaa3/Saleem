@@ -13,6 +13,7 @@ import android.view.*
 import android.view.View.GONE
 import android.widget.*
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isInvisible
 import com.bumptech.glide.Glide
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FieldValue
@@ -46,6 +47,7 @@ class ViewRecipe : AppCompatActivity() {
     private lateinit var recipeImage:  ImageView
     private lateinit var backButton:  ImageView
     private lateinit var reporton:  ImageView
+
     private lateinit var recipeIngLayout:  LinearLayout
     lateinit var recipeID:String
     lateinit var currentuser:String
@@ -55,13 +57,14 @@ class ViewRecipe : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.admin_recipe)
+        setContentView(R.layout.shared_recipe_info)
         db = FirebaseFirestore.getInstance()
         recipeName= findViewById(R.id.recipe_info_title)
         recipeCalories= findViewById(R.id.recipe_info_calories)
        recipeImage= findViewById(R.id.recipe_info_image)
         backButton= findViewById(R.id.back_button)
-       // reporton= findViewById(R.id.reporton)
+        reporton= findViewById(R.id.reporton)
+        reporton.visibility=View.INVISIBLE
         recipeDescription= findViewById(R.id.recipe_info_dirctions)
         recipeIngLayout= findViewById(R.id.recipe_info_ings)
         recipeID = intent.extras!!.getString("RecipeId").toString()
@@ -121,7 +124,7 @@ class ViewRecipe : AppCompatActivity() {
                 recipeId= document.id
                 recipename= document.get("name").toString()
                 recipeCalproes=document.get("calories").toString()
-               // recipeImage= document.get("image").toString()
+                recipeImage= document.get("image").toString()
                 recipePrepration= document.get("prepration").toString()
                 Log.d("sharedRecipeInformaion","recipePrepration: "+recipePrepration)
 
