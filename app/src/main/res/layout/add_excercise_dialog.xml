@@ -71,6 +71,7 @@
 
     <Button
         android:id="@+id/addExcercise"
+
         android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"

@@ -82,6 +82,7 @@
             android:background="@drawable/border"
             android:layout_weight="0.5"
             android:backgroundTint="#69F0AE"
+
             android:text="إضافة"
             android:textSize="15dp"
             android:textColor="#F7FFFFFF">
