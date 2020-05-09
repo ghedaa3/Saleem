@@ -242,19 +242,6 @@
         android:orientation="horizontal"
         android:weightSum="100">
 
-        <Button
-            android:id="@+id/add"
-            android:layout_width="350dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="50"
-            android:layout_margin="10dp"
-            android:background="@drawable/border"
-            android:backgroundTint="#59E7A2"
-            android:text="إضافة"
-            android:textSize="20dp"
-            android:textColor="#F7FFFFFF">
-
-        </Button>
 
         <Button
             android:id="@+id/cancel"
@@ -269,6 +256,21 @@
             android:textColor="#F7FFFFFF"
 
             ></Button>
+
+        <Button
+            android:id="@+id/add"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:layout_margin="10dp"
+            android:background="@drawable/border"
+            android:backgroundTint="#59E7A2"
+            android:text="إضافة"
+            android:textSize="20dp"
+            android:textColor="#F7FFFFFF">
+
+        </Button>
+
     </LinearLayout>
 
 
