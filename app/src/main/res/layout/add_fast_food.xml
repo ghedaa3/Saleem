@@ -73,17 +73,7 @@
         android:layout_gravity="center"
         android:orientation="horizontal"
         >
-        <Button
-            android:id="@+id/cancelExcercise"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:layout_gravity="center"
-            android:background="@drawable/border"
-            android:backgroundTint="#341A1818"
-            android:textSize="15dp"
-            android:text="إلغاء"
-            android:textColor="#F7FFFFFF"></Button>
+
         <Button
             android:id="@+id/addExcercise"
             android:layout_width="100dp"
@@ -97,6 +87,18 @@
             android:textColor="#F7FFFFFF">
 
         </Button>
+
+        <Button
+            android:id="@+id/cancelExcercise"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_gravity="center"
+            android:background="@drawable/border"
+            android:backgroundTint="#341A1818"
+            android:textSize="15dp"
+            android:text="إلغاء"
+            android:textColor="#F7FFFFFF"></Button>
     </LinearLayout>
 
 </LinearLayout>

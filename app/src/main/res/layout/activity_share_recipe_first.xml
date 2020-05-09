@@ -330,7 +330,7 @@
         android:id="@+id/publishRecipe"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        android:text="انشر"
+        android:text="مشاركة وصفة"
         android:layout_marginBottom="10dp"
         android:backgroundTint="#59E7A2"
         android:textColor="#FFFFFF"

@@ -49,6 +49,17 @@
         android:gravity="center"
         android:paddingTop="50dp">
 
+        <Button
+            android:id="@+id/dialogShareBtn"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/border"
+            android:layout_weight="0.5"
+            android:backgroundTint="#59E7A2"
+            android:text="نشر"
+            android:textSize="20dp"
+            android:textColor="#F7FFFFFF"></Button>
 
         <Button
             android:id="@+id/dialogCancelBtn"
@@ -61,17 +72,7 @@
             android:textSize="20dp"
             android:text="إلغاء"
             android:textColor="#F7FFFFFF"></Button>
-        <Button
-            android:id="@+id/dialogShareBtn"
-            android:layout_width="100dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:background="@drawable/border"
-            android:layout_weight="0.5"
-            android:backgroundTint="#59E7A2"
-            android:text="نشر"
-            android:textSize="20dp"
-            android:textColor="#F7FFFFFF"></Button>
+
 
     </LinearLayout>
 
